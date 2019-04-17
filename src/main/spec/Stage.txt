@@ -1,0 +1,46 @@
+
+# Rule
+#
+# A Stage belongs to a Board
+#
+# A Stage has a built-in MiniStage
+#
+# A MiniStage has a built-in SwimLane
+
+#################
+# Feature: Add stages
+
+# Add the first stage to a board
+Given an empty board named "ScrumBoard"
+When I add a stage named "To Do" to the board
+Then the "To Do" stage should be added as the first stage of the board
+
+# Add the second stage to a board
+Given a board named "ScrumBoard" with a "To Do" stage
+When I add a stage named "Doing" to the board
+Then the "Doing" stage should be added as the second stage of the board
+
+# Add the third stage to a board
+Given a board named "ScrumBoard" with a "To Do" stage and a "Doing" stages
+When you add a stage named "Done" to the board
+Then the "Done" stage should be added as the third stage of the board
+
+#################
+# Feature: Delete a stage
+
+Given a board named "ScrumBoard" with a "To Do", a "Doing", and a "Done" stages
+When I delete the "To Do" stage
+Then the board should have only "Doing" and "Done" stages
+
+# Feature: Delete all stages on a board
+Given a board named "ScrumBoard" with a "To Do", a "Doing", and a "Done" stages
+When you delete all of the three stages
+Then the board should have no stage left
+
+#################
+# Feature: Move stages
+
+Given a board named "ScrumBoard" with a "To Do", a "Doing", and a "Done" stages
+When I move the "To Do" stage to the position behind the "Done" stage
+Then the new order of state should be "Doing", "Done", and "To Do"
+

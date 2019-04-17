@@ -1,0 +1,39 @@
+
+
+# Rule
+#
+# A WorkItem can only be added to a SwimLane
+#
+# If the total number of WorkItem in a SwimLane exceeds the WIP limit,
+# no more WorkItem can be added or moved to the SwimLane
+#
+# The cycle time/lead time of an WorkItem should be able to calculate
+# (In order to calculate cycle time/lead time,
+# When a WorkItem is added or moved to a SwimLane, an standard.domain event is generated)
+#
+# A WorkItem has five built-in types: Standard (Regular), Fix Delivery Date, Expedite,
+# Intangible (Technical), and Bug. The default type is Standard
+#
+# A WorkItem could be blocked by a BlockItem, and at that time, the blocked WorkItem
+# cannot be moved or deleted unless the BlockItem is removed
+#
+
+#################
+# Feature: Add a work item
+
+# Add a work item to the ScrumBoard
+Given an board named "ScrumBoard" with "To Do", "Doing", and "Done" stages
+When I add a work item named "Implement Apple pay" to the "To Do" stage
+Then the work item should be added to the default swim lane of the "To Do" stage
+And a WorkItemAdded event should be fired
+
+
+#################
+# Feature: Move a work item
+
+# Move a work item to the "Doing" stage of the ScrumBoard
+Given an board named "ScrumBoard" with "To Do", "Doing", and "Done" stages
+And a work item named "Implement Apply pay" is in the "To Do" stage
+When I move the work item to the "Doing" stage
+Then the work item should be moved from the "To Do" stage to the default swim lane of the "Doing" stage
+And a WorkItemMoved event should be fired

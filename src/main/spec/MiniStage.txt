@@ -1,0 +1,6 @@
+
+# Add a MiniStage to the "Doing" Stage of a ScrumBoard
+
+Given an board named "ScrumBoard" with "To Do", "Doing", and "Done" stages
+When I add a mini-stage named "Verifying" to the "Doing" stage
+Then the "Doing" stage should contain two mini-stages named "" and "Doing"

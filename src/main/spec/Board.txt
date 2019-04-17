@@ -1,0 +1,27 @@
+
+# Rule
+#
+# A Board can contains zero or many Stages
+#
+# A Board has a name and id
+#
+
+
+#################
+# Feature: Create board
+
+# Create the first board to the cleanKanban system
+Given an new cleanKanban system
+When I create a board named "ScrumBoard"
+Then the "ScrumBoard" board should be added as the first board of the system
+
+
+
+#################
+# Feature: Create stage
+
+# Create the first board to the cleanKanban system
+Given an empty board named "ScrumBoard"
+When I create a stage named "To Do"
+Then the stage should be created and added as the first stage of the board
+
