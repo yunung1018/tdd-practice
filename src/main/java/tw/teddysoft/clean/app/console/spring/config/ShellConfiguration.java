@@ -11,7 +11,7 @@ public class ShellConfiguration {
 
   @Bean
   public PromptProvider promptProvider() {
-    return () -> new AttributedString("ezKanban> ",
+    return () -> new AttributedString("cleanKanban> ",
         AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE));
   }
 }
