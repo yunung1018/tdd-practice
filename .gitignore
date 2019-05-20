@@ -2,9 +2,13 @@
 # Created by https://www.gitignore.io/api/eclipse,intellij,visualstudio
 
 
+### sinology ###
+
+.DS_Store
+
+
 ### jsp project ###
 db/
-
 
 ### clean Kansan project ###
 *.ser
