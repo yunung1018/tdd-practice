@@ -26,15 +26,17 @@ public class MoveCommittedWorkItemUseCaseImpl implements MoveCommittedWorkItemUs
     public void execute(MoveCommittedWorkItemInput input, MoveCommittedWorkItemOutput output) {
 
         WorkItem workItem = workItemRepository.findById(input.getWorkItemId());
+
         Stage fromStage = stageRepository.findById(workItem.getStageId());
         Stage toStage = stageRepository.findById(input.getToStageId());
-
         SwimLane fromSwimLane = fromStage.getSwimLaneById(workItem.getSwimLaneId());
         SwimLane toSwimLane = toStage.getSwimLaneById(input.getToSwimLaneId());
 
-        fromStage.uncommitWorkItemFromSwimLaneById(fromSwimLane.getId(), input.getWorkItemId());
         try {
-            toSwimLane.commitWorkItemById(input.getWorkItemId());
+            fromStage.uncommitWorkItemFromSwimLaneById(fromSwimLane.getId(), input.getWorkItemId());
+            toStage.commitWorkItemToSwimLaneById(input.getToSwimLaneId(), input.getWorkItemId());
+//            toSwimLane.commitWorkItemById(input.getWorkItemId());
+
             workItem.moveTo(toSwimLane.getStageId(), toSwimLane.getMiniStageId(), toSwimLane.getId());
 
             workItemRepository.save(workItem);
@@ -45,6 +47,7 @@ public class MoveCommittedWorkItemUseCaseImpl implements MoveCommittedWorkItemUs
             throw new RuntimeException(e.getMessage());
         }
     }
+
 
     public static MoveCommittedWorkItemInput createInput() {
         return new MoveCommittedWorkItemInputImpl();

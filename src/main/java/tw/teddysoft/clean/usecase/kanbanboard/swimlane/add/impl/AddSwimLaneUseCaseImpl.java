@@ -18,7 +18,10 @@ public class AddSwimLaneUseCaseImpl implements AddSwimLaneUseCase {
     public void execute(AddSwimLaneInput input, AddSwimLaneOutput output) {
 
         Stage stage = repository.findById(input.getStageId());
-        stage.getMiniStageById(input.getMiniStageId()).createSwimLane();
+
+        //        stage.getMiniStageById(input.getMiniStageId()).createSwimLane();
+        stage.createSwimLaneForMiniStage(input.getMiniStageId());
+
         repository.save(stage);
     }
 

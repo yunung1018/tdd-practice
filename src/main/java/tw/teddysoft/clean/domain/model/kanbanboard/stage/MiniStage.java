@@ -1,6 +1,7 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.stage;
 
 import de.cronn.reflection.util.immutable.ImmutableProxy;
+import de.cronn.reflection.util.immutable.ReadOnly;
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.MiniStageCreated;
@@ -69,6 +70,7 @@ public class MiniStage extends Entity {
         throw new RuntimeException("SwimLane id " + id + " not found");
     }
 
+    @ReadOnly
     public boolean isSwimLaneExist(String id){
         for (SwimLane each : swimLanes) {
             if (each.getId().equalsIgnoreCase(id))

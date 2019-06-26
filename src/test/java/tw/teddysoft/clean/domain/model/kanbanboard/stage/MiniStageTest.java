@@ -32,7 +32,7 @@ public class MiniStageTest {
 
     @Test
     public void isSwimlaneExist_should_return_true_when_the_id_exists() {
-        SwimLane swimLane = stage.getDefaultMiniStage().createSwimLane();
+        SwimLane swimLane = stage.createSwimLaneForMiniStage(stage.getDefaultMiniStage().getId());
         assertTrue(stage.getDefaultMiniStage().isSwimLaneExist(swimLane.getId()));
     }
 

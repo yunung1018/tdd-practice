@@ -30,22 +30,22 @@ public class WorkItemDomainEventTest extends AbstractDomainEventTest {
     public void committing_a_workitem_to_a_swimlane_publishes_a_WorkItemMovedIn_event() throws WipLimitExceedException {
         WorkItem workItem = new WorkItem("Implement apply pay.", "", "","");
         storedSubscriber.expectedResults.clear();
-        stage.getDefaultMiniStage().getDefaultSwimLane().commitWorkItemById(workItem.getId());
+        String swimlaneId = stage.getDefaultMiniStage().getDefaultSwimLane().getId();
+        stage.commitWorkItemToSwimLaneById(swimlaneId, workItem.getId());
 
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
         assertThat(storedSubscriber.expectedResults.get(0)).startsWith("WorkItemMovedIn");
-
-        System.out.println(storedSubscriber.expectedResults.get(0));
     }
 
 
     @Test
     public void uncommitting_a_workitem_from_a_swimlane_publishes_a_WorkItemMovedOut_event() throws WipLimitExceedException {
         WorkItem workItem = new WorkItem("Implement apply pay.", "", "", "");
-        stage.getDefaultMiniStage().getDefaultSwimLane().commitWorkItemById(workItem.getId());
-        storedSubscriber.expectedResults.clear();
+        String swimlaneId = stage.getDefaultMiniStage().getDefaultSwimLane().getId();
+        stage.commitWorkItemToSwimLaneById(swimlaneId, workItem.getId());
 
-        stage.getDefaultMiniStage().getDefaultSwimLane().uncommitWorkItemById(workItem.getId());
+        storedSubscriber.expectedResults.clear();
+        stage.uncommitWorkItemFromSwimLaneById(swimlaneId, workItem.getId());
 
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
         assertThat(storedSubscriber.expectedResults.get(0)).startsWith("WorkItemMovedOut");

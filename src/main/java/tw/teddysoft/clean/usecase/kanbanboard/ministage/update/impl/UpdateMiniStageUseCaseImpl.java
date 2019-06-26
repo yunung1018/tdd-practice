@@ -22,8 +22,10 @@ public class UpdateMiniStageUseCaseImpl implements UpdateMiniStageUseCase {
     public void execute(UpdateMiniStageInput input, UpdateMiniStageOutput output) {
 
         Stage stage = repository.findById(input.getStageId());
-        MiniStage miniStage = stage.getMiniStageById(input.getMiniStageId());
-        miniStage.setName(input.getMiniStageName());
+        stage.updateMiniStageName(input.getMiniStageId(), input.getMiniStageName());
+
+//        MiniStage miniStage = stage.getMiniStageById(input.getMiniStageId());
+//        miniStage.setName(input.getMiniStageName());
 
         repository.save(stage);
     }

@@ -39,7 +39,7 @@ public class StageTest {
     @Test
     public void isSwimlaneExist_should_return_true_when_the_id_exists() {
         Stage stage = new Stage(TO_DO, BOARD_ID);
-        SwimLane swimLane = stage.getDefaultMiniStage().createSwimLane();
+        SwimLane swimLane = stage.createSwimLaneForMiniStage(stage.getDefaultMiniStage().getId());
         assertTrue(stage.isSwimLaneExist(swimLane.getId()));
     }
 
@@ -56,7 +56,7 @@ public class StageTest {
     }
 
     @Test
-    public void get_ministages_returns_an_unmodifiable_lsit() {
+    public void get_ministages_returns_an_unmodifiable_list_and_its_entries() {
         Stage stage = new Stage(TO_DO, BOARD_ID);
         stage.createMiniStage("Doing");
         stage.createMiniStage("Doing");
@@ -70,7 +70,14 @@ public class StageTest {
         catch (UnsupportedOperationException e)   {
             assertTrue(true);
         }
-        miniStages.get(0).deleteAllSwimLane();
+
+        try{
+            miniStages.get(0).deleteAllSwimLane();
+            fail("Infeasible path.");
+        }
+        catch (UnsupportedOperationException e)   {
+            assertTrue(true);
+        }
     }
 
     @Test
