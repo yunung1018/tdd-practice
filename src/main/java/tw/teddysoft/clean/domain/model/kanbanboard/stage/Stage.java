@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.stage;
 
+import de.cronn.reflection.util.immutable.ImmutableProxy;
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
@@ -7,12 +8,13 @@ import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.MiniStageDeleted;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.StageCreated;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Stage extends Entity {
 
-    private String boardId;
-    private List<MiniStage> miniStages;
+    private final String boardId;
+    private final List<MiniStage> miniStages;
 
     public Stage(String name, String boardId){
         super(name);
@@ -56,11 +58,9 @@ public class Stage extends Entity {
         return false;
     }
 
-
     public List<MiniStage> getMiniStages() {
-        return miniStages;
+        return Collections.unmodifiableList(miniStages);
     }
-
 
     public MiniStage getMiniStageByIndex(int index) {
         return miniStages.get(index);
@@ -100,7 +100,7 @@ public class Stage extends Entity {
                 return each.getSwimLaneById(id);
         }
 
-        throw new RuntimeException("SwimLane with id: " + id + " not found.");
+        throw new RuntimeException("SwimLane id " + id + " not found.");
     }
 
     public boolean isSwimLaneExist(String id){
@@ -112,17 +112,25 @@ public class Stage extends Entity {
         return false;
     }
 
-    public SwimLane getDefaultSwimLaneOfMiniStage(){
-        return miniStages.get(0).getDefaultSwimLane();
+    public SwimLane getDefaultSwimLaneOfDefaultMiniStage(){
+//        return miniStages.get(0).getDefaultSwimLane();
+        return getImmutableSwimLane(miniStages.get(0).getDefaultSwimLane());
     }
 
     public MiniStage getDefaultMiniStage(){
         return miniStages.get(0);
     }
 
+    public void setSwimLaneWip(String id, int wip) {
+        this.getSwimLaneById(id).setWipLimit(wip);
+    }
 
     private void addDefaultMiniStage() {
         miniStages.add(new MiniStage("", this.getId()) );
+    }
+
+    private SwimLane getImmutableSwimLane(SwimLane original){
+        return ImmutableProxy.create(original);
     }
 
 }

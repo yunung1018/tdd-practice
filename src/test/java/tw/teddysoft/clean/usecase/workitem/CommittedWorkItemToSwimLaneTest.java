@@ -38,7 +38,7 @@ public class CommittedWorkItemToSwimLaneTest {
     public void commit_a_workitem_to_the_todo_stage_of_a_scrmbaord() throws WipLimitExceedException {
 
         Stage todo = util.getStageRepository().findFirstByName("To Do");
-        SwimLane swimLane = todo.getDefaultSwimLaneOfMiniStage();
+        SwimLane swimLane = todo.getDefaultSwimLaneOfDefaultMiniStage();
 
         todo.commitWorkItemToSwimLaneById(swimLane.getId(), applePay.getId());
 
@@ -50,12 +50,14 @@ public class CommittedWorkItemToSwimLaneTest {
     public void commit_workitem_exceeds_wip_limit_1_should_throw_exception() throws WipLimitExceedException {
 
         Stage todo = util.getStageRepository().findFirstByName("To Do");
-        SwimLane swimLane = todo.getDefaultSwimLaneOfMiniStage();
-        swimLane.setWipLimit(1);
-        swimLane.commitWorkItemById(applePay.getId());
+        SwimLane swimLane = todo.getDefaultSwimLaneOfDefaultMiniStage();
+        todo.setSwimLaneWip(swimLane.getId(), 1);
+        todo.commitWorkItemToSwimLaneById(swimLane.getId(), applePay.getId());
+//        swimLane.commitWorkItemById(applePay.getId());
 
         try {
-            swimLane.commitWorkItemById(linePay.getId());
+            todo.commitWorkItemToSwimLaneById(swimLane.getId(), linePay.getId());
+//            swimLane.commitWorkItemById(linePay.getId());
             fail("Should throw a WipLimitExceedException but not.");
         }catch (WipLimitExceedException e){
             assertEquals("Exceed WIP limit : 1", e.getMessage());

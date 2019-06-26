@@ -8,15 +8,16 @@ import tw.teddysoft.clean.domain.model.workitem.event.WorkItemMovedIn;
 import tw.teddysoft.clean.domain.model.workitem.event.WorkItemMovedOut;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SwimLane extends Entity {
     public static final String DEFAULT_NAME = "";
     public static final int NO_WIP_LIMIT = -1;
 
-    private String stageId;
-    private String miniStageId;
-    private List<CommittedWorkItem> committedWorkItems;
+    private final String stageId;
+    private final String miniStageId;
+    private final List<CommittedWorkItem> committedWorkItems;
     private int wipLimit;
 
     SwimLane(String stageId, String miniStageId){
@@ -65,7 +66,7 @@ public class SwimLane extends Entity {
     }
 
     public List<CommittedWorkItem> getCommittedWorkItems() {
-        return committedWorkItems;
+        return Collections.unmodifiableList(committedWorkItems);
     }
 
     public boolean uncommitWorkItemById(String workItemId) {
@@ -102,6 +103,7 @@ public class SwimLane extends Entity {
     public String getMiniStageId() {
         return miniStageId;
     }
+
 
 
 }

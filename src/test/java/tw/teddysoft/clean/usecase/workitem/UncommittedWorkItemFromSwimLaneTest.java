@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 
@@ -28,21 +29,22 @@ public class UncommittedWorkItemFromSwimLaneTest {
         linePay = new WorkItem("Implement Line pay", "", "","");
 
         todo = util.getStageRepository().findFirstByName("To Do");
-        todo.commitWorkItemToSwimLaneById(todo.getDefaultSwimLaneOfMiniStage().getId(), applePay.getId());
-        todo.commitWorkItemToSwimLaneById(todo.getDefaultSwimLaneOfMiniStage().getId(), linePay.getId());
+        todo.commitWorkItemToSwimLaneById(todo.getDefaultSwimLaneOfDefaultMiniStage().getId(), applePay.getId());
+        todo.commitWorkItemToSwimLaneById(todo.getDefaultSwimLaneOfDefaultMiniStage().getId(), linePay.getId());
     }
 
 
     @Test
     public void uncommit_the_first_workitem_applyPay_from_the_todo_stage() throws WipLimitExceedException {
-        assertEquals(2, todo.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
+        assertEquals(2, todo.getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
 
-        boolean result = todo.getDefaultSwimLaneOfMiniStage().uncommitWorkItemById(applePay.getId());
+        SwimLane swimLane = todo.getDefaultSwimLaneOfDefaultMiniStage();
+        todo.uncommitWorkItemFromSwimLaneById(swimLane.getId(), applePay.getId());
+//        boolean result = todo.getDefaultSwimLaneOfDefaultMiniStage().uncommitWorkItemById(applePay.getId());
 
-        assertTrue(result);
-        assertEquals(1, todo.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
-        assertEquals(linePay.getId(), todo.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().get(0).getWorkItemId());
-        assertEquals(1, todo.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().get(0).getOrdering());
+        assertEquals(1, swimLane.getCommittedWorkItems().size());
+        assertEquals(linePay.getId(), swimLane.getCommittedWorkItems().get(0).getWorkItemId());
+        assertEquals(1, swimLane.getCommittedWorkItems().get(0).getOrdering());
 
     }
 

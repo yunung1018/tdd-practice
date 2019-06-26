@@ -2,6 +2,7 @@ package tw.teddysoft.clean.domain.model.kanbanboard.stage;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
 
@@ -22,9 +23,10 @@ public class MiniStageTest {
         assertEquals("", stage.getDefaultMiniStage().getName());
     }
 
-    @Test
-    public void get_swimlane_by_id_should_return_null_when_the_id_does_not_exist() {
-        assertNull( stage.getDefaultMiniStage().getSwimLaneById("not_exist"));
+    @Test(expected = RuntimeException.class)
+    public void get_swimlane_by_id_should_thorw_exception_when_the_id_does_not_exist() {
+
+        stage.getDefaultMiniStage().getSwimLaneById("not_exist");
     }
 
 

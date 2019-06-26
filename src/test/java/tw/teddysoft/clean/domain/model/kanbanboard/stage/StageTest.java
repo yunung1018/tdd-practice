@@ -2,6 +2,10 @@ package tw.teddysoft.clean.domain.model.kanbanboard.stage;
 
 import org.junit.Test;
 
+import javax.validation.constraints.Min;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class StageTest {
@@ -28,7 +32,7 @@ public class StageTest {
             fail("Infeasible path.");
         }
         catch (RuntimeException e){
-            assertEquals("SwimLane with id: not_exist not found.", e.getMessage());
+            assertEquals("SwimLane id not_exist not found", e.getMessage());
         }
     }
 
@@ -49,6 +53,47 @@ public class StageTest {
         Stage stage = new Stage(TO_DO, BOARD_ID);
         stage.setName("Done");
         assertEquals("Done", stage.getName());
+    }
+
+    @Test
+    public void get_ministages_returns_an_unmodifiable_lsit() {
+        Stage stage = new Stage(TO_DO, BOARD_ID);
+        stage.createMiniStage("Doing");
+        stage.createMiniStage("Doing");
+
+        List<MiniStage> miniStages = stage.getMiniStages();
+
+        try{
+            miniStages.clear();
+            fail("Infeasible path.");
+        }
+        catch (UnsupportedOperationException e)   {
+            assertTrue(true);
+        }
+        miniStages.get(0).deleteAllSwimLane();
+    }
+
+    @Test
+    public void test_setSwimLaneWip_works() {
+        Stage stage = new Stage(TO_DO, "BOARD_ID");
+        SwimLane swimLane = stage.getDefaultSwimLaneOfDefaultMiniStage();
+        stage.setSwimLaneWip(swimLane.getId(), 5);
+        assertEquals(5, swimLane.getWipLimit());
+    }
+
+
+    @Test
+    public void getDefaultSwimLaneOfDefaultMiniStage_return_an_immutable_swimlane() {
+        Stage stage = new Stage(TO_DO, "BOARD_ID");
+        SwimLane swimLane = stage.getDefaultSwimLaneOfDefaultMiniStage();
+
+        try{
+            swimLane.setWipLimit(10);
+            fail("Infeasible path.");
+        }
+        catch (UnsupportedOperationException e)   {
+            assertTrue(true);
+        }
     }
 
 }

@@ -40,7 +40,7 @@ public class CreateWorkItemTest {
     public void create_a_workitem_does_not_committed_it_to_its_swimlane() throws WipLimitExceedException {
 
         Stage todo = util.getStageRepository().findFirstByName("To Do");
-        SwimLane swimLane = todo.getDefaultSwimLaneOfMiniStage();
+        SwimLane swimLane = todo.getDefaultSwimLaneOfDefaultMiniStage();
 
         CreateWorkItemUseCase createWorkItemUseCase = new CreateWorkItemUseCaseImpl(util.getWorkItemRepository());
         CreateWorkItemInput input = CreateWorkItemUseCaseImpl.createInput() ;

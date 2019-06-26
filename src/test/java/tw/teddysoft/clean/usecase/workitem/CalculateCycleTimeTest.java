@@ -52,13 +52,13 @@ public class CalculateCycleTimeTest {
     @Test
     public void move_workitem_applePay_from_ready_to_deployed() throws WipLimitExceedException, ParseException {
         DateProvider.setDate(dateFormat.parse("2019-03-02 00:00:00"));
-        assertEquals(3, util.getReady().getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
-        assertEquals(0, util.getAnalysis().getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
+        assertEquals(3, util.getReady().getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
+        assertEquals(0, util.getAnalysis().getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
 
         moveWorkItemToStage(APPLY_PAY, util.getAnalysis());
 
-        assertEquals(2, util.getReady().getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
-        assertEquals(1, util.getAnalysis().getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
+        assertEquals(2, util.getReady().getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
+        assertEquals(1, util.getAnalysis().getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
 
         // assert domain events
         assertThat(flowEventRepository.findAll().size()).isEqualTo(5);
@@ -124,7 +124,7 @@ public class CalculateCycleTimeTest {
         input.setWorkItemId(util.getWorkItemRepository().findFirstByName(workItemName).getId());
         input.setToStageId(stage.getId());
         input.setToMiniStageId(stage.getDefaultMiniStage().getId());
-        input.setToSwimLaneId(stage.getDefaultSwimLaneOfMiniStage().getId());
+        input.setToSwimLaneId(stage.getDefaultSwimLaneOfDefaultMiniStage().getId());
         useCase.execute(input, null);
     }
 

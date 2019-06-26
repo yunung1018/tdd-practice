@@ -149,11 +149,11 @@ public class KanbanTestUtility {
                     each,
                     firstStage.getId(),
                     firstStage.getDefaultMiniStage().getId(),
-                    firstStage.getDefaultSwimLaneOfMiniStage().getId());
+                    firstStage.getDefaultSwimLaneOfDefaultMiniStage().getId());
 
             workItemRepository.save(workItem);
 
-            firstStage.commitWorkItemToSwimLaneById(firstStage.getDefaultSwimLaneOfMiniStage().getId(),
+            firstStage.commitWorkItemToSwimLaneById(firstStage.getDefaultSwimLaneOfDefaultMiniStage().getId(),
                     workItem.getId());
         }
     }

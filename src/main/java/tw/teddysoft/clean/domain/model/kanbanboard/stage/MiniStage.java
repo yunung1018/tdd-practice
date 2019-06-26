@@ -1,23 +1,21 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.stage;
 
+import de.cronn.reflection.util.immutable.ImmutableProxy;
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.MiniStageCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.SwimLaneDeleted;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MiniStage extends Entity {
 
     public static final String DEFAULT_NAME = "";
 
-    private String stageId;
-    private List<SwimLane> swimLanes;
-//
-//    MiniStage(String stageId){
-//        this(DEFAULT_NAME, stageId);
-//    }
+    private final String stageId;
+    private final List<SwimLane> swimLanes;
 
     MiniStage(String name, String stageId) {
         super(name);
@@ -53,19 +51,22 @@ public class MiniStage extends Entity {
     }
 
     public List<SwimLane> getSwimLanes(){
-        return swimLanes;
+        return Collections.unmodifiableList(swimLanes);
     }
 
     public SwimLane getDefaultSwimLane(){
         return swimLanes.get(0);
     }
 
+
+
     public SwimLane getSwimLaneById(String id) {
         for (SwimLane each : swimLanes) {
             if (each.getId().equalsIgnoreCase(id))
                 return each;
         }
-        return null;
+
+        throw new RuntimeException("SwimLane id " + id + " not found");
     }
 
     public boolean isSwimLaneExist(String id){
@@ -90,6 +91,5 @@ public class MiniStage extends Entity {
     private boolean addDefaultSwimLane() {
         return swimLanes.add(new SwimLane(this.getStageId(), this.getId()));
     }
-
 
 }

@@ -42,16 +42,20 @@ public class MoveWorkItemOnSwimLaneTest extends AbstractDomainEventTest {
         todo = util.getStageRepository().findFirstByName("To Do");
         doing = util.getStageRepository().findFirstByName("Doing");
 
-        applePay = new WorkItem("Implement Apple pay", todo.getId(), todo.getDefaultMiniStage().getId(),todo.getDefaultSwimLaneOfMiniStage().getId());
-        linePay = new WorkItem("Implement Line pay", todo.getId(), todo.getDefaultMiniStage().getId(),todo.getDefaultSwimLaneOfMiniStage().getId());
+        applePay = new WorkItem("Implement Apple pay", todo.getId(), todo.getDefaultMiniStage().getId(),todo.getDefaultSwimLaneOfDefaultMiniStage().getId());
+        linePay = new WorkItem("Implement Line pay", todo.getId(), todo.getDefaultMiniStage().getId(),todo.getDefaultSwimLaneOfDefaultMiniStage().getId());
         util.getWorkItemRepository().save(applePay);
         util.getWorkItemRepository().save(linePay);
 
         storedSubscriber.expectedResults.clear();
-        SwimLane swimLane = todo.getDefaultSwimLaneOfMiniStage();
-        swimLane.setWipLimit(2);
-        swimLane.commitWorkItemById(applePay.getId());
-        swimLane.commitWorkItemById(linePay.getId());
+        SwimLane swimLane = todo.getDefaultSwimLaneOfDefaultMiniStage();
+        todo.setSwimLaneWip(swimLane.getId(), 2);
+//        swimLane.setWipLimit(2);
+
+        todo.commitWorkItemToSwimLaneById(swimLane.getId(), applePay.getId());
+        todo.commitWorkItemToSwimLaneById(swimLane.getId(), linePay.getId());
+//        swimLane.commitWorkItemById(applePay.getId());
+//        swimLane.commitWorkItemById(linePay.getId());
 
         assertEquals(2, swimLane.getCommittedWorkItems().size());
 
@@ -65,8 +69,8 @@ public class MoveWorkItemOnSwimLaneTest extends AbstractDomainEventTest {
     public void move_applePay_to_doing() throws WipLimitExceedException, ParseException {
         DateProvider.setDate(dateFormat.parse("2019-03-05 00:00:00"));
         storedSubscriber.expectedResults.clear();
-        assertEquals(2, todo.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
-        assertEquals(0, doing.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
+        assertEquals(2, todo.getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
+        assertEquals(0, doing.getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
 
         MoveCommittedWorkItemUseCase useCase = new MoveCommittedWorkItemUseCaseImpl(util.getStageRepository(), util.getWorkItemRepository());
         MoveCommittedWorkItemInput input = MoveCommittedWorkItemUseCaseImpl.createInput();
@@ -74,12 +78,12 @@ public class MoveWorkItemOnSwimLaneTest extends AbstractDomainEventTest {
         input.setWorkItemId(applePay.getId());
         input.setToStageId(doing.getId());
         input.setToMiniStageId(doing.getDefaultMiniStage().getId());
-        input.setToSwimLaneId(doing.getDefaultSwimLaneOfMiniStage().getId());
+        input.setToSwimLaneId(doing.getDefaultSwimLaneOfDefaultMiniStage().getId());
 
         useCase.execute(input, null);
 
-        assertEquals(1, todo.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
-        assertEquals(1, doing.getDefaultSwimLaneOfMiniStage().getCommittedWorkItems().size());
+        assertEquals(1, todo.getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
+        assertEquals(1, doing.getDefaultSwimLaneOfDefaultMiniStage().getCommittedWorkItems().size());
 
         // assert domain events
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(2);
