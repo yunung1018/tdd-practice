@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryStageRepository;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.SerializableBoardRepository;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.SerializableStageRepository;
 import tw.teddysoft.clean.app.console.DefaultBoard;

@@ -9,15 +9,16 @@ import java.util.List;
 
 public class SerializableStageRepository implements StageRepository {
 
-    private List<Stage> stages;
+    private final List<Stage> stages;
     private final String STORED_FILE_NAME = "stage-repository.ser";
 
     public SerializableStageRepository(){
 
-        stages = new ArrayList<Stage>();
-
         if (SerializationUtil.storedFileExists(STORED_FILE_NAME)){
             stages = (List<Stage>) SerializationUtil.loadFromFile(STORED_FILE_NAME);
+        }
+        else{
+            stages = new ArrayList<Stage>();
         }
     }
 
@@ -69,7 +70,5 @@ public class SerializableStageRepository implements StageRepository {
         }
         return results;
     }
-
-
 
 }
