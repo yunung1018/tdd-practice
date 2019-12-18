@@ -1,9 +1,9 @@
-package tw.teddysoft.clean.usecase.lane.vertical.create;
+package tw.teddysoft.clean.usecase.lane.swimlane.create;
 
 import tw.teddysoft.clean.domain.usecase.Input;
 
 
-public interface CreateVerticalLaneInput extends Input {
+public interface CreateSwimLaneInput extends Input {
 
     void setWorkflowId(String workflowId);
 

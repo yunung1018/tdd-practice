@@ -12,7 +12,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.stage.add.impl.AddStageUseCaseImpl
 
 import static org.junit.Assert.*;
 
-public class CreateVerticalLaneTest {
+public class CreateMninStageLaneTest {
 
     private StageRepository repository;
     private AddStageUseCase addStageUC;

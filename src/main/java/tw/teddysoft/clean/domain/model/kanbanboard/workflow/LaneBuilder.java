@@ -1,7 +1,5 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
-import org.junit.internal.runners.statements.FailOnTimeout;
-
 public class LaneBuilder {
 
     private String name;
@@ -49,9 +47,9 @@ public class LaneBuilder {
         if (isStage)
             return new StageLane(name,workflowId);
         else if (isVertical())
-            return new VerticalLane(name,workflowId);
+            return new MninStageLane(name,workflowId);
         else
-            return new HorizontalLane(name,workflowId);
+            return new SwimLane(name,workflowId);
     }
 
 

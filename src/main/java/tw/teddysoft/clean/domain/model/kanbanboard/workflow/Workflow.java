@@ -35,18 +35,6 @@ public class Workflow extends Entity {
         return Collections.unmodifiableList(stageLanes);
     }
 
-//    public void addLane(String laneName, String workflowId, String parentId, LaneOrientation orientation) {
-//
-//        if ((parentId == null) && orientation == LaneOrientation.HORIZONTAL)
-//            throw new RuntimeException("Cannot add horizontal lane at the top of a workflow.");
-//
-//        if  ((parentId == null) && orientation == LaneOrientation.VERTICAL){
-//            addTopLevelVerticalLane();
-//            return;
-//        }
-//
-//    }
-
     public void addStageLane(Lane lane) {
         stageLanes.add(lane);
     }
@@ -55,21 +43,54 @@ public class Workflow extends Entity {
         for(Lane each : stageLanes){
             return findLaneById(each, parentId);
         }
-
         return null;
     }
 
 
     private Lane findLaneById(Lane each, String parentId) {
 
-        if (parentId == each.getId())
-            return each;
+//        System.out.println(each.getName() + " id = " + each.getId());
+//        System.out.println(each.getName() + " has sublane = " + each.hasSubLane());
+
+        Lane result = null;
+
+        if (parentId == each.getId()){
+            result = each;
+        }
         else if (each.hasSubLane()) {
             for (Lane next : each.getSubLanes()) {
-                return findLaneById(next, parentId);
+//                System.out.println("==> " + next.getName());
+                result = findLaneById(next, parentId);
             }
         }
-
-        return null;
+        return result;
     }
+
+    public void dumpLane() {
+        for(Lane each : stageLanes){
+            dumpLane(each, 0);
+        }
+    }
+
+
+    private void dumpLane(Lane each, int tabs) {
+//        System.out.println("Lane ==>" + each.getName() );
+//        System.out.println("each.hasSubLane() ==>" + each.hasSubLane());
+
+        System.out.printf(getTabs(tabs) + "%-20s %n", each.getName());
+        if (each.hasSubLane()) {
+            for (Lane next : each.getSubLanes()) {
+                dumpLane(next, tabs+1);
+            }
+        }
+    }
+
+    private String getTabs(int tabs){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < tabs; i++){
+            sb.append("\t");
+        }
+        return sb.toString();
+    }
+
 }
