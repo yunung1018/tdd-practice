@@ -7,13 +7,15 @@
 #
 
 
-#################
-# Feature: Create board
+Feature: Create a new kanban board
 
-# Create the first board to the cleanKanban system
-Given an new cleanKanban system
-When I create a board named "ScrumBoard"
-Then the "ScrumBoard" board should be added as the first board of the system
+Create the first board to the cleanKanban system
+
+Given a registered user Teddy has logged in into the cleanKanban system
+When Teddy creates a board named "Scrum Board"
+Then the "Scrum Board" should be added to Teddy's personal board
+And the "Scrum Board" should contains four Stages: Backlog, Archive, IceBox, TrashCan
+
 
 
 

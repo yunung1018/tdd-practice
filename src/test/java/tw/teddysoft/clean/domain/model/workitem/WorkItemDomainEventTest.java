@@ -3,7 +3,7 @@ package tw.teddysoft.clean.domain.model.workitem;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.AbstractDomainEventTest;
+import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 
 import static org.assertj.core.api.Assertions.assertThat;

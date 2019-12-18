@@ -1,8 +1,5 @@
 package tw.teddysoft.clean.adapter.gateway.kanbanboard;
 
-import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
-
 import java.io.*;
 import java.util.List;
 

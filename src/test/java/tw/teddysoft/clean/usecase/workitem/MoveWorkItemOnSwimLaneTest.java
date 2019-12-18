@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.common.DateProvider;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.AbstractDomainEventTest;
+import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;

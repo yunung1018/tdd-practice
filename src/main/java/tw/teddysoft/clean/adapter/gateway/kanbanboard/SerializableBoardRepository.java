@@ -2,7 +2,6 @@ package tw.teddysoft.clean.adapter.gateway.kanbanboard;
 
 
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 
 import java.util.ArrayList;

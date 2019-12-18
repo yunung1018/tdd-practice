@@ -1,7 +1,5 @@
 package tw.teddysoft.clean.adapter.gateway.workitem;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;
 import tw.teddysoft.clean.usecase.workitem.WorkItemRepository;
 

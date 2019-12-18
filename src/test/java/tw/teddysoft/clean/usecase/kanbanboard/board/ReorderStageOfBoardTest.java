@@ -3,7 +3,7 @@ package tw.teddysoft.clean.usecase.kanbanboard.board;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.stage.MultipleStagePresenter;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.AbstractDomainEventTest;
+import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.kanbanboard.board.impl.MoveStageOfBoardUseCaseImpl;

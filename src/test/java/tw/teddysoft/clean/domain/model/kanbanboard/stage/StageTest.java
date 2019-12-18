@@ -2,8 +2,6 @@ package tw.teddysoft.clean.domain.model.kanbanboard.stage;
 
 import org.junit.Test;
 
-import javax.validation.constraints.Min;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;

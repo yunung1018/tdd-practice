@@ -1,7 +1,7 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.board;
 
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.AbstractDomainEventTest;
+import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

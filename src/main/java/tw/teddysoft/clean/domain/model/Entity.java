@@ -1,6 +1,7 @@
 package tw.teddysoft.clean.domain.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.UUID;
 
 public abstract class Entity implements Serializable {
@@ -26,6 +27,5 @@ public abstract class Entity implements Serializable {
     public String getId() {
         return id;
     }
-
 
 }

@@ -2,9 +2,6 @@ package tw.teddysoft.clean.domain.model.kanbanboard.stage;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
 
 import static org.junit.Assert.*;
 

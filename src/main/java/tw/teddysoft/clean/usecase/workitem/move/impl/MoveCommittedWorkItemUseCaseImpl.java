@@ -1,7 +1,6 @@
 package tw.teddysoft.clean.usecase.workitem.move.impl;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;

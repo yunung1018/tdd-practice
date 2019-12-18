@@ -1,4 +1,4 @@
-package tw.teddysoft.clean.domain.model.kanbanboard.stage;
+package tw.teddysoft.clean.domain.model;
 
 import org.junit.Before;
 import tw.teddysoft.clean.domain.model.DomainEvent;

@@ -1,8 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard;
 
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
 
 import static org.junit.Assert.assertEquals;
 

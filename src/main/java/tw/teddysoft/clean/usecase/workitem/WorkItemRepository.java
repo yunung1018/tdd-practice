@@ -1,6 +1,5 @@
 package tw.teddysoft.clean.usecase.workitem;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;
 
 import java.util.List;

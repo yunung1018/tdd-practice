@@ -1,6 +1,5 @@
 package tw.teddysoft.clean.usecase.kanbanboard.board;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.usecase.Input;
 
 public interface MoveStageOfBoardInput extends Input {

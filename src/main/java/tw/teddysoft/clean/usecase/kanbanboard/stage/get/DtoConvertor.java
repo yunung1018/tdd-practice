@@ -1,7 +1,5 @@
 package tw.teddysoft.clean.usecase.kanbanboard.stage.get;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.BoardStage;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.MiniStage;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
