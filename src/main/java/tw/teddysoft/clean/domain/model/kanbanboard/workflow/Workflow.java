@@ -90,8 +90,8 @@ public class Workflow extends Entity {
 
     private Lane findLaneById(Lane each, String parentId) {
 
-//        System.out.println(each.getName() + " id = " + each.getId());
-//        System.out.println(each.getName() + " has sublane = " + each.hasSubLane());
+//        System.out.println(each.getTitle() + " id = " + each.getId());
+//        System.out.println(each.getTitle() + " has sublane = " + each.hasSubLane());
 
         Lane result = null;
 
@@ -100,7 +100,7 @@ public class Workflow extends Entity {
         }
         else if (each.hasSubLane()) {
             for (Lane next : each.getSubLanes()) {
-//                System.out.println("==> " + next.getName());
+//                System.out.println("==> " + next.getTitle());
                 result = findLaneById(next, parentId);
             }
         }
@@ -133,10 +133,10 @@ public class Workflow extends Entity {
 
 
     private void dumpLane(Lane each, int tabs) {
-//        System.out.println("Lane ==>" + each.getName() );
+//        System.out.println("Lane ==>" + each.getTitle() );
 //        System.out.println("each.hasSubLane() ==>" + each.hasSubLane());
 
-        System.out.printf(getTabs(tabs) + "%-20s %n", each.getName());
+        System.out.printf(getTabs(tabs) + "%-20s %n", each.getTitle());
         if (each.hasSubLane()) {
             for (Lane next : each.getSubLanes()) {
                 dumpLane(next, tabs+1);
