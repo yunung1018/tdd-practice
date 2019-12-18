@@ -25,23 +25,9 @@ public class CreateSwimlaneUseCaseImpl implements CreateSwimlaneUseCase {
     public void execute(CreateSwimlaneInput input, CreateSwimlaneOutput output) {
 
         Workflow workflow = repository.findById(input.getWorkflowId());
-
-        Lane parent = workflow.findLaneById(input.getParentId());
-        if (null == parent)
-            throw new RuntimeException("Cannot find the lane : " + input.getParentId() + " to add a swimlane under it.");
-
-        Lane lane = LaneBuilder.getInstance()
-                .title(input.getLaneName())
-                .workflowId(input.getWorkflowId())
-                .swimlane()
-                .build();
-
-        parent.addSubLane(lane);
-
+        Lane swimlane = workflow.addSwimlane(input.getParentId(), input.getTitle());
         repository.save(workflow);
-
-        output.setId(lane.getId());
-
+        output.setId(swimlane.getId());
     }
 
     private static class CreateSwimlaneInputImpl implements CreateSwimlaneInput {
@@ -55,8 +41,8 @@ public class CreateSwimlaneUseCaseImpl implements CreateSwimlaneUseCase {
         }
 
         @Override
-        public void setLaneName(String laneName) {
-            this.laneName = laneName;
+        public void setTitle(String title) {
+            this.laneName = title;
         }
 
         @Override
@@ -65,7 +51,7 @@ public class CreateSwimlaneUseCaseImpl implements CreateSwimlaneUseCase {
         }
 
         @Override
-        public String getLaneName(){
+        public String getTitle(){
             return this.laneName;
         }
 

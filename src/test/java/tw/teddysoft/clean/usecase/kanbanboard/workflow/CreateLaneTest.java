@@ -245,7 +245,7 @@ public class CreateLaneTest {
 
         input.setWorkflowId(workflowId);
         input.setParentId(parentId);
-        input.setLaneName(LaneName);
+        input.setTitle(LaneName);
 
         createSwimLaneUC.execute(input, output);
 

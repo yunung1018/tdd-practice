@@ -39,6 +39,8 @@ public class Workflow extends Entity {
                 .stage()
                 .build();
         stages.add(stage);
+
+        //TODO return a readonly version of stage
         return stage;
     }
 
@@ -55,6 +57,7 @@ public class Workflow extends Entity {
 
         parent.addSubLane(ministage);
 
+        //TODO return a readonly version of ministage
         return ministage;
     }
 
@@ -70,11 +73,13 @@ public class Workflow extends Entity {
                 .build();
 
         parent.addSubLane(swimlane);
+
+        //TODO return a readonly version of swimlane
         return swimlane;
     }
 
 
-    public Lane findLaneById(String parentId) {
+    private Lane findLaneById(String parentId) {
         Lane result = null;
         for(Lane each : stages){
             if ( (result = findLaneById(each, parentId)) != null)

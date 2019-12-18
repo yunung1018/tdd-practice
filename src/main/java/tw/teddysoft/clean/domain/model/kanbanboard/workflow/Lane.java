@@ -11,13 +11,20 @@ abstract public class Lane extends Entity {
     private final List<Lane> sublanes;
     private final LaneOrientation orientation;
     private String title;
+    private int wipLimit;
 
     Lane(String title, String workflowId, LaneOrientation orientation) {
         super("");
         this.title = title;
         this.workflowId = workflowId;
         this.orientation = orientation;
+        wipLimit = 0;
         sublanes = new ArrayList<>();
+    }
+
+    Lane(String title, String workflowId, LaneOrientation orientation, int wipLimit) {
+        this(title, workflowId, orientation);
+        this.wipLimit = wipLimit;
     }
 
     public String getWorkflowId() {
@@ -44,4 +51,14 @@ abstract public class Lane extends Entity {
 
     public String getTitle(){return title;}
 
+    public int getWipLimit() {
+        return wipLimit;
+    }
+
+    public void setWipLimit(int wipLimit) {
+        if (wipLimit < 0)
+            throw new RuntimeException("WIP Limit cannot be negative.");
+
+        this.wipLimit = wipLimit;
+    }
 }

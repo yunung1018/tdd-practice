@@ -6,6 +6,7 @@ public class LaneBuilder {
     private String workflowId;
     private LaneOrientation orientation = LaneOrientation.VERTICAL;
     private boolean isStage = false;
+    private int wipLimit = 0;
 
     private LaneBuilder(){};
 
@@ -15,6 +16,11 @@ public class LaneBuilder {
 
     public LaneBuilder title(String title) {
         this.title = title;
+        return this;
+    }
+
+    public LaneBuilder wipLimit(int wipLimit) {
+        this.wipLimit = wipLimit;
         return this;
     }
 
@@ -43,11 +49,11 @@ public class LaneBuilder {
 
     public Lane build(){
         if (isStage)
-            return new Stage(title,workflowId);
+            return new Stage(title,workflowId, wipLimit);
         else if (isVertical())
-            return new Mninstage(title,workflowId);
+            return new Mninstage(title,workflowId, wipLimit);
         else
-            return new Swimlane(title,workflowId);
+            return new Swimlane(title,workflowId, wipLimit);
     }
 
     private boolean isVertical(){

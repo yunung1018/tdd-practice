@@ -7,11 +7,11 @@ public interface CreateSwimlaneInput extends Input {
 
     void setWorkflowId(String workflowId);
 
-    void setLaneName(String laneName);
+    void setTitle(String title);
 
     String getWorkflowId();
 
-    String getLaneName();
+    String getTitle();
 
     void setParentId(String parentId);
 

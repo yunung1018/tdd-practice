@@ -18,6 +18,7 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
 
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
         assertFalse(lane instanceof Stage);
+        assertEquals(0, lane.getWipLimit());
         assertEquals("Backlog", lane.getTitle());
         assertEquals("000-1234", lane.getWorkflowId());
 
@@ -31,8 +32,10 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
                 .title("Backlog")
                 .workflowId("000-1234")
                 .stage()
+                .wipLimit(5)
                 .build();
 
+        assertEquals(5, lane.getWipLimit());
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
         assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageCreated");
@@ -41,6 +44,7 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
     @Test
     public void create_ministage() {
         Lane lane = LaneBuilder.getInstance()
+                .wipLimit(3)
                 .title("Backlog")
                 .workflowId("000-1234")
                 .stage()
@@ -48,6 +52,7 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
                 .build();
 
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
+        assertEquals(3, lane.getWipLimit());
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
         assertThat(storedSubscriber.expectedResults.get(0)).startsWith("MinistageCreated");
     }
@@ -59,9 +64,11 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
                 .workflowId("000-1234")
                 .ministage()
                 .swimlane()
+                .wipLimit(1)
                 .build();
 
         assertEquals(LaneOrientation.HORIZONTAL, lane.getOrientation());
+        assertEquals(1, lane.getWipLimit());
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
         assertThat(storedSubscriber.expectedResults.get(0)).startsWith("SwimlaneCreated");
     }
