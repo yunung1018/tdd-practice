@@ -34,6 +34,8 @@ public class CreateStageLaneUseCaseImpl implements CreateStageLaneUseCase {
 
         repository.save(workflow);
 
+        output.setId(lane.getId());
+
     }
 
 

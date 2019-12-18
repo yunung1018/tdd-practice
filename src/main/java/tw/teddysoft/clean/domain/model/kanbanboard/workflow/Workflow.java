@@ -40,10 +40,16 @@ public class Workflow extends Entity {
     }
 
     public Lane findLaneById(String parentId) {
+
+        Lane result = null;
+
         for(Lane each : stageLanes){
-            return findLaneById(each, parentId);
+            result = findLaneById(each, parentId);
+            if (null != result)
+                return result;
         }
-        return null;
+
+        return result;
     }
 
 
