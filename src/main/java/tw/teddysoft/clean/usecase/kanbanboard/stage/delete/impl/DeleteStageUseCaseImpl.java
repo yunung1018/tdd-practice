@@ -1,6 +1,6 @@
 package tw.teddysoft.clean.usecase.kanbanboard.stage.delete.impl;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.stage.delete.DeleteStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.stage.delete.DeleteStageOutput;

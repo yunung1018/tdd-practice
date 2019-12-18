@@ -1,8 +1,8 @@
 package tw.teddysoft.clean.usecase.kanbanboard.stage.get;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.MiniStage;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.MiniStage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.SwimLane;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 
 import java.util.ArrayList;

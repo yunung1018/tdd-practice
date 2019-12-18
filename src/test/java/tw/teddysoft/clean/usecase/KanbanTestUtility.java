@@ -7,7 +7,7 @@ import tw.teddysoft.clean.adapter.presenter.kanbanboard.board.SingleStageOfBoard
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.stage.SingleStagePresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;

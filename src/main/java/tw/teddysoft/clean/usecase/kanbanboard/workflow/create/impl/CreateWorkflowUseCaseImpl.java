@@ -1,6 +1,5 @@
 package tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;

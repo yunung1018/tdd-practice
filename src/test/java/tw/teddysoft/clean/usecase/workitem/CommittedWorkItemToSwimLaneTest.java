@@ -3,8 +3,8 @@ package tw.teddysoft.clean.usecase.workitem;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.SwimLane;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 

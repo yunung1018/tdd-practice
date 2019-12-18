@@ -5,7 +5,7 @@ import org.junit.Test;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventRepository;
 import tw.teddysoft.clean.domain.model.FlowEvent;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.domainevent.flow.RegisterFlowEventSubscriberUseCase;
 import tw.teddysoft.clean.usecase.domainevent.flow.impl.RegisterFlowEventSubscriberUseCaseImpl;

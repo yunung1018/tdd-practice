@@ -1,11 +1,10 @@
 package tw.teddysoft.clean.usecase.lane.ministage.create.impl;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.LaneBuilder;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.lane.ministage.create.CreateMiniStageLaneOutput;
-import tw.teddysoft.clean.usecase.lane.ministage.create.CreateMiniStageLaneInput;
+import tw.teddysoft.clean.usecase.lane.ministage.create.CreateMinistageInput;
 import tw.teddysoft.clean.usecase.lane.ministage.create.CreateMiniStageLaneUseCase;
 
 public class CreateMiniStageLaneUseCaseImpl implements CreateMiniStageLaneUseCase {
@@ -17,34 +16,22 @@ public class CreateMiniStageLaneUseCaseImpl implements CreateMiniStageLaneUseCas
     }
 
 
-    public static CreateMiniStageLaneInput createInput(){
-        return new CreateMiniStageLaneInputImpl();
+    public static CreateMinistageInput createInput(){
+        return new CreateMinistageInputImpl();
     }
 
     @Override
-    public void execute(CreateMiniStageLaneInput input, CreateMiniStageLaneOutput output) {
+    public void execute(CreateMinistageInput input, CreateMiniStageLaneOutput output) {
 
         Workflow workflow = repository.findById(input.getWorkflowId());
-
-        Lane parent = workflow.findLaneById(input.getParentId());
-        if (null == parent)
-            throw new RuntimeException("Cannot find the lane : " + input.getParentId() + " to add a MiniStage '" + input.getLaneName() + "' under it.");
-
-        Lane lane = LaneBuilder.getInstance()
-                .name(input.getLaneName())
-                .workflowId(input.getWorkflowId())
-                .vertical()
-                .build();
-
-        parent.addSubLane(lane);
+        Lane ministage = workflow.addMinistage(input.getParentId(), input.getTitle());
 
         repository.save(workflow);
 
-        output.setId(lane.getId());
-
+        output.setId(ministage.getId());
     }
 
-    private static class CreateMiniStageLaneInputImpl implements CreateMiniStageLaneInput {
+    private static class CreateMinistageInputImpl implements CreateMinistageInput {
         private String workflowId;
         private String laneName;
         private String parentId;
@@ -55,8 +42,8 @@ public class CreateMiniStageLaneUseCaseImpl implements CreateMiniStageLaneUseCas
         }
 
         @Override
-        public void setLaneName(String laneName) {
-            this.laneName = laneName;
+        public void setTitle(String title) {
+            this.laneName = title;
         }
 
         @Override
@@ -65,7 +52,7 @@ public class CreateMiniStageLaneUseCaseImpl implements CreateMiniStageLaneUseCas
         }
 
         @Override
-        public String getLaneName(){
+        public String getTitle(){
             return this.laneName;
         }
 

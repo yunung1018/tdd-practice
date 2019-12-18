@@ -2,8 +2,6 @@ package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.MiniStage;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.StageCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
 
 import java.util.*;
@@ -11,13 +9,12 @@ import java.util.*;
 public class Workflow extends Entity {
 
     private final String boardId;
-    private final List<Lane> stageLanes;
+    private final List<Lane> stages;
 
     public Workflow(String name, String boardId){
         super(name);
         this.boardId = boardId;
-
-        stageLanes = new LinkedList<>();
+        stages = new ArrayList<>();
 
         DomainEventPublisher
                 .instance()
@@ -31,27 +28,60 @@ public class Workflow extends Entity {
         return boardId;
     }
 
-    public List<Lane> getStageLanes() {
-        return Collections.unmodifiableList(stageLanes);
+    public List<Lane> getStages() {
+        return Collections.unmodifiableList(stages);
     }
 
-    public void addStageLane(Lane lane) {
-        stageLanes.add(lane);
+    public Lane addStage(String title) {
+        Lane stage = LaneBuilder.getInstance()
+                .title(title)
+                .workflowId(getId())
+                .stage()
+                .build();
+        stages.add(stage);
+        return stage;
     }
+
+    public Lane addMinistage(String parentId, String title){
+        Lane parent = findLaneById(parentId);
+        if (null == parent)
+            throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the ministage '" + title + "' under it.");
+
+        Lane ministage = LaneBuilder.getInstance()
+                .title(title)
+                .workflowId(getId())
+                .ministage()
+                .build();
+
+        parent.addSubLane(ministage);
+
+        return ministage;
+    }
+
+    public Lane addSwimlane(String parentId, String title){
+        Lane parent = findLaneById(parentId);
+        if (null == parent)
+            throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the swimlane '" + title + "' under it.");
+
+        Lane swimlane = LaneBuilder.getInstance()
+                .title(title)
+                .workflowId(getId())
+                .swimlane()
+                .build();
+
+        parent.addSubLane(swimlane);
+        return swimlane;
+    }
+
 
     public Lane findLaneById(String parentId) {
-
         Lane result = null;
-
-        for(Lane each : stageLanes){
-            result = findLaneById(each, parentId);
-            if (null != result)
+        for(Lane each : stages){
+            if ( (result = findLaneById(each, parentId)) != null)
                 return result;
         }
-
         return result;
     }
-
 
     private Lane findLaneById(Lane each, String parentId) {
 
@@ -73,9 +103,27 @@ public class Workflow extends Entity {
     }
 
     public void dumpLane() {
-        for(Lane each : stageLanes){
+        for(Lane each : stages){
             dumpLane(each, 0);
         }
+    }
+
+    public int getTotalLaneSize() {
+        int result = 0;
+        for(Lane each : stages){
+            result += getTotalLaneSize(each);
+        }
+        return result;
+    }
+
+    private int getTotalLaneSize(Lane each) {
+        int result = 1;
+        if (each.hasSubLane()) {
+            for (Lane next : each.getSubLanes()) {
+                result += getTotalLaneSize(next);
+            }
+        }
+        return result;
     }
 
 
@@ -98,5 +146,6 @@ public class Workflow extends Entity {
         }
         return sb.toString();
     }
+
 
 }

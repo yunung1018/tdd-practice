@@ -2,8 +2,8 @@ package tw.teddysoft.clean.usecase.kanbanboard.swimlane;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.MiniStage;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.MiniStage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.kanbanboard.swimlane.add.AddSwimLaneInput;
 import tw.teddysoft.clean.usecase.kanbanboard.swimlane.add.AddSwimLaneUseCase;

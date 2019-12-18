@@ -10,60 +10,60 @@ import static org.junit.Assert.assertFalse;
 public class LaneBuilderTest extends AbstractDomainEventTest {
 
     @Test
-    public void default_lane_orientation_is_vertical_and_non_stage() {
+    public void default_lane_created_by_lanebuilder_is_ministage() {
         Lane lane = LaneBuilder.getInstance()
-                .name("Backlog")
+                .title("Backlog")
                 .workflowId("000-1234")
                 .build();
 
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
-        assertFalse(lane instanceof StageLane);
-        assertEquals("Backlog", lane.getName());
+        assertFalse(lane instanceof Stage);
+        assertEquals("Backlog", lane.getTitle());
         assertEquals("000-1234", lane.getWorkflowId());
 
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("VerticalLaneCreated");
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("MinistageCreated");
     }
 
     @Test
-    public void create_stage_lane() {
+    public void create_stage() {
         Lane lane = LaneBuilder.getInstance()
-                .name("Backlog")
+                .title("Backlog")
                 .workflowId("000-1234")
-                .horizontal()
                 .stage()
                 .build();
 
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageLaneCreated");
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageCreated");
     }
 
     @Test
-    public void create_vertical_lane() {
+    public void create_ministage() {
         Lane lane = LaneBuilder.getInstance()
-                .name("Backlog")
+                .title("Backlog")
                 .workflowId("000-1234")
-                .vertical()
+                .stage()
+                .ministage()
                 .build();
 
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("VerticalLaneCreated");
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("MinistageCreated");
     }
 
     @Test
-    public void create_horizontal_lane() {
+    public void create_swimlane() {
         Lane lane = LaneBuilder.getInstance()
-                .name("Backlog")
+                .title("Backlog")
                 .workflowId("000-1234")
-                .vertical()
-                .horizontal()
+                .ministage()
+                .swimlane()
                 .build();
 
         assertEquals(LaneOrientation.HORIZONTAL, lane.getOrientation());
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("HorizontalLaneCreated");
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("SwimlaneCreated");
     }
 
 }

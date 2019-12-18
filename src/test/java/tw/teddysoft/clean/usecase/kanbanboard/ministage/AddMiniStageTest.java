@@ -3,7 +3,7 @@ package tw.teddysoft.clean.usecase.kanbanboard.ministage;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.MiniStage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.MiniStage;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageOutput;

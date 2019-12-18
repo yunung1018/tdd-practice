@@ -1,6 +1,6 @@
 package tw.teddysoft.clean.usecase.kanbanboard.ministage.add.impl;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageUseCase;

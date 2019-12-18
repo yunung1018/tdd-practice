@@ -1,12 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
-import de.cronn.reflection.util.immutable.ReadOnly;
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.SwimLane;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.MiniStageCreated;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.event.SwimLaneDeleted;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.LaneCreated;
 
 import java.util.*;
 
@@ -16,12 +10,14 @@ abstract public class Lane extends Entity {
     private final String workflowId;
     private final List<Lane> sublanes;
     private final LaneOrientation orientation;
+    private String title;
 
-    Lane(String name, String workflowId, LaneOrientation orientation) {
-        super(name);
+    Lane(String title, String workflowId, LaneOrientation orientation) {
+        super("");
+        this.title = title;
         this.workflowId = workflowId;
         this.orientation = orientation;
-        sublanes = new LinkedList<>();
+        sublanes = new ArrayList<>();
     }
 
     public String getWorkflowId() {
@@ -43,4 +39,9 @@ abstract public class Lane extends Entity {
     public void addSubLane(Lane lane) {
         sublanes.add(lane);
     }
+
+    public void setTitle(String title){this.title = title;}
+
+    public String getTitle(){return title;}
+
 }

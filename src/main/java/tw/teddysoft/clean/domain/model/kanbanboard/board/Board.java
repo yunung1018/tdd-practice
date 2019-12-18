@@ -2,7 +2,7 @@ package tw.teddysoft.clean.domain.model.kanbanboard.board;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 
 import java.util.Collections;
 import java.util.HashSet;

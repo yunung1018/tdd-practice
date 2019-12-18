@@ -6,7 +6,7 @@ import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventReposit
 import tw.teddysoft.clean.domain.common.DateProvider;
 import tw.teddysoft.clean.domain.model.FlowEvent;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.domain.model.workitem.WorkItem;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;

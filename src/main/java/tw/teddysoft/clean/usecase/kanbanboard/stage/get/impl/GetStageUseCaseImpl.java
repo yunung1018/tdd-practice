@@ -1,6 +1,6 @@
 package tw.teddysoft.clean.usecase.kanbanboard.stage.get.impl;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.stage.get.DtoConvertor;

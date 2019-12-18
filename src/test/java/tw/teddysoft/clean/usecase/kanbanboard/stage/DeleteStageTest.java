@@ -2,7 +2,7 @@ package tw.teddysoft.clean.usecase.kanbanboard.stage;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.kanbanboard.stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.kanbanboard.stage.delete.DeleteStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.stage.delete.DeleteStageUseCase;
