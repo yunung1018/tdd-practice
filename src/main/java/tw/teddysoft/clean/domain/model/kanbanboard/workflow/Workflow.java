@@ -44,7 +44,7 @@ public class Workflow extends Entity {
         return stage;
     }
 
-    public Lane addMinistage(String parentId, String title){
+    public Lane addStage(String parentId, String title){
         Lane parent = findLaneById(parentId);
         if (null == parent)
             throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the ministage '" + title + "' under it.");
@@ -52,7 +52,7 @@ public class Workflow extends Entity {
         Lane ministage = LaneBuilder.getInstance()
                 .title(title)
                 .workflowId(getId())
-                .ministage()
+                .stage()
                 .build();
 
         parent.addSubLane(ministage);
@@ -135,7 +135,6 @@ public class Workflow extends Entity {
     private void dumpLane(Lane each, int tabs) {
 //        System.out.println("Lane ==>" + each.getTitle() );
 //        System.out.println("each.hasSubLane() ==>" + each.hasSubLane());
-
         System.out.printf(getTabs(tabs) + "%-20s %n", each.getTitle());
         if (each.hasSubLane()) {
             for (Lane next : each.getSubLanes()) {

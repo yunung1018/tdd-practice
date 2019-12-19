@@ -50,8 +50,8 @@ public class LaneBuilder {
     public Lane build(){
         if (isStage)
             return new Stage(title,workflowId, wipLimit);
-        else if (isVertical())
-            return new Mninstage(title,workflowId, wipLimit);
+//        else if (isVertical())
+//            return new Mninstage(title,workflowId, wipLimit);
         else
             return new Swimlane(title,workflowId, wipLimit);
     }

@@ -12,4 +12,8 @@ public interface CreateStageInput extends Input {
     void setTitle(String title);
     String getTitle();
 
+    void setParentId(String parentId);
+    String getParentId();
+
+    boolean isTopStage();
 }

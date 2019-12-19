@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.usecase.lane.stage.create.impl;
 
+import com.sun.deploy.security.SelectableSecurityManager;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.*;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.lane.stage.create.CreateStageInput;
@@ -21,9 +22,13 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
 
     @Override
     public void execute(CreateStageInput input, CreateStageOutput output) {
-
         Workflow workflow = repository.findById(input.getWorkflowId());
-        Lane stage = workflow.addStage(input.getTitle());
+
+        Lane stage;
+        if (input.isTopStage())
+            stage = workflow.addStage(input.getTitle());
+        else
+            stage = workflow.addStage(input.getParentId(), input.getTitle());
 
         repository.save(workflow);
 
@@ -34,7 +39,12 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
     private static class CreateStageInputImpl implements CreateStageInput {
 
         private String workflowId;
-        private String laneName;
+        private String title;
+        private String parentId;
+
+        CreateStageInputImpl(){
+            parentId = null;
+        }
 
         @Override
         public void setWorkflowId(String workflowId) {
@@ -43,7 +53,7 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
 
         @Override
         public void setTitle(String title) {
-            this.laneName = title;
+            this.title = title;
         }
 
         @Override
@@ -53,7 +63,22 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
 
         @Override
         public String getTitle(){
-            return this.laneName;
+            return this.title;
+        }
+
+        @Override
+        public void setParentId(String parentId) {
+            this.parentId = parentId;
+        }
+
+        @Override
+        public String getParentId() {
+            return parentId;
+        }
+
+        @Override
+        public boolean isTopStage() {
+            return parentId == null ? true : false;
         }
     }
 
