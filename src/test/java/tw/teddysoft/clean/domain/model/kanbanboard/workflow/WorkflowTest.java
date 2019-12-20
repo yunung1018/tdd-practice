@@ -1,21 +1,106 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
-public class WorkflowTest {
+import org.junit.Before;
+import org.junit.Test;
+import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 
-    public static final String NOT_EXIST = "not_exist";
-    public static final String TO_DO = "To Do";
-    public static final String BOARD_ID = "abc.123.def.456";
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
-//    @Test
-//    public void get_ministage_by_id_should_throw_a_runtime_exception_when_id_does_not_exist() {
-//        try{
-//            new Stage(TO_DO, BOARD_ID).getMiniStageById(NOT_EXIST);
-//            fail("Infeasible path.");
-//        }
-//        catch (RuntimeException e){
-//            assertEquals("MiniStage with id: not_exist not found.", e.getMessage());
-//        }
-//    }
+public class WorkflowTest extends AbstractDomainEventTest {
+
+    private Workflow workflow;
+    private String backlogStageId;
+
+    @Before
+    public void mySetUp(){
+        creating_a_workflow_publishes_a_WorkflowCreated_event();
+        creating_a_stage_should_publish_a_StageCreated_event();
+    }
+
+    private void creating_a_workflow_publishes_a_WorkflowCreated_event() {
+            workflow = new Workflow("Default", "BOARD_ID");
+            assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
+            assertThat(storedSubscriber.expectedResults.get(0)).startsWith("WorkflowCreated");
+            storedSubscriber.expectedResults.clear();
+    }
+
+    private void creating_a_stage_should_publish_a_StageCreated_event() {
+        backlogStageId = workflow.addStage("Backlog").getId();
+        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageCreated");
+        storedSubscriber.expectedResults.clear();
+    }
+
+    @Test
+    public void committing_a_card_should_publish_a_CardCommitted_event() {
+            storedSubscriber.expectedResults.clear();
+            workflow.commitCard("this_is_card_id_123", backlogStageId);
+            assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardCommitted");
+    }
+
+    @Test
+    public void uncommitting_a_card_should_publish_a_CardUncommitted_event() {
+        committing_a_card_should_publish_a_CardCommitted_event();
+        storedSubscriber.expectedResults.clear();
+
+        workflow.uncommitCard("this_is_card_id_123", backlogStageId);
+
+        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardUncommitted");
+    }
+
+    @Test
+    public void moving_a_card_should_publish_CardUncommitted_and_CardCommitted_events() {
+        String analysisStageId = workflow.addStage("Analysis").getId();
+        workflow.commitCard("this_is_card_id_123", backlogStageId);
+        storedSubscriber.expectedResults.clear();
+
+        workflow.moveCard("this_is_card_id_123", backlogStageId, analysisStageId);
+
+        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(2);
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardUncommitted");
+        assertThat(storedSubscriber.expectedResults.get(1)).startsWith("CardCommitted");
+    }
+
+
+
+
+    @Test
+    public void moving_a_non_committed_card_should_throw_a_runtime_exception() {
+        String analysisStageId = workflow.addStage("Analysis").getId();
+        try{
+            workflow.moveCard("this_is_card_id_123", backlogStageId, analysisStageId);
+            fail();
+        }
+        catch (RuntimeException e){
+            assertThat(e.getMessage()).startsWith("Cannot move card 'this_is_card_id_123' which does not belong to lane");
+        }
+    }
+
+    @Test
+    public void moving_a_card_from_a_nonexisting_land_should_throw_a_runtime_exception() {
+        String analysisStageId = workflow.addStage("Analysis").getId();
+        try{
+            workflow.moveCard("this_is_card_id_123", "",  analysisStageId);
+            fail();
+        }
+        catch (RuntimeException e){
+            assertThat(e.getMessage()).startsWith("Cannot uncommit a card from a non-existing land");
+        }
+    }
+
+    @Test
+    public void moving_a_card_to_a_nonexisting_land_should_throw_a_runtime_exception() {
+        try{
+            workflow.moveCard("this_is_card_id_123", backlogStageId, "");
+            fail();
+        }
+        catch (RuntimeException e){
+            assertThat(e.getMessage()).startsWith("Cannot commit a card to a non-existing land");
+        }
+    }
+
 //
 //    @Test
 //    public void get_swimlane_by_id_should_throw_a_runtime_exception_when_id_does_not_exist() {

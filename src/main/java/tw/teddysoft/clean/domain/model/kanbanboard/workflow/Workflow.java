@@ -2,6 +2,9 @@ package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.card.event.CardCommitted;
+import tw.teddysoft.clean.domain.model.card.event.CardUncommitted;
+import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
 
 import java.util.*;
@@ -21,7 +24,7 @@ public class Workflow extends Entity {
                 .publish(new WorkflowCreated(
                         this.boardId,
                         this.getId(),
-                        this.getName()));
+                        this.getTitle()));
     }
 
     public String getBoardId(){
@@ -78,11 +81,112 @@ public class Workflow extends Entity {
         return swimlane;
     }
 
+    public void commitCard(String cardId, String laneId) {
+        Lane toLane = findLaneById(laneId);
+        if (null == toLane)
+            throw new RuntimeException("Cannot commit a card to a non-existing land '" + laneId + "'");
 
-    private Lane findLaneById(String parentId) {
+        toLane.commitCard(cardId);
+
+        DomainEventPublisher
+                .instance()
+                .publish(new CardCommitted(
+                        toLane.getId(),
+                        toLane.getTitle(),
+                        cardId));
+    }
+
+    public void uncommitCard(String cardId, String laneId) {
+        Lane lane = findLaneById(laneId);
+        if (null == lane)
+            throw new RuntimeException("Cannot commit a card to be uncommitted from a non-existing land '" + laneId + "'");
+
+        if (!lane.isCardCommitted(cardId))
+            throw new RuntimeException("Cannot uncommit card '" + cardId + "' + which does not exist in land '" + laneId + "'");
+
+        lane.uncommitCard(cardId);
+        DomainEventPublisher
+                .instance()
+                .publish(new CardUncommitted(
+                        lane.getId(),
+                        lane.getTitle(),
+                        cardId));
+    }
+
+    public void moveCard(String cardId, String fromLaneId, String toLandId) {
+
+        Lane fromLane = findLaneById(fromLaneId);
+        if (null == fromLane)
+            throw new RuntimeException("Cannot uncommit a card from a non-existing land '" + fromLaneId + "'");
+
+        Lane toLane = findLaneById(toLandId);
+        if (null == toLane)
+            throw new RuntimeException("Cannot commit a card to a non-existing land '" + toLane + "'");
+
+        if (!fromLane.isCardCommitted(cardId))
+            throw new RuntimeException("Cannot move card '" + cardId + "' which does not belong to lane '" + fromLaneId + "'");
+
+        fromLane.uncommitCard(cardId);
+        toLane.commitCard(cardId);
+
+        DomainEventPublisher
+                .instance()
+                .publish(new CardUncommitted(
+                        fromLane.getId(),
+                        fromLane.getTitle(),
+                        cardId));
+
+        DomainEventPublisher
+                .instance()
+                .publish(new CardCommitted(
+                        toLane.getId(),
+                        toLane.getTitle(),
+                        cardId));
+    }
+
+
+    public void dumpLane() {
+        for(Lane each : stages){
+            dumpLane(each, 0);
+        }
+    }
+
+    public int getTotalLaneSize() {
+        int result = 0;
+        for(Lane each : stages){
+            result += getTotalLaneSize(each);
+        }
+        return result;
+    }
+
+
+    public Lane findLaneByCardId(String cardId){
         Lane result = null;
         for(Lane each : stages){
-            if ( (result = findLaneById(each, parentId)) != null)
+            if ( (result = findLaneByCardId(each, cardId)) != null)
+                return result;
+        }
+        return result;
+    }
+
+    private Lane findLaneByCardId(Lane each, String cardId) {
+        Lane result = null;
+
+        if (each.isCardCommitted(cardId)){
+            result = each;
+        }
+        else if (each.hasSubLane()) {
+            for (Lane next : each.getSubLanes()) {
+                result = findLaneById(next, cardId);
+            }
+        }
+        return result;
+    }
+
+    public Lane findLaneById(String laneId) {
+        Lane result = null;
+        for(Lane each : stages){
+            if ( (result = findLaneById(each, laneId)) != null)
                 return result;
         }
         return result;
@@ -103,20 +207,6 @@ public class Workflow extends Entity {
 //                System.out.println("==> " + next.getTitle());
                 result = findLaneById(next, parentId);
             }
-        }
-        return result;
-    }
-
-    public void dumpLane() {
-        for(Lane each : stages){
-            dumpLane(each, 0);
-        }
-    }
-
-    public int getTotalLaneSize() {
-        int result = 0;
-        for(Lane each : stages){
-            result += getTotalLaneSize(each);
         }
         return result;
     }
@@ -151,5 +241,23 @@ public class Workflow extends Entity {
         return sb.toString();
     }
 
+//    public void moveCard(String cardId, String toLandId) {
+//        Lane toLane = findLaneById(toLandId);
+//        if (null == toLane)
+//            throw new RuntimeException("Cannot commit a card to a non-existing land '" + toLandId + "'");
+//
+//        if (isCardPresented(cardId)){
+//            Lane fromLane = findLaneByCardId(cardId);
+//            fromLane.uncommitCard(cardId);
+//        }
+//        else{
+//            toLane.commitCard(cardId);
+//        }
+//
+//        // 在這裡發 domain event
+//    }
 
+//    public boolean isCardPresented(String cardId){
+//        return false;
+//    }
 }

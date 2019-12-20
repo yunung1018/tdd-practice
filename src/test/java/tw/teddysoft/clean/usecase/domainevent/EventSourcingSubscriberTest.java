@@ -33,7 +33,7 @@ public class EventSourcingSubscriberTest extends AbstractDomainEventTest {
 //        storedSubscriber.expectedResults.clear();
 
         util.createScrumBoardAndStage();
-        util.createWorkItemOnScrumBoard(new String [] {"Apple Pay", "Line Pay", "Pay by Master Card"});
+        util.createCardOnScrumBoard(new String [] {"Apple Pay", "Line Pay", "Pay by Master Card"});
 
         assertThat(domainEventRepository.findAll().size()).isEqualTo(16);
         assertThat(domainEventRepository.findAll().get(0).getDetail()).startsWith("BoardCreated[name='Scrum Board'");

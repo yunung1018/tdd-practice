@@ -7,10 +7,10 @@ abstract public class LaneCreated extends AbstractDomainEvent {
 
     private final String workflowId;
 
-    public LaneCreated(String id,
-                       String name,
+    public LaneCreated(String sourceId,
+                       String Title,
                        String workflowId) {
-        super(id, name);
+        super(sourceId, Title);
         this.workflowId = workflowId;
     }
 }

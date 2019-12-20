@@ -50,7 +50,7 @@ public class StageTest {
     public void test_setName_works() {
         Stage stage = new Stage(TO_DO, BOARD_ID);
         stage.setName("Done");
-        assertEquals("Done", stage.getName());
+        assertEquals("Done", stage.getTitle());
     }
 
     @Test

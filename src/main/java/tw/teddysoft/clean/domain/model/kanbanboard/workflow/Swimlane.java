@@ -1,7 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.StageCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.SwimlaneCreated;
 
 public class Swimlane extends Lane {
@@ -21,7 +20,7 @@ public class Swimlane extends Lane {
                 .instance()
                 .publish(new SwimlaneCreated(
                         this.getId(),
-                        this.getName(),
+                        this.getTitle(),
                         this.getWorkflowId()));
     }
 

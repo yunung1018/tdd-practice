@@ -1,8 +1,6 @@
 package tw.teddysoft.clean.usecase.domainevent.flow;
 
 import tw.teddysoft.clean.domain.model.*;
-import tw.teddysoft.clean.domain.model.workitem.event.WorkItemMovedIn;
-import tw.teddysoft.clean.domain.model.workitem.event.WorkItemMovedOut;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
 
 public class FlowEventSubscriber implements DomainEventSubscriber<DomainEvent> {

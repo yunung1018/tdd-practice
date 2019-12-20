@@ -2,24 +2,14 @@ package tw.teddysoft.clean.usecase.kanbanboard.workflow;
 
 import org.junit.Before;
 import org.junit.Test;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryStageRepository;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkflowRepository;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.LaneOrientation;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.usecase.lane.stage.create.CreateStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
-import tw.teddysoft.clean.usecase.lane.stage.create.CreateStageInput;
-import tw.teddysoft.clean.usecase.lane.stage.create.CreateStageOutput;
-import tw.teddysoft.clean.usecase.lane.stage.create.impl.CreateStageUseCaseImpl;
-import tw.teddysoft.clean.usecase.lane.swimlane.create.CreateSwimlaneInput;
-import tw.teddysoft.clean.usecase.lane.swimlane.create.CreateSwimlaneOutput;
-import tw.teddysoft.clean.usecase.lane.swimlane.create.CreateSwimlaneUseCase;
-import tw.teddysoft.clean.usecase.lane.swimlane.create.impl.CreateSwimlaneUseCaseImpl;
+import tw.teddysoft.clean.usecase.KanbanTestUtility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,8 +22,8 @@ public class CreateLaneTest {
     @Before
     public void setUp(){
         repository = new InMemoryWorkflowRepository();
-        create_default_workflow();
-        workflow = repository.findFirstByName("Default");
+        String workflowId = create_workflow("000-1234", "Default");
+        workflow = repository.findById(workflowId);
         assertNotNull(workflow);
     }
 
@@ -81,7 +71,7 @@ public class CreateLaneTest {
 
 
     @Test
-    public void create_business_process_maintenance_stagelane(){
+    public void create_business_process_maintenance_stage(){
         // create a stage like : https://reurl.cc/1QEryG
 
         create_top_stage(workflow.getId(), "Operations - Business Process Maintenance");
@@ -133,9 +123,9 @@ public class CreateLaneTest {
 
     @Test
     public void create_devops_workflow(){
-        // create a stage like : https://reurl.cc/31W81L ,
-        //                       https://reurl.cc/L1gvWL , and
-        //                       https://reurl.cc/algpzG
+        // create a workflow like : https://reurl.cc/31W81L ,
+        //                          https://reurl.cc/L1gvWL , and
+        //                          https://reurl.cc/algpzG
 
         String devQueueId = create_top_stage(workflow.getId(), "Dev Queue");
             String helpId = create_stage(workflow.getId(), "Help", devQueueId);
@@ -191,19 +181,8 @@ public class CreateLaneTest {
     }
 
 
-
-
-    private void create_default_workflow() {
-        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(repository);
-
-        CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
-        CreateWorkflowOutput output = new SingleWorkflowPresenter();
-        input.setBoardId("000-1234");
-        input.setWorkflowName("Default");
-
-        createWorkflowUC.execute(input, output);
-        workflow = repository.findFirstByName("Default");
-        assertNotNull(workflow);
+    private String create_workflow(String boardId, String title) {
+        return KanbanTestUtility.create_workflow(boardId, title, repository);
     }
 
     private String create_top_stage(String workflowId, String title){
@@ -211,33 +190,11 @@ public class CreateLaneTest {
     }
 
     private String create_stage(String workflowId, String title, String parentId){
-
-        CreateStageUseCase createStageLaneUC = new CreateStageUseCaseImpl(repository);
-        CreateStageInput input = CreateStageUseCaseImpl.createInput();
-        CreateStageOutput output = new SingleStagePresenter();
-        input.setWorkflowId(workflowId);
-        input.setTitle(title);
-        input.setParentId(parentId);
-
-        createStageLaneUC.execute(input, output);
-
-        return output.getId();
+        return KanbanTestUtility.create_stage(workflowId, title, parentId, repository);
     }
 
-    private String create_swimlane(String workflowId, String LaneName, String parentId){
-
-        CreateSwimlaneUseCase createSwimLaneUC = new CreateSwimlaneUseCaseImpl(repository);
-
-        CreateSwimlaneInput input = CreateSwimlaneUseCaseImpl.createInput();
-        CreateSwimlaneOutput output = new SingleStagePresenter();
-
-        input.setWorkflowId(workflowId);
-        input.setParentId(parentId);
-        input.setTitle(LaneName);
-
-        createSwimLaneUC.execute(input, output);
-
-        return output.getId();
+    private String create_swimlane(String workflowId, String title, String parentId){
+        return KanbanTestUtility.create_swimlane(workflowId, title, parentId, repository);
     }
 
 }

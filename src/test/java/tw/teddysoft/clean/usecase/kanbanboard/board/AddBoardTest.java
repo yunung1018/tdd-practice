@@ -32,7 +32,7 @@ public class AddBoardTest {
         assertNotNull(output.getBoardId());
         assertEquals("ScrumBoard", output.getBoardName());
         assertEquals(1, repository.findAll().size());
-        assertEquals("ScrumBoard", repository.findAll().get(0).getName());
+        assertEquals("ScrumBoard", repository.findAll().get(0).getTitle());
         assertTrue(output.toString().startsWith("Board Name: ScrumBoard; Board Id: "));
     }
 

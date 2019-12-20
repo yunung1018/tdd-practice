@@ -35,7 +35,7 @@ public class SerializableStageRepository implements StageRepository {
 
     public Stage findFirstByName(String name) {
         for(Stage each : stages){
-            if (each.getName().equals(name))
+            if (each.getTitle().equals(name))
                 return each;
         }
         throw new RuntimeException("Cannot find stage with name : " + name);

@@ -20,7 +20,7 @@ public class AddBoardUseCaseImpl implements AddBoardUseCase {
         repository.save(board);
 
         output.setBoardId(board.getId());
-        output.setBoardName(board.getName());
+        output.setBoardName(board.getTitle());
     }
 
     public static AddBoardInput createInput(){

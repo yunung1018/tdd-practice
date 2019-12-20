@@ -16,7 +16,7 @@ public abstract class Entity implements Serializable {
         id = UUID.randomUUID().toString();
     }
 
-    public String getName() {
+    public String getTitle() {
         return name;
     }
 

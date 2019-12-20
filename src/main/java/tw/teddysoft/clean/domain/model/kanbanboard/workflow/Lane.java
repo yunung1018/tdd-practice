@@ -1,6 +1,10 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
+import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.card.Card;
+import tw.teddysoft.clean.domain.model.card.event.CardMovedIn;
+import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.CommittedWorkItem;
 
 import java.util.*;
 
@@ -9,6 +13,7 @@ abstract public class Lane extends Entity {
 
     private final String workflowId;
     private final List<Lane> sublanes;
+    private final List<CommittedCard> committedCards;
     private final LaneOrientation orientation;
     private String title;
     private int wipLimit;
@@ -20,6 +25,7 @@ abstract public class Lane extends Entity {
         this.orientation = orientation;
         wipLimit = 0;
         sublanes = new ArrayList<>();
+        committedCards = new ArrayList<>();
     }
 
     Lane(String title, String workflowId, LaneOrientation orientation, int wipLimit) {
@@ -61,4 +67,41 @@ abstract public class Lane extends Entity {
 
         this.wipLimit = wipLimit;
     }
+
+    public void commitCard(String cardId) {
+//        if (isReachWipLimit())
+//            throw new WipLimitExceedException("Exceed WIP limit : " + wipLimit);
+
+        committedCards.add(new CommittedCard(cardId, committedCards.size()+1));
+
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardMovedIn(
+//                        this.getId(),
+//                        this.getTitle(),
+//                        cardId);
+
+    }
+
+    public boolean uncommitCard(String cardId) {
+        for(CommittedCard each : committedCards){
+            if (each.getCardId().equalsIgnoreCase(cardId))
+                return committedCards.remove(each);
+        }
+        return false;
+    }
+
+    public List<CommittedCard> getCommittedCards() {
+        return Collections.unmodifiableList(committedCards);
+    }
+
+    public boolean isCardCommitted(String cardId) {
+        for(CommittedCard each : committedCards){
+            if (each.getCardId().equalsIgnoreCase(cardId) )
+                return true;
+        }
+        return false;
+    }
+
+
 }

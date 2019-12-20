@@ -30,7 +30,7 @@ public class FlowEventSubscriberTest {
     @Test
     public void creating_a_workitem_publishes_a_WorkItemCreated_event() throws WipLimitExceedException {
         util.createKanbanBoardAndStage();
-        util.createWorkItemOnKanbanBoard(new String [] {"Print pdf", "Print word", "Print html"});
+        util.createCardOnKanbanBoard(new String [] {"Print pdf", "Print word", "Print html"});
 
 
         for(FlowEvent each : domainEventRepository.findAll()){

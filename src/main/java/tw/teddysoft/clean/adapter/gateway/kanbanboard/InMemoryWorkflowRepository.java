@@ -28,7 +28,7 @@ public class InMemoryWorkflowRepository implements WorkflowRepository {
 
     public Workflow findFirstByName(String name) {
         for(Workflow each : workflows){
-            if (each.getName().equals(name))
+            if (each.getTitle().equals(name))
                 return each;
         }
         throw new RuntimeException("Cannot find workflow with name : " + name);

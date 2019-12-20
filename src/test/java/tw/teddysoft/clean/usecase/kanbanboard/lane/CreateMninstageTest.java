@@ -44,7 +44,7 @@ public class CreateMninstageTest {
         assertNotNull(output.getStageId());
         assertEquals("Analysis", output.getStageName());
         assertEquals(1, repository.findAll().size());
-        assertEquals("Analysis", repository.findAll().get(0).getName());
+        assertEquals("Analysis", repository.findAll().get(0).getTitle());
         assertTrue(output.toString().startsWith("Stage Name: Analysis; Stage Id: "));
 
     }
@@ -57,8 +57,8 @@ public class CreateMninstageTest {
         addStageUC.execute(addStageInputForTest, output);
 
         assertEquals(2, repository.findAll().size());
-        assertEquals("Analysis", repository.findAll().get(0).getName());
-        assertEquals("Test", repository.findAll().get(1).getName());
+        assertEquals("Analysis", repository.findAll().get(0).getTitle());
+        assertEquals("Test", repository.findAll().get(1).getTitle());
     }
 
 }

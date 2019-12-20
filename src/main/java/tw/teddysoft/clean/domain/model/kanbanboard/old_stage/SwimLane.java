@@ -4,8 +4,8 @@ import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.event.SwimLaneCreated;
-import tw.teddysoft.clean.domain.model.workitem.event.WorkItemMovedIn;
-import tw.teddysoft.clean.domain.model.workitem.event.WorkItemMovedOut;
+import tw.teddysoft.clean.domain.model.card.event.CardMovedIn;
+import tw.teddysoft.clean.domain.model.card.event.CardMovedOut;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class SwimLane extends Entity {
                 .instance()
                 .publish(new SwimLaneCreated(
                         this.getId(),
-                        this.getName()));
+                        this.getTitle()));
     }
 
     public void commitWorkItemById(String workItemId) throws WipLimitExceedException {
@@ -43,9 +43,9 @@ public class SwimLane extends Entity {
 
         DomainEventPublisher
                 .instance()
-                .publish(new WorkItemMovedIn(
+                .publish(new CardMovedIn(
                         this.getId(),
-                        this.getName(),
+                        this.getTitle(),
                         this.getStageId(),
                         this.getMiniStageId(),
                         this.getId(),
@@ -77,9 +77,9 @@ public class SwimLane extends Entity {
 
                 DomainEventPublisher
                         .instance()
-                        .publish(new WorkItemMovedOut(
+                        .publish(new CardMovedOut(
                                 this.getId(),
-                                this.getName(),
+                                this.getTitle(),
                                 this.getStageId(),
                                 this.getMiniStageId(),
                                 this.getId(),

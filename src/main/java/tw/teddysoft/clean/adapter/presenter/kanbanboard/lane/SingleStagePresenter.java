@@ -1,7 +1,7 @@
 package tw.teddysoft.clean.adapter.presenter.kanbanboard.lane;
 
-import tw.teddysoft.clean.usecase.lane.stage.create.CreateStageOutput;
-import tw.teddysoft.clean.usecase.lane.swimlane.create.CreateSwimlaneOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneOutput;
 
 public class SingleStagePresenter implements
         CreateStageOutput,

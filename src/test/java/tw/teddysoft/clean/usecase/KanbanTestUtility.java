@@ -1,30 +1,43 @@
 package tw.teddysoft.clean.usecase;
 
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryBoardRepository;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryStageRepository;
-import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryWorkItemRepository;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.board.SingleStageOfBoardPresenter;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.stage.SingleStagePresenter;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkflowRepository;
+import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryCardRepository;
+import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
+import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
+import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
-import tw.teddysoft.clean.domain.model.workitem.WorkItem;
+import tw.teddysoft.clean.domain.model.card.Card;
+import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
+import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
+import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
+import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
+import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.board.impl.CreateStageOfBoardUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.add.AddStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.add.AddStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.add.impl.AddStageUseCaseImpl;
-import tw.teddysoft.clean.usecase.workitem.WorkItemRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageInput;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.impl.CreateStageUseCaseImpl;
+import tw.teddysoft.clean.usecase.card.CardRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneInput;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.impl.CreateSwimlaneUseCaseImpl;
+import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
+import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class KanbanTestUtility {
 
-    private StageRepository stageRepository;
+    private WorkflowRepository workflowRepository;
     private BoardRepository boardRepository;
-    private WorkItemRepository workItemRepository;
+    private CardRepository cardRepository;
 
     public static final String KANBAN_STAGE_1_READY_NAME = "Ready";
     public static final String KANBAN_STAGE_NAME_2_ANALYSIS = "Analysis";
@@ -32,33 +45,32 @@ public class KanbanTestUtility {
     private Board kanbanBoard;
     private Board scrumBoard;
 
-    private Stage ready = null;
-    private Stage analysis = null;
-    private Stage development = null;
-    private Stage test = null;
-    private Stage readyToDeploy = null;
-    private Stage deployed = null;
+    private Workflow kanbanDefaultWorkflow;
+    private Workflow scrumDefaultWorkflow;
 
-    public static final int TOTAL_STAGE_NUMBER = 9;
+    public static final int TOTAL_WORKFLOW_NUMBER = 2;
 
     public KanbanTestUtility(){
-        this(new InMemoryBoardRepository(), new InMemoryStageRepository(), new InMemoryWorkItemRepository());
+        this(new InMemoryBoardRepository(), new InMemoryWorkflowRepository(), new InMemoryCardRepository());
     }
 
-    public KanbanTestUtility(BoardRepository boardRepository, StageRepository stageRepository, WorkItemRepository workItemRepository){
+    public KanbanTestUtility(BoardRepository boardRepository,
+                             WorkflowRepository workflowRepository,
+                             CardRepository cardRepository){
+
         this.boardRepository = boardRepository;
-        this.stageRepository = stageRepository;
-        this.workItemRepository = workItemRepository;
+        this.workflowRepository = workflowRepository;
+        this.cardRepository = cardRepository;
     }
 
     public BoardRepository getBoardRepository(){
         return boardRepository;
     }
-    public StageRepository getStageRepository(){
-        return stageRepository;
+    public WorkflowRepository getWorkflowRepository(){
+        return workflowRepository;
     }
-    public WorkItemRepository getWorkItemRepository(){
-        return workItemRepository;
+    public CardRepository getCardRepository(){
+        return cardRepository;
     }
 
     public Board getKanbanBoard(){
@@ -69,121 +81,185 @@ public class KanbanTestUtility {
         return scrumBoard;
     }
 
-    public Stage finFirstStageByName(String name){
-        for(Stage each : stageRepository.findAll()){
-            if (each.getName().equals(name))
-                return each;
-        }
-        throw new RuntimeException("Stage not found. Name = " + name );
-    }
+//    public Stage finFirstStageByName(String name){
+//        for(Stage each : stageRepository.findAll()){
+//            if (each.getTitle().equals(name))
+//                return each;
+//        }
+//        throw new RuntimeException("Stage not found. Name = " + name );
+//    }
 
     public void createScrumBoardAndStage() {
         scrumBoard = createBoard("Scrum Board");
-        AddStageUseCase addStageUC = new AddStageUseCaseImpl(stageRepository);
-        AddStageInput input = AddStageUseCaseImpl.createInput();
 
-        input.setStageName("To Do");
+        CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
+        CreateWorkflowOutput output = new SingleWorkflowPresenter();
         input.setBoardId(scrumBoard.getId());
-        addStageUC.execute(input, new SingleStagePresenter());
+        input.setWorkflowName("Default Workflow");
+        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository);
+        createWorkflowUC.execute(input, output);
+        scrumDefaultWorkflow = workflowRepository.findById(output.getWorkflowId());
+        scrumBoard.commitWorkflow(output.getWorkflowId());
 
-        input.setStageName("Doing");
-        addStageUC.execute(input, new SingleStagePresenter());
-
-        input.setStageName("Done");
-        addStageUC.execute(input, new SingleStagePresenter());
+        create_stage(output.getWorkflowId(), "To Do", null, workflowRepository);
+        create_stage(output.getWorkflowId(), "Doing", null, workflowRepository);
+        create_stage(output.getWorkflowId(), "Done", null, workflowRepository);
     }
 
 
-    public void createWorkItemOnScrumBoard(String [] worItemNames) throws WipLimitExceedException {
-        createWorkItem(worItemNames, stageRepository.findFirstByName("To Do"));
+    public void createCardOnScrumBoard(String [] cardTitles) throws WipLimitExceedException {
+        createCard(cardTitles, scrumDefaultWorkflow, kanbanDefaultWorkflow.getStages().get(0).getId());
     }
 
 
     public void createKanbanBoardAndStage() {
         kanbanBoard = createBoard("Kanban Board");
 
-        CreateStageOfBoardUseCase createStageOfBoardUseCase = new CreateStageOfBoardUseCaseImpl(boardRepository, stageRepository);
-        CreateStageOfBoardInput input = CreateStageOfBoardUseCaseImpl.createInput();
+        CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
+        CreateWorkflowOutput output = new SingleWorkflowPresenter();
         input.setBoardId(kanbanBoard.getId());
-        input.setStageName(KANBAN_STAGE_1_READY_NAME);
+        input.setWorkflowName("Default Workflow");
+        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository);
+        createWorkflowUC.execute(input, output);
+        kanbanDefaultWorkflow = workflowRepository.findById(output.getWorkflowId());
+        kanbanBoard.commitWorkflow(output.getWorkflowId());
 
-        CreateStageOfBoardOutput output = new SingleStageOfBoardPresenter();
-        createStageOfBoardUseCase.execute(input, output);
+        create_stage(output.getWorkflowId(), KANBAN_STAGE_1_READY_NAME, null, workflowRepository);
+        create_stage(output.getWorkflowId(), "Analysis", null, workflowRepository);
+        create_stage(output.getWorkflowId(), "Development", null, workflowRepository);
+        create_stage(output.getWorkflowId(), "Test", null, workflowRepository);
+        create_stage(output.getWorkflowId(), "Ready to Deploy", null, workflowRepository);
+        create_stage(output.getWorkflowId(), "Deployed", null, workflowRepository);
 
-        input.setStageName("Analysis");
-        createStageOfBoardUseCase.execute(input, new SingleStageOfBoardPresenter());
-
-        input.setStageName("Development");
-        createStageOfBoardUseCase.execute(input, new SingleStageOfBoardPresenter());
-
-        input.setStageName("Test");
-        createStageOfBoardUseCase.execute(input, new SingleStageOfBoardPresenter());
-
-        input.setStageName("Ready to Deploy");
-        createStageOfBoardUseCase.execute(input, new SingleStageOfBoardPresenter());
-
-        input.setStageName("Deployed");
-        createStageOfBoardUseCase.execute(input, new SingleStageOfBoardPresenter());
-
-        ready = stageRepository.findFirstByName("Ready");
-        analysis = stageRepository.findFirstByName("Analysis");
-        development = stageRepository.findFirstByName("Development");
-        test = stageRepository.findFirstByName("Test");
-        readyToDeploy = stageRepository.findFirstByName("Ready to Deploy");
-        deployed = stageRepository.findFirstByName("Deployed");
+//        ready = stageRepository.findFirstByName("Ready");
+//        analysis = stageRepository.findFirstByName("Analysis");
+//        development = stageRepository.findFirstByName("Development");
+//        test = stageRepository.findFirstByName("Test");
+//        readyToDeploy = stageRepository.findFirstByName("Ready to Deploy");
+//        deployed = stageRepository.findFirstByName("Deployed");
     }
 
-    public Board createBoard(String name) {
-        Board board = new Board(name);
+    public Board createBoard(String title) {
+        Board board = new Board(title);
         boardRepository.save(board);
         return board;
     }
 
-    public void createWorkItemOnKanbanBoard(String[] worItemNames) throws WipLimitExceedException {
-        createWorkItem(worItemNames, ready);
+    public void createCardOnKanbanBoard(String[] cardTitles) throws WipLimitExceedException {
+        createCard(cardTitles, kanbanDefaultWorkflow, kanbanDefaultWorkflow.getStages().get(0).getId());
     }
 
-    private void createWorkItem(String[] worItemNames, Stage firstStage) throws WipLimitExceedException {
-        for (String each : worItemNames) {
-            WorkItem workItem = new WorkItem(
-                    each,
-                    firstStage.getId(),
-                    firstStage.getDefaultMiniStage().getId(),
-                    firstStage.getDefaultSwimLaneOfDefaultMiniStage().getId());
+    private void createCard(String[] cardTitles, Workflow workflow, String laneId) throws WipLimitExceedException {
+        for (String each : cardTitles) {
+            Card card = new Card(each);
 
-            workItemRepository.save(workItem);
-
-            firstStage.commitWorkItemToSwimLaneById(firstStage.getDefaultSwimLaneOfDefaultMiniStage().getId(),
-                    workItem.getId());
+            cardRepository.save(card);
+            workflow.commitCard(laneId, card.getId());
         }
     }
 
-    public Stage getReady() {
-        return ready;
+    public Workflow getKanbanDefaultWorkflow() {
+        return kanbanDefaultWorkflow;
     }
 
-    public Stage getAnalysis() {
-        return analysis;
+    public Workflow getScrumDefaultWorkflow() {
+        return scrumDefaultWorkflow;
     }
 
-    public Stage getDevelopment() {
-        return development;
+    public static String create_workflow(String boardId, String title, WorkflowRepository repository) {
+        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(repository);
+
+        CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
+        CreateWorkflowOutput output = new SingleWorkflowPresenter();
+        input.setBoardId(boardId);
+        input.setWorkflowName(title);
+
+        createWorkflowUC.execute(input, output);
+        return output.getWorkflowId();
     }
 
-    public void setDevelopment(Stage development) {
-        this.development = development;
+
+    public static String create_stage(String workflowId, String title, String parentId, WorkflowRepository repository){
+
+        CreateStageUseCase createStageLaneUC = new CreateStageUseCaseImpl(repository);
+        CreateStageInput input = CreateStageUseCaseImpl.createInput();
+        CreateStageOutput output = new tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter();
+        input.setWorkflowId(workflowId);
+        input.setTitle(title);
+        input.setParentId(parentId);
+
+        createStageLaneUC.execute(input, output);
+
+        return output.getId();
     }
 
-    public Stage getTest() {
-        return test;
+
+    public static String create_swimlane(String workflowId, String LaneName, String parentId, WorkflowRepository repository){
+
+        CreateSwimlaneUseCase createSwimLaneUC = new CreateSwimlaneUseCaseImpl(repository);
+
+        CreateSwimlaneInput input = CreateSwimlaneUseCaseImpl.createInput();
+        CreateSwimlaneOutput output = new SingleStagePresenter();
+
+        input.setWorkflowId(workflowId);
+        input.setParentId(parentId);
+        input.setTitle(LaneName);
+
+        createSwimLaneUC.execute(input, output);
+
+        return output.getId();
     }
 
-    public Stage getReadyToDeploy() {
-        return readyToDeploy;
+
+
+    public static String createCard(String workflowId, String landId, String title, CardRepository carRepository, WorkflowRepository workflowRepository){
+        CreateCardOutput output = doCreateCard(workflowId, landId, title, carRepository, workflowRepository);
+        return output.getId();
     }
 
-    public Stage getDeployed() {
-        return deployed;
+
+
+    public static CreateCardOutput doCreateCard(String workflowId, String landId, String title, CardRepository cardRepository, WorkflowRepository workflowRepository){
+
+        CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(cardRepository, workflowRepository);
+        CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
+        CreateCardOutput output = new SingleCardPresenter();
+
+        input.setTitle(title);
+        input.setWorkflowId(workflowId);
+        input.setLaneId(landId);
+
+        createCardUseCase.execute(input, output);
+
+        return output;
     }
+
+
+//    @Test
+//    public static void commit_card_to_workflow(Workflow workflow, Card card, ) {
+//        Workflow scrumDefaultWorkflow = util.getScrumDefaultWorkflow();
+//        Lane backlogStage = scrumDefaultWorkflow.getStages().get(0);
+//
+//        Card buyCoffee = new Card("Bue a cup of coffee");
+//        util.getCardRepository().save(buyCoffee);
+//
+//        assertEquals(0, backlogStage.getCommittedCards().size());
+//        assertEquals(Card.NOT_ASSIGNED, buyCoffee.getWorkflowId());
+//        assertEquals(Card.NOT_ASSIGNED, buyCoffee.getLaneId());
+//
+//        CommitCardUseCase commitCardUseCase = new CommitCardUseCaseImpl(util.getWorkflowRepository(), util.getCardRepository());
+//        CommitCardInput input = CommitCardUseCaseImpl.createInput();
+//        CommitCardOutput output = new SingleCardPresenter();
+//
+//        input.setWorkflowId(scrumDefaultWorkflow.getId())
+//                .setLaneId(backlogStage.getId())
+//                .setCardId(buyCoffee.getId());
+//
+//        commitCardUseCase.execute(input, output);
+//
+//        assertEquals(1, backlogStage.getCommittedCards().size());
+//        assertEquals(scrumDefaultWorkflow.getId(), buyCoffee.getWorkflowId());
+//        assertEquals(backlogStage.getId(), buyCoffee.getLaneId());
+//    }
 }
 

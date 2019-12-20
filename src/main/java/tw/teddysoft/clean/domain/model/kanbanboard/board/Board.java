@@ -3,24 +3,33 @@ package tw.teddysoft.clean.domain.model.kanbanboard.board;
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
+import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Board extends Entity {
 
+    private String title;
     private Set<BoardStage> boardStages;
+    private Set<CommittedWorkflow> committedWorkflows;
 
-    public Board(String name) {
-        super(name);
-        boardStages = new HashSet<BoardStage>();
+    public Board(String title) {
+        super("");
+        this.title = title;
+        boardStages = new HashSet<>();
+        committedWorkflows = new HashSet<>();
 
         DomainEventPublisher
                 .instance()
                 .publish(new BoardCreated(
                         this.getId(),
-                        this.getName()));
+                        this.getTitle()));
+    }
+
+    public void commitWorkflow(String workflowId){
+        CommittedWorkflow committedWorkflow = new CommittedWorkflow(this.getId(), workflowId);
+        committedWorkflow.setOrdering(committedWorkflows.size() + 1);
+        committedWorkflows.add(committedWorkflow);
     }
 
     public Stage createStage(String stageName) {
@@ -37,7 +46,6 @@ public class Board extends Entity {
     public Set<BoardStage> getBoardStages() {
         return Collections.unmodifiableSet(boardStages);
     }
-
 
     public int getStageOrderingByStageId(String id){
         for (BoardStage each : boardStages){

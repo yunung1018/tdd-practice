@@ -21,18 +21,18 @@ public class AddSwimLaneTest {
         util.createScrumBoardAndStage();
     }
 
-    @Test
-    public void add_a_swim_lane_to_the_todo_stage_of_a_scrumboard(){
-
-        AddSwimLaneUseCase addSwimLaneUC = new AddSwimLaneUseCaseImpl(util.getStageRepository());
-        AddSwimLaneInput input = AddSwimLaneUseCaseImpl.createInput();
-        Stage todo = util.getStageRepository().findFirstByName("To Do");
-        input.setStageId(todo.getId());
-        input.setMiniStageId(todo.getMiniStages().get(0).getId());
-
-        addSwimLaneUC.execute(input, null);
-
-        MiniStage miniStage = util.getStageRepository().findFirstByName("To Do").getMiniStages().get(0);
-        assertEquals(2, miniStage.getTotalNumberOfSwimLane());
-    }
+//    @Test
+//    public void add_a_swim_lane_to_the_todo_stage_of_a_scrumboard(){
+//
+//        AddSwimLaneUseCase addSwimLaneUC = new AddSwimLaneUseCaseImpl(util.getStageRepository());
+//        AddSwimLaneInput input = AddSwimLaneUseCaseImpl.createInput();
+//        Stage todo = util.getStageRepository().findFirstByName("To Do");
+//        input.setStageId(todo.getId());
+//        input.setMiniStageId(todo.getMiniStages().get(0).getId());
+//
+//        addSwimLaneUC.execute(input, null);
+//
+//        MiniStage miniStage = util.getStageRepository().findFirstByName("To Do").getMiniStages().get(0);
+//        assertEquals(2, miniStage.getTotalNumberOfSwimLane());
+//    }
 }

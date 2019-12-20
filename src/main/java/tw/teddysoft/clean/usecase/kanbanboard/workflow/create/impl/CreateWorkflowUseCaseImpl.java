@@ -27,7 +27,7 @@ public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
         repository.save(workflow);
 
         output.setWorkflowId(workflow.getId());
-        output.setWorkflowName(workflow.getName());
+        output.setWorkflowName(workflow.getTitle());
     }
 
 
