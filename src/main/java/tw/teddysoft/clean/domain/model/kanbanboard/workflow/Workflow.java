@@ -13,10 +13,13 @@ public class Workflow extends Entity {
 
     private final String boardId;
     private final List<Lane> stages;
+    private String title;
 
-    public Workflow(String name, String boardId){
-        super(name);
+    public Workflow(String title, String boardId){
+        super("");
         this.boardId = boardId;
+        this.title = title;
+
         stages = new ArrayList<>();
 
         DomainEventPublisher
@@ -91,9 +94,10 @@ public class Workflow extends Entity {
         DomainEventPublisher
                 .instance()
                 .publish(new CardCommitted(
+                        this.getId(),
                         toLane.getId(),
-                        toLane.getTitle(),
-                        cardId));
+                        cardId,
+                        toLane.getTitle()));
     }
 
     public void uncommitCard(String cardId, String laneId) {
@@ -108,9 +112,10 @@ public class Workflow extends Entity {
         DomainEventPublisher
                 .instance()
                 .publish(new CardUncommitted(
+                        this.getId(),
                         lane.getId(),
-                        lane.getTitle(),
-                        cardId));
+                        cardId,
+                        lane.getTitle()));
     }
 
     public void moveCard(String cardId, String fromLaneId, String toLandId) {
@@ -132,16 +137,18 @@ public class Workflow extends Entity {
         DomainEventPublisher
                 .instance()
                 .publish(new CardUncommitted(
+                        this.getId(),
                         fromLane.getId(),
-                        fromLane.getTitle(),
-                        cardId));
+                        cardId,
+                        fromLane.getTitle()));
 
         DomainEventPublisher
                 .instance()
                 .publish(new CardCommitted(
+                        this.getId(),
                         toLane.getId(),
-                        toLane.getTitle(),
-                        cardId));
+                        cardId,
+                        toLane.getTitle()));
     }
 
 
@@ -241,7 +248,15 @@ public class Workflow extends Entity {
         return sb.toString();
     }
 
-//    public void moveCard(String cardId, String toLandId) {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    //    public void moveCard(String cardId, String toLandId) {
 //        Lane toLane = findLaneById(toLandId);
 //        if (null == toLane)
 //            throw new RuntimeException("Cannot commit a card to a non-existing land '" + toLandId + "'");

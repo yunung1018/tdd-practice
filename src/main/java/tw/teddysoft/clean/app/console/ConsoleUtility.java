@@ -11,7 +11,7 @@ public class ConsoleUtility {
 //        System.out.println("=============================================================================================================" );
 
         for(Stage each : repository.findAll()){
-            System.out.printf("%-16s", each.getTitle());
+            System.out.printf("%-16s", each.getName());
 
 //            System.out.printf("%-18s", host.getAddress());
 //            System.out.printf("%-16s", context.getCommand(new CommandId(host.getCommandId())).getCommandName());

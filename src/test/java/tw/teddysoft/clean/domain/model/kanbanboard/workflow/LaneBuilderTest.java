@@ -4,8 +4,7 @@ import org.junit.Test;
 import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class LaneBuilderTest extends AbstractDomainEventTest {
 
@@ -17,13 +16,13 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
                 .build();
 
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
-        assertFalse(lane instanceof Stage);
+        assertTrue(lane instanceof Stage);
         assertEquals(0, lane.getWipLimit());
         assertEquals("Backlog", lane.getTitle());
         assertEquals("000-1234", lane.getWorkflowId());
 
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("MinistageCreated");
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageCreated");
     }
 
     @Test
@@ -31,6 +30,7 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
         Lane lane = LaneBuilder.getInstance()
                 .title("Backlog")
                 .workflowId("000-1234")
+                .swimlane()
                 .stage()
                 .wipLimit(5)
                 .build();
@@ -42,27 +42,11 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
     }
 
     @Test
-    public void create_ministage() {
-        Lane lane = LaneBuilder.getInstance()
-                .wipLimit(3)
-                .title("Backlog")
-                .workflowId("000-1234")
-                .stage()
-                .ministage()
-                .build();
-
-        assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
-        assertEquals(3, lane.getWipLimit());
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("MinistageCreated");
-    }
-
-    @Test
     public void create_swimlane() {
         Lane lane = LaneBuilder.getInstance()
                 .title("Backlog")
                 .workflowId("000-1234")
-                .ministage()
+                .stage()
                 .swimlane()
                 .wipLimit(1)
                 .build();

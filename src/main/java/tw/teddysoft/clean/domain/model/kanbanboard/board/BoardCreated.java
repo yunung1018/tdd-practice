@@ -4,7 +4,7 @@ import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
 
 public class BoardCreated extends AbstractDomainEvent {
 
-    public BoardCreated(String id, String name) {
-        super(id, name);
+    public BoardCreated(String id, String title) {
+        super(id, title);
     }
 }

@@ -35,9 +35,10 @@ public class EventSourcingSubscriberTest extends AbstractDomainEventTest {
         util.createScrumBoardAndStage();
         util.createCardOnScrumBoard(new String [] {"Apple Pay", "Line Pay", "Pay by Master Card"});
 
-        assertThat(domainEventRepository.findAll().size()).isEqualTo(16);
-        assertThat(domainEventRepository.findAll().get(0).getDetail()).startsWith("BoardCreated[name='Scrum Board'");
-        assertThat(domainEventRepository.findAll().get(15).getDetail()).startsWith("WorkItemMovedIn");
+        assertThat(domainEventRepository.findAll().size()).isEqualTo(11);
+        assertThat(domainEventRepository.findAll().get(0).getDetail()).startsWith("BoardCreated");
+        assertThat(domainEventRepository.findAll().get(9).getDetail()).startsWith("CardCreated");
+        assertThat(domainEventRepository.findAll().get(10).getDetail()).startsWith("CardCommitted");
     }
 
 }

@@ -47,18 +47,21 @@ public class CreateCardUseCaseImpl implements CreateCardUseCase {
         private String laneId;
 
         @Override
-        public void setTitle(String title) {
+        public CreateCardInput setTitle(String title) {
             this.title = title;
+            return this;
         }
 
         @Override
-        public void setLaneId(String laneId) {
+        public CreateCardInput setLaneId(String laneId) {
             this.laneId = laneId;
+            return this;
         }
 
         @Override
-        public void setWorkflowId(String workflowId) {
+        public CreateCardInput setWorkflowId(String workflowId) {
             this.workflowId = workflowId;
+            return this;
         }
 
         @Override

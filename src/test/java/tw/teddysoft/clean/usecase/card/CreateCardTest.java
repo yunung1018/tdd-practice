@@ -42,9 +42,9 @@ public class CreateCardTest extends AbstractDomainEventTest {
         CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(util.getCardRepository(), util.getWorkflowRepository());
         CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
         CreateCardOutput output = new SingleCardPresenter();
-        input.setTitle("As a user, I want to move a card on boards");
-        input.setWorkflowId(workflow.getId());
-        input.setLaneId(todoStage.getId());
+        input.setTitle("As a user, I want to move a card on boards")
+            .setWorkflowId(workflow.getId())
+            .setLaneId(todoStage.getId());
 
         createCardUseCase.execute(input, output);
 

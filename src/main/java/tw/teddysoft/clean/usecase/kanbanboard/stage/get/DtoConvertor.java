@@ -25,13 +25,13 @@ public class DtoConvertor {
 
         for(MiniStage each : stage.getMiniStages()){
             miniStageDtos.add(new MiniStageDto(
-                    each.getTitle(),
+                    each.getName(),
                     each.getId(),
                     createSwimLaneDtoList(each.getSwimLanes())));
         }
 
         StageDto result = new StageDto(
-                stage.getTitle(),
+                stage.getName(),
                 stage.getId(),
                 ordering,
                 stage.getBoardId(),

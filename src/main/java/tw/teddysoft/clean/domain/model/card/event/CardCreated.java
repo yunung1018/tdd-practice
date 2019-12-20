@@ -4,7 +4,7 @@ import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
 
 public class CardCreated extends AbstractDomainEvent {
 
-    public CardCreated(String id, String name) {
-        super(id, name);
+    public CardCreated(String id, String title) {
+        super(id, title);
     }
 }

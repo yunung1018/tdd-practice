@@ -26,7 +26,7 @@ public class Stage extends Entity {
                 .instance()
                 .publish(new StageCreated(
                         this.getId(),
-                        this.getTitle()));
+                        this.getName()));
 
         addDefaultMiniStage();
     }
@@ -52,7 +52,7 @@ public class Stage extends Entity {
                     .instance()
                     .publish(new MiniStageDeleted(
                             miniStage.getId(),
-                            miniStage.getTitle()));
+                            miniStage.getName()));
             return true;
         }
 

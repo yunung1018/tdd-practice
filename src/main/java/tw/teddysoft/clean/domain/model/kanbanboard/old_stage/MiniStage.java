@@ -26,7 +26,7 @@ public class MiniStage extends Entity {
                 .instance()
                 .publish(new MiniStageCreated(
                         this.getId(),
-                        this.getTitle()));
+                        this.getName()));
 
         addDefaultSwimLane();
     }
@@ -84,7 +84,7 @@ public class MiniStage extends Entity {
                     .instance()
                     .publish(new SwimLaneDeleted(
                             each.getId(),
-                            each.getTitle()));
+                            each.getName()));
         }
         swimLanes.clear();
     }

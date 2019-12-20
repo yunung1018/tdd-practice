@@ -25,7 +25,8 @@ public class InMemoryCardRepository implements CardRepository {
             if (each.getId().equalsIgnoreCase(id))
                 return each;
         }
-        throw new RuntimeException("Cannot find workitem with id : " + id);
+//        throw new RuntimeException("Cannot find card with id : " + id);
+        return null;
     }
 
     @Override

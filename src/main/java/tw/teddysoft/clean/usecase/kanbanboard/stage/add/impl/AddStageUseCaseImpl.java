@@ -21,7 +21,7 @@ public class AddStageUseCaseImpl implements AddStageUseCase {
         repository.save(stage);
 
         output.setStageId(stage.getId());
-        output.setStageName(stage.getTitle());
+        output.setStageName(stage.getName());
         output.setMiniStageId(stage.getDefaultMiniStage().getId());
     }
 

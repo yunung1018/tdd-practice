@@ -9,6 +9,7 @@ import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.card.Card;
+import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
@@ -30,6 +31,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutp
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -108,7 +110,8 @@ public class KanbanTestUtility {
 
 
     public void createCardOnScrumBoard(String [] cardTitles) throws WipLimitExceedException {
-        createCard(cardTitles, scrumDefaultWorkflow, kanbanDefaultWorkflow.getStages().get(0).getId());
+        System.out.println("==> " + scrumDefaultWorkflow.getStages().get(0).getId());
+        createCard(cardTitles, scrumDefaultWorkflow, scrumDefaultWorkflow.getStages().get(0).getId());
     }
 
 
@@ -151,10 +154,7 @@ public class KanbanTestUtility {
 
     private void createCard(String[] cardTitles, Workflow workflow, String laneId) throws WipLimitExceedException {
         for (String each : cardTitles) {
-            Card card = new Card(each);
-
-            cardRepository.save(card);
-            workflow.commitCard(laneId, card.getId());
+            createCard(workflow.getId(), laneId, each, this.getCardRepository(), this.getWorkflowRepository());
         }
     }
 
@@ -232,6 +232,21 @@ public class KanbanTestUtility {
         createCardUseCase.execute(input, output);
 
         return output;
+    }
+
+    public String createCardInScrumbaordTodoStage(String title) {
+        Workflow workflow = getScrumDefaultWorkflow();
+        Lane todoStage = workflow.getStages().get(0);
+
+        CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(getCardRepository(), getWorkflowRepository());
+        CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
+        CreateCardOutput output = new SingleCardPresenter();
+        input.setTitle(title);
+        input.setWorkflowId(workflow.getId())
+                .setLaneId(todoStage.getId());
+
+        createCardUseCase.execute(input, output);
+        return output.getId();
     }
 
 

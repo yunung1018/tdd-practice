@@ -32,14 +32,13 @@ public class FlowEventSubscriberTest {
         util.createKanbanBoardAndStage();
         util.createCardOnKanbanBoard(new String [] {"Print pdf", "Print word", "Print html"});
 
-
-        for(FlowEvent each : domainEventRepository.findAll()){
-            System.out.println(each.detail());
-        }
+//        for(FlowEvent each : domainEventRepository.findAll()){
+//            System.out.println(each.detail());
+//        }
 
         assertThat(domainEventRepository.findAll().size()).isEqualTo(3);
-        assertThat(domainEventRepository.findAll().get(0).detail()).startsWith("WorkItemMovedIn");
-        assertThat(domainEventRepository.findAll().get(2).detail()).startsWith("WorkItemMovedIn");
+        assertThat(domainEventRepository.findAll().get(0).detail()).startsWith("CardCommitted");
+        assertThat(domainEventRepository.findAll().get(2).detail()).startsWith("CardCommitted");
     }
 
 }

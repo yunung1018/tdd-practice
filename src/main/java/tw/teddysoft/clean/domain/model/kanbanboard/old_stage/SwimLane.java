@@ -4,8 +4,6 @@ import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.event.SwimLaneCreated;
-import tw.teddysoft.clean.domain.model.card.event.CardMovedIn;
-import tw.teddysoft.clean.domain.model.card.event.CardMovedOut;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +29,7 @@ public class SwimLane extends Entity {
                 .instance()
                 .publish(new SwimLaneCreated(
                         this.getId(),
-                        this.getTitle()));
+                        this.getName()));
     }
 
     public void commitWorkItemById(String workItemId) throws WipLimitExceedException {
@@ -41,15 +39,15 @@ public class SwimLane extends Entity {
         committedWorkItems.add(new CommittedWorkItem(
                 this.getStageId(), this.getMiniStageId(), this.getId(), workItemId, committedWorkItems.size()+1));
 
-        DomainEventPublisher
-                .instance()
-                .publish(new CardMovedIn(
-                        this.getId(),
-                        this.getTitle(),
-                        this.getStageId(),
-                        this.getMiniStageId(),
-                        this.getId(),
-                        workItemId));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardMovedIn(
+//                        this.getId(),
+//                        this.getTitle(),
+//                        this.getStageId(),
+//                        this.getMiniStageId(),
+//                        this.getId(),
+//                        workItemId));
     }
 
     public int getWipLimit(){
@@ -75,15 +73,15 @@ public class SwimLane extends Entity {
                 committedWorkItems.remove(each);
                 reorderCommittedWorkItem();
 
-                DomainEventPublisher
-                        .instance()
-                        .publish(new CardMovedOut(
-                                this.getId(),
-                                this.getTitle(),
-                                this.getStageId(),
-                                this.getMiniStageId(),
-                                this.getId(),
-                                workItemId));
+//                DomainEventPublisher
+//                        .instance()
+//                        .publish(new CardMovedOut(
+//                                this.getId(),
+//                                this.getTitle(),
+//                                this.getStageId(),
+//                                this.getMiniStageId(),
+//                                this.getId(),
+//                                workItemId));
                 return true;
             }
         }

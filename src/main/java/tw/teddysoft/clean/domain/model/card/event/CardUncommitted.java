@@ -1,28 +1,12 @@
 package tw.teddysoft.clean.domain.model.card.event;
 
 import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
+import tw.teddysoft.clean.domain.model.FlowEvent;
 
-public class CardUncommitted extends AbstractDomainEvent {
+public class CardUncommitted extends FlowEvent {
 
-    private String cardId;
-
-    public CardUncommitted(String sourceId, String title, String cardId) {
-        super(sourceId, title);
-        this.cardId = cardId;
+    public CardUncommitted(String workflowId, String laneId, String cardId, String summary) {
+        super(workflowId, laneId, cardId, summary);
     }
 
-    @Override
-    public String detail() {
-        String formatDate = String.format("occurredOn='%1$tY-%1$tm-%1$td %1$tH:%1$tM']", occurredOn());
-        String format = String.format(
-                "%s[Lane title='%s', Lane id='%s', Card id ='%s'] ",
-                this.getClass().getSimpleName(),
-                this.getSourceTitle(), this.getSourceId(),
-                getCardId());
-        return format + formatDate;
-    }
-
-    public String getCardId() {
-        return cardId;
-    }
 }

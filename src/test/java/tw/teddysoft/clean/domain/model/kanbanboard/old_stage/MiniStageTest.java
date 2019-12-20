@@ -17,7 +17,7 @@ public class MiniStageTest {
 
     @Test
     public void create_a_ministate_instance_without_arguments_should_get_empty_name() {
-        assertEquals("", stage.getDefaultMiniStage().getTitle());
+        assertEquals("", stage.getDefaultMiniStage().getName());
     }
 
     @Test(expected = RuntimeException.class)
