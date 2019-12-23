@@ -8,7 +8,6 @@ import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowP
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
@@ -213,13 +212,13 @@ public class KanbanTestUtility {
 
 
     public static String createCard(String workflowId, String landId, String title, CardRepository carRepository, WorkflowRepository workflowRepository){
-        CreateCardOutput output = doCreateCard(workflowId, landId, title, carRepository, workflowRepository);
+        CreateCardOutput output = doCreateCardUseCase(workflowId, landId, title, carRepository, workflowRepository);
         return output.getId();
     }
 
 
 
-    public static CreateCardOutput doCreateCard(String workflowId, String landId, String title, CardRepository cardRepository, WorkflowRepository workflowRepository){
+    public static CreateCardOutput doCreateCardUseCase(String workflowId, String landId, String title, CardRepository cardRepository, WorkflowRepository workflowRepository){
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(cardRepository, workflowRepository);
         CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
@@ -247,6 +246,30 @@ public class KanbanTestUtility {
 
         createCardUseCase.execute(input, output);
         return output.getId();
+    }
+
+    public Lane getReady() {
+        return kanbanDefaultWorkflow.getStages().get(0);
+    }
+
+    public Lane getAnalysis() {
+        return kanbanDefaultWorkflow.getStages().get(1);
+    }
+
+    public Lane getDevelopment() {
+        return kanbanDefaultWorkflow.getStages().get(2);
+    }
+
+    public Lane getTest() {
+        return kanbanDefaultWorkflow.getStages().get(3);
+    }
+
+    public Lane getReadyToDeploy() {
+        return kanbanDefaultWorkflow.getStages().get(4);
+    }
+
+    public Lane getDeployed() {
+        return kanbanDefaultWorkflow.getStages().get(5);
     }
 
 

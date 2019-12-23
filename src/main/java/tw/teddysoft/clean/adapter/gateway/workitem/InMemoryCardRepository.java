@@ -30,12 +30,12 @@ public class InMemoryCardRepository implements CardRepository {
     }
 
     @Override
-    public Card findFirstByName(String name) {
+    public Card findFirstByTitle(String title) {
         for(Card each : cards){
-            if (each.getTitle().equals(name))
+            if (each.getTitle().equals(title))
                 return each;
         }
-        throw new RuntimeException("Cannot find workitem with name : " + name);
+        throw new RuntimeException("Cannot find card with title : " + title);
     }
 
     @Override

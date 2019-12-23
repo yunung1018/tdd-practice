@@ -97,7 +97,7 @@ public class Workflow extends Entity {
                         this.getId(),
                         toLane.getId(),
                         cardId,
-                        toLane.getTitle()));
+                        "lane title -> '" + toLane.getTitle() + "'"));
     }
 
     public void uncommitCard(String cardId, String laneId) {
