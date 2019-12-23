@@ -1,8 +1,8 @@
 package tw.teddysoft.clean.adapter.presenter.kanbanboard.board;
 
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
 
-public class SingleBoardPresenter implements AddBoardOutput {
+public class SingleBoardPresenter implements CreateBoardOutput {
 
     private String boardId;
     private String boardName;

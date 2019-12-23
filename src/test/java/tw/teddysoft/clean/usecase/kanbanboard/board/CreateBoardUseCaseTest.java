@@ -6,13 +6,12 @@ import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryBoardRepository;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkspaceRepository;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.board.SingleBoardPresenter;
 import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardInput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.impl.AddBoardUseCaseImpl;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardInput;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.impl.CreateBoardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl.CreateWorkspaceUseCaseImpl;
@@ -20,7 +19,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl.CreateWorksp
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
-public class AddBoardUseCaseTest extends AbstractDomainEventTest {
+public class CreateBoardUseCaseTest extends AbstractDomainEventTest {
 
     public static final String BOARD_NAME = "ScrumBoard";
 
@@ -43,7 +42,7 @@ public class AddBoardUseCaseTest extends AbstractDomainEventTest {
     public void create_a_board_should_commit_it_to_a_workspace() {
 
         BoardRepository boardRepository = new InMemoryBoardRepository();
-        AddBoardOutput output = doAddBoardUseCase(workspaceId, BOARD_NAME, workspaceRepository, boardRepository);
+        CreateBoardOutput output = doAddBoardUseCase(workspaceId, BOARD_NAME, workspaceRepository, boardRepository);
 
         assertNotNull(output.getBoardId());
         assertNotNull(boardRepository.findById(output.getBoardId()));
@@ -59,18 +58,18 @@ public class AddBoardUseCaseTest extends AbstractDomainEventTest {
 
     }
 
-    public static AddBoardOutput doAddBoardUseCase(
+    public static CreateBoardOutput doAddBoardUseCase(
             String workspaceId,
             String boardName,
             WorkspaceRepository workspaceRepository,
             BoardRepository boardRepository){
 
-        AddBoardInput input = AddBoardUseCaseImpl.createInput();
-        AddBoardOutput output = new SingleBoardPresenter();
+        CreateBoardInput input = CreateBoardUseCaseImpl.createInput();
+        CreateBoardOutput output = new SingleBoardPresenter();
         input.setWorkspaceId(workspaceId);
         input.setBoardName(boardName);
 
-        AddBoardUseCase addBoardUC = new AddBoardUseCaseImpl(workspaceRepository, boardRepository);
+        CreateBoardUseCase addBoardUC = new CreateBoardUseCaseImpl(workspaceRepository, boardRepository);
         addBoardUC.execute(input, output);
 
         return output;

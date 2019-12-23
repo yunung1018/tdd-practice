@@ -1,6 +1,5 @@
 package tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace;
 
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
 
 public class SingleWorkspacePresenter implements CreateWorkspaceOutput {

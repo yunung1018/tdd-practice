@@ -1,25 +1,25 @@
-package tw.teddysoft.clean.usecase.kanbanboard.board.add.impl;
+package tw.teddysoft.clean.usecase.kanbanboard.board.create.impl;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardInput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardInput;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
-public class AddBoardUseCaseImpl implements AddBoardUseCase {
+public class CreateBoardUseCaseImpl implements CreateBoardUseCase {
 
     private WorkspaceRepository workspaceRepository;
     private BoardRepository boardRepository;
 
-    public AddBoardUseCaseImpl(WorkspaceRepository workspaceRepository, BoardRepository boardRepository){
+    public CreateBoardUseCaseImpl(WorkspaceRepository workspaceRepository, BoardRepository boardRepository){
         this.workspaceRepository = workspaceRepository;
         this.boardRepository = boardRepository;
     }
 
     @Override
-    public void execute(AddBoardInput input, AddBoardOutput output) {
+    public void execute(CreateBoardInput input, CreateBoardOutput output) {
         Board board = new Board(input.getBoardName(), input.getWorkspaceId());
         boardRepository.save(board);
 
@@ -31,16 +31,16 @@ public class AddBoardUseCaseImpl implements AddBoardUseCase {
         output.setBoardName(board.getName());
     }
 
-    public static AddBoardInput createInput(){
-        return new AddBoardInputImpl();
+    public static CreateBoardInput createInput(){
+        return new CreateBoardInputImpl();
     }
 
-    private static class AddBoardInputImpl implements AddBoardInput{
+    private static class CreateBoardInputImpl implements CreateBoardInput {
         private String workspaceId;
         private String boardName;
 
         @Override
-        public AddBoardInput setBoardName(String boardName) {
+        public CreateBoardInput setBoardName(String boardName) {
             this.boardName = boardName;
             return this;
         }
@@ -51,7 +51,7 @@ public class AddBoardUseCaseImpl implements AddBoardUseCase {
         }
 
         @Override
-        public AddBoardInput setWorkspaceId(String workspaceId) {
+        public CreateBoardInput setWorkspaceId(String workspaceId) {
             this.workspaceId = workspaceId;
             return this;
         }
