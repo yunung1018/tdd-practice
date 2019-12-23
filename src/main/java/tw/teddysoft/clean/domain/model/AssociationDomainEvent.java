@@ -9,17 +9,17 @@ public class AssociationDomainEvent implements DomainEvent {
 
     private final String id;
     private final Date occurredOn;
-    private final String fromId;
-    private final String toId;
+    private final String containerId;
+    private final String containeeId;
 
     private static final long serialVersionUID = 1L;
 
-    public AssociationDomainEvent(String fromId, String toId) {
+    public AssociationDomainEvent(String containerId, String containeeId) {
         super();
         this.id = UUID.randomUUID().toString();
         this.occurredOn = DateProvider.now();
-        this.fromId = fromId;
-        this.toId = toId;
+        this.containerId = containerId;
+        this.containeeId = containeeId;
     }
 
     @Override
@@ -36,9 +36,9 @@ public class AssociationDomainEvent implements DomainEvent {
     public String detail() {
         String formatDate = String.format("occurredOn='%1$tY-%1$tm-%1$td %1$tH:%1$tM']", occurredOn());
         String format = String.format(
-                "%s[from id='%s', to id='%s'] ",
+                "%s[container id='%s', containee id='%s'] ",
                 this.getClass().getSimpleName(),
-                this.getFromId(), this.getToId());
+                this.getContainerId(), this.getContaineeId());
         return format + formatDate;
     }
 
@@ -46,11 +46,11 @@ public class AssociationDomainEvent implements DomainEvent {
         return id;
     }
 
-    protected String getFromId() {
-        return fromId;
+    protected String getContainerId() {
+        return containerId;
     }
 
-    protected String getToId() {
-        return toId;
+    protected String getContaineeId() {
+        return containeeId;
     }
 }

@@ -1,6 +1,8 @@
 package tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl;
 
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
+import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
@@ -8,10 +10,12 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseC
 
 public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
 
-    private WorkflowRepository repository;
+    private BoardRepository boardRepository;
+    private WorkflowRepository workflowRepository;
 
-    public CreateWorkflowUseCaseImpl(WorkflowRepository repository) {
-        this.repository = repository;
+    public CreateWorkflowUseCaseImpl(BoardRepository boardRepository, WorkflowRepository workflowRepository) {
+        this.boardRepository = boardRepository;
+        this.workflowRepository = workflowRepository;
     }
 
 
@@ -23,8 +27,12 @@ public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
     public void execute(CreateWorkflowInput input, CreateWorkflowOutput output) {
 
         Workflow workflow = new Workflow(input.getWorkflowName(), input.getBoardId());
+        workflowRepository.save(workflow);
 
-        repository.save(workflow);
+        // TODO: commit the workflow to its board
+        Board board = boardRepository.findById(input.getBoardId());
+        board.commitWorkflow(workflow.getId());
+        boardRepository.save(board);
 
         output.setWorkflowId(workflow.getId());
         output.setWorkflowName(workflow.getName());
@@ -36,20 +44,26 @@ public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
         private String workflowName;
         private String boardId;
 
+        @Override
         public String getWorkflowName() {
             return workflowName;
         }
 
-        public void setWorkflowName(String workflowName) {
+        @Override
+        public CreateWorkflowInput setWorkflowName(String workflowName) {
             this.workflowName = workflowName;
+            return this;
         }
 
+        @Override
         public String getBoardId() {
             return boardId;
         }
 
-        public void setBoardId(String boardId) {
+        @Override
+        public CreateWorkflowInput setBoardId(String boardId) {
             this.boardId = boardId;
+            return this;
         }
     }
 

@@ -24,7 +24,7 @@ public class InMemoryWorkspaceRepository implements WorkspaceRepository {
             if (each.getId().equalsIgnoreCase(id))
                 return each;
         }
-        throw new RuntimeException("Cannot find board with id : " + id);
+        throw new RuntimeException("Cannot find workspace with id : " + id);
     }
 
     public Workspace findFirstByName(String name) {

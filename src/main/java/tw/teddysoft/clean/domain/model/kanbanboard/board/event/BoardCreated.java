@@ -1,4 +1,4 @@
-package tw.teddysoft.clean.domain.model.kanbanboard.board;
+package tw.teddysoft.clean.domain.model.kanbanboard.board.event;
 
 import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
 

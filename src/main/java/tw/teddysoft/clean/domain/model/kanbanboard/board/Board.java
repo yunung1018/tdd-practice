@@ -2,7 +2,8 @@ package tw.teddysoft.clean.domain.model.kanbanboard.board;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.workspace.event.WorkspaceCreated;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.event.BoardCreated;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.event.WorkflowCommitted;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,6 +31,13 @@ public class Board extends Entity {
         CommittedWorkflow committedWorkflow = new CommittedWorkflow(this.getId(), workflowId);
         committedWorkflow.setOrdering(committedWorkflows.size() + 1);
         committedWorkflows.add(committedWorkflow);
+
+        DomainEventPublisher
+                .instance()
+                .publish(new WorkflowCommitted(
+                        this.getId(),
+                        workflowId));
+
     }
 
 //    public Stage createStage(String stageName) {

@@ -18,16 +18,16 @@ public class BoardCommitted extends AssociationDomainEvent {
         String format = String.format(
                 "%s[workspace id='%s', board id='%s'] ",
                 this.getClass().getSimpleName(),
-                this.getFromId(), this.getToId());
+                this.getWorkspaceId(), this.getBoardId());
         return format + formatDate;
     }
 
     public String getWorkspaceId(){
-        return this.getFromId();
+        return this.getContainerId();
     }
 
-    public String getWorkspaceName(){
-        return this.getToId();
+    public String getBoardId(){
+        return this.getContaineeId();
     }
 
 }

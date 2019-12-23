@@ -4,7 +4,7 @@ import tw.teddysoft.clean.domain.usecase.Input;
 
 public interface CreateWorkflowInput extends Input {
     String getWorkflowName();
-    void setWorkflowName(String workflowName);
+    CreateWorkflowInput setWorkflowName(String workflowName);
     String getBoardId();
-    void setBoardId(String boardId);
+    CreateWorkflowInput setBoardId(String boardId);
 }

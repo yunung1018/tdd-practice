@@ -100,8 +100,10 @@ public class KanbanTestUtility {
         CreateWorkflowOutput output = new SingleWorkflowPresenter();
         input.setBoardId(scrumBoard.getId());
         input.setWorkflowName("Default Workflow");
-        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository);
-        createWorkflowUC.execute(input, output);
+
+//        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(boardRepository, workflowRepository);
+//        createWorkflowUC.execute(input, output);
+
         scrumDefaultWorkflow = workflowRepository.findById(output.getWorkflowId());
         scrumBoard.commitWorkflow(output.getWorkflowId());
 
@@ -124,7 +126,7 @@ public class KanbanTestUtility {
         CreateWorkflowOutput output = new SingleWorkflowPresenter();
         input.setBoardId(kanbanBoard.getId());
         input.setWorkflowName("Default Workflow");
-        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository);
+        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(boardRepository, workflowRepository);
         createWorkflowUC.execute(input, output);
         kanbanDefaultWorkflow = workflowRepository.findById(output.getWorkflowId());
         kanbanBoard.commitWorkflow(output.getWorkflowId());
@@ -168,8 +170,8 @@ public class KanbanTestUtility {
         return scrumDefaultWorkflow;
     }
 
-    public static String create_workflow(String boardId, String title, WorkflowRepository repository) {
-        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(repository);
+    public static String create_workflow(String boardId, String title, BoardRepository boardRepository, WorkflowRepository repository) {
+        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(boardRepository, repository);
 
         CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
         CreateWorkflowOutput output = new SingleWorkflowPresenter();
