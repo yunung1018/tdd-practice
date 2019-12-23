@@ -25,10 +25,6 @@ public class MoveCardUseCaseImpl implements MoveCardUseCase {
         Workflow workflow = workflowRepository.findById(input.getWorkflowId());
         workflow.moveCard(input.getCardId(), input.getFromLaneId(), input.getToLaneId());
         workflowRepository.save(workflow);
-
-        Card card = cardRepository.findById(input.getCardId());
-        card.setLaneId(input.getToLaneId());
-        cardRepository.save(card);
     }
 
 

@@ -1,7 +1,6 @@
 package tw.teddysoft.clean.usecase.card.create.impl;
 
 import tw.teddysoft.clean.domain.model.card.Card;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.card.CardRepository;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
@@ -24,9 +23,7 @@ public class CreateCardUseCaseImpl implements CreateCardUseCase {
 
     @Override
     public void execute(CreateCardInput input, CreateCardOutput output) {
-        Card card = new Card(input.getTitle());
-        card.setWorkflowId(input.getWorkflowId());
-        card.setLaneId(input.getLaneId());
+        Card card = new Card(input.getName(), input.getBoardId(), input.getWorkflowId());
         cardRepository.save(card);
 
         Workflow workflow = workflowRepository.findById(input.getWorkflowId());
@@ -42,13 +39,20 @@ public class CreateCardUseCaseImpl implements CreateCardUseCase {
 
     private static class CreateCardInputImpl implements CreateCardInput {
 
-        private String title;
+        private String name;
+        private String boardId;
         private String workflowId;
         private String laneId;
 
         @Override
-        public CreateCardInput setTitle(String title) {
-            this.title = title;
+        public CreateCardInput setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        @Override
+        public CreateCardInput setBoardId(String boardId) {
+            this.boardId = boardId;
             return this;
         }
 
@@ -65,8 +69,13 @@ public class CreateCardUseCaseImpl implements CreateCardUseCase {
         }
 
         @Override
-        public String getTitle() {
-            return title;
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String getBoardId() {
+            return boardId;
         }
 
         @Override

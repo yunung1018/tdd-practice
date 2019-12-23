@@ -92,6 +92,7 @@ public class Workflow extends Entity {
         DomainEventPublisher
                 .instance()
                 .publish(new CardCommitted(
+                        this.getBoardId(),
                         this.getId(),
                         toLane.getId(),
                         cardId,
@@ -110,6 +111,7 @@ public class Workflow extends Entity {
         DomainEventPublisher
                 .instance()
                 .publish(new CardUncommitted(
+                        this.getBoardId(),
                         this.getId(),
                         lane.getId(),
                         cardId,
@@ -135,6 +137,7 @@ public class Workflow extends Entity {
         DomainEventPublisher
                 .instance()
                 .publish(new CardUncommitted(
+                        this.getBoardId(),
                         this.getId(),
                         fromLane.getId(),
                         cardId,
@@ -143,6 +146,7 @@ public class Workflow extends Entity {
         DomainEventPublisher
                 .instance()
                 .publish(new CardCommitted(
+                        this.getBoardId(),
                         this.getId(),
                         toLane.getId(),
                         cardId,

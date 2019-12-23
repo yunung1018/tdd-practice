@@ -4,7 +4,12 @@ import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
 
 public class CardCreated extends AbstractDomainEvent {
 
-    public CardCreated(String id, String title) {
-        super(id, title);
+    private String boardId;
+    private String workflowId;
+
+    public CardCreated(String id, String name, String boardId, String workflowId) {
+        super(id, name);
+        this.boardId = boardId;
+        this.workflowId = workflowId;
     }
 }

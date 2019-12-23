@@ -8,7 +8,6 @@ import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowP
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
@@ -228,7 +227,7 @@ public class KanbanTestUtility {
         CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
         CreateCardOutput output = new SingleCardPresenter();
 
-        input.setTitle(title);
+        input.setName(title);
         input.setWorkflowId(workflowId);
         input.setLaneId(landId);
 
@@ -244,7 +243,7 @@ public class KanbanTestUtility {
         CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(getCardRepository(), getWorkflowRepository());
         CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
         CreateCardOutput output = new SingleCardPresenter();
-        input.setTitle(title);
+        input.setName(title);
         input.setWorkflowId(workflow.getId())
                 .setLaneId(todoStage.getId());
 

@@ -5,7 +5,7 @@ import tw.teddysoft.clean.domain.model.FlowEvent;
 
 public class CardCommitted extends FlowEvent {
 
-    public CardCommitted(String workflowId, String laneId, String cardId, String summary) {
-        super(workflowId, laneId, cardId, summary);
+    public CardCommitted(String boardId, String workflowId, String laneId, String cardId, String summary) {
+        super(boardId, workflowId, laneId, cardId, summary);
     }
 }

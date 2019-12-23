@@ -4,11 +4,14 @@ import tw.teddysoft.clean.domain.usecase.Input;
 
 public interface CreateCardInput extends Input {
 
-    CreateCardInput setTitle(String title);
-    CreateCardInput setLaneId(String laneId);
+    CreateCardInput setName(String name);
+    CreateCardInput setBoardId(String boardId);
     CreateCardInput setWorkflowId(String workflowId);
+    CreateCardInput setLaneId(String laneId);
 
-    String getTitle();
-    String  getLaneId();
+
+    String getName();
+    String getBoardId();
     String getWorkflowId();
+    String getLaneId();
 }
