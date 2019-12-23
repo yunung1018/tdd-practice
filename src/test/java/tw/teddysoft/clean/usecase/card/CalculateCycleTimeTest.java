@@ -53,7 +53,7 @@ public class CalculateCycleTimeTest {
         assertThat(flowEventRepository.findAll().size()).isEqualTo(0);
 
         util.createCardOnKanbanBoard(new String [] {APPLY_PAY, "Line pay", "Pay by VISA"});
-        APPLY_PAY_ID = util.getCardRepository().findFirstByTitle(APPLY_PAY).getId();
+        APPLY_PAY_ID = util.getCardRepository().findFirstByName(APPLY_PAY).getId();
 
         assertThat(flowEventRepository.findAll().size()).isEqualTo(3);
         assertEquals(3, util.getReady().getCommittedCards().size());
@@ -113,12 +113,12 @@ public class CalculateCycleTimeTest {
         assertThat(flowEventRepository.findAll().size()).isEqualTo(17);
 
         DateProvider.setDate(dateFormat.parse("2019-03-28 00:00:00"));
-        Card card = util.getCardRepository().findFirstByTitle(APPLY_PAY);
+        Card card = util.getCardRepository().findFirstByName(APPLY_PAY);
         CycleTimeCalculator cycleTimeCalculator = new CycleTimeCalculator(flowEventRepository);
         List<FlowEntryPair> flowEntryPairs = cycleTimeCalculator.getCycleTime(card.getId());
 
         System.out.println();
-        System.out.println("Card : [" + card.getTitle() + "]");
+        System.out.println("Card : [" + card.getName() + "]");
         for (FlowEntryPair each : flowEntryPairs){
             Lane lane = kanbanDefaultWorkflow.findLaneById(each.getLaneId());
             System.out.print("[" + lane.getName() + "] ");

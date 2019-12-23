@@ -35,7 +35,7 @@ public class DeleteCardUseCaseImpl implements DeleteCardUseCase {
                 .instance()
                 .publish(new CardDeleted(
                         card.getId(),
-                        card.getTitle()));
+                        card.getName()));
 
         Workflow workflow = workflowRepository.findById(input.getWorkflowId());
         workflow.uncommitCard(input.getCardId(), input.getLaneId());

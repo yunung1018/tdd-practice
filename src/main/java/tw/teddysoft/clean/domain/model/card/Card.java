@@ -7,15 +7,13 @@ import tw.teddysoft.clean.domain.model.card.event.CardCreated;
 
 public class Card extends Entity {
 
-    private String title;
     private String laneId;
     private String workflowId;
 
     public static String NOT_ASSIGNED = "";
 
-    public Card(String title) {
-        super("");
-        this.title = title;
+    public Card(String name) {
+        super(name);
         this.laneId = NOT_ASSIGNED;
         this.workflowId = NOT_ASSIGNED;
 
@@ -23,21 +21,8 @@ public class Card extends Entity {
                 .instance()
                 .publish(new CardCreated(
                         this.getId(),
-                        this.getTitle()));
+                        this.getName()));
     }
-
-//    public Card(String workflowId, String laneId, String title ) {
-//        super("");
-//        this.title = title;
-//        this.laneId = laneId;
-//        this.workflowId = workflowId;
-//
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new CardCreated(
-//                        this.getId(),
-//                        this.getTitle()));
-//    }
 
     public void moveTo(String workflowId, String laneId){
         setWorkflowId(workflowId);
@@ -58,13 +43,5 @@ public class Card extends Entity {
 
     public void setWorkflowId(String workflowId){
         this.workflowId = workflowId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }

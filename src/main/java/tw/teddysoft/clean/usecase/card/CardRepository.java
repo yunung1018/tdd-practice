@@ -9,7 +9,7 @@ public interface CardRepository {
     List<Card> findAll();
     Card findById(String id);
 
-    Card findFirstByTitle(String name);
+    Card findFirstByName(String name);
 
     Card save(Card arg);
     boolean remove(Card arg);
