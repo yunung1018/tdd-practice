@@ -6,19 +6,26 @@ import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.add.AddBoardUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
 public class AddBoardUseCaseImpl implements AddBoardUseCase {
 
-    private BoardRepository repository;
+    private WorkspaceRepository workspaceRepository;
+    private BoardRepository boardRepository;
 
-    public AddBoardUseCaseImpl(BoardRepository repository){
-        this.repository = repository;
+    public AddBoardUseCaseImpl(WorkspaceRepository workspaceRepository, BoardRepository boardRepository){
+        this.workspaceRepository = workspaceRepository;
+        this.boardRepository = boardRepository;
     }
 
     @Override
     public void execute(AddBoardInput input, AddBoardOutput output) {
         Board board = new Board(input.getBoardName(), input.getWorkspaceId());
-        repository.save(board);
+        boardRepository.save(board);
+
+        Workspace workspace = workspaceRepository.findById(input.getWorkspaceId());
+        workspace.commitBoard(board.getId());
+        workspaceRepository.save(workspace);
 
         output.setBoardId(board.getId());
         output.setBoardName(board.getName());

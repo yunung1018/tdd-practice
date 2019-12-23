@@ -2,8 +2,8 @@ package tw.teddysoft.clean.domain.model.kanbanboard.workspace;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.BoardCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.CommittedWorkflow;
+import tw.teddysoft.clean.domain.model.kanbanboard.workspace.event.BoardCommitted;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.event.WorkspaceCreated;
 
 import java.util.*;
@@ -11,12 +11,12 @@ import java.util.*;
 public class Workspace extends Entity {
 
     private String userId;
-    private Set<CommittedWorkflow> committedWorkflows;
+    private Set<CommittedBoard> committedBoards;
 
     public Workspace(String name, String userId) {
         super(name);
         this.userId = userId;
-        committedWorkflows = new HashSet<>();
+        committedBoards = new HashSet<>();
 
         DomainEventPublisher
                 .instance()
@@ -26,41 +26,36 @@ public class Workspace extends Entity {
                         this.getName()));
     }
 
-    public void commitWorkflow(String workflowId){
-        CommittedWorkflow committedWorkflow = new CommittedWorkflow(this.getId(), workflowId);
-        committedWorkflow.setOrdering(committedWorkflows.size() + 1);
-        committedWorkflows.add(committedWorkflow);
+    public void commitBoard(String boardId){
+        CommittedBoard committedBoard = new CommittedBoard(this.getId(), boardId);
+        committedBoard.setOrdering(committedBoards.size() + 1);
+        committedBoards.add(committedBoard);
+
+        DomainEventPublisher
+                .instance()
+                .publish(new BoardCommitted(
+                        this.getId(),
+                        boardId));
     }
 
-//    public Stage createStage(String stageName) {
-//        Stage stage = new Stage(stageName, this.getId());
-//        return stage;
-//    }
-
-//    public void addStage(Stage stage) {
-//        BoardStage boardStage = new BoardStage(this.getId(), stage.getId());
-//        boardStage.setOrdering(boardStages.size() + 1);
-//        boardStages.add(boardStage);
-//    }
-
-    public Set<CommittedWorkflow> getCommittedWorkflow() {
-        return Collections.unmodifiableSet(committedWorkflows);
+    public Set<CommittedBoard> getCommittedBoards() {
+        return Collections.unmodifiableSet(committedBoards);
     }
 
-    public int getWorkflowOrderingById(String workflowId){
-        for (CommittedWorkflow each : committedWorkflows){
-            if (each.getWorkflowId().equalsIgnoreCase(workflowId)){
+    public int getBoardOrderingById(String boardId){
+        for (CommittedBoard each : committedBoards){
+            if (each.getBoardId().equalsIgnoreCase(boardId)){
                 return each.getOrdering();
             }
         }
         return 0;
     }
 
-    public void reorderBoardStage(String stageId, int oldOrdering, int newOrdering) {
+    public void reorderBoards(String boardId, int oldOrdering, int newOrdering) {
         if(isMoveToSameOrdering(newOrdering, oldOrdering))
             return;
 
-        for(CommittedWorkflow each : committedWorkflows){
+        for(CommittedBoard each : committedBoards){
             if(each.getOrdering() == oldOrdering){
                 each.setOrdering(newOrdering);
                 continue;
@@ -83,20 +78,20 @@ public class Workspace extends Entity {
     }
 
 
-    private boolean inForwardAffectedZone(int newOrdering, int oldOrdering, CommittedWorkflow each){
+    private boolean inForwardAffectedZone(int newOrdering, int oldOrdering, CommittedBoard each){
         return each.getOrdering() >= newOrdering && each.getOrdering() < oldOrdering;
     }
 
-    private boolean inBackwardAffectedZone(int newOrdering, int oldOrdering, CommittedWorkflow each){
+    private boolean inBackwardAffectedZone(int newOrdering, int oldOrdering, CommittedBoard each){
         return each.getOrdering() > oldOrdering && each.getOrdering() <= newOrdering;
     }
 
 
-    private boolean inForwardFreeZone(int newOrdering, int oldOrdering, CommittedWorkflow each) {
+    private boolean inForwardFreeZone(int newOrdering, int oldOrdering, CommittedBoard each) {
         return each.getOrdering() < newOrdering || each.getOrdering() > oldOrdering;
     }
 
-    private boolean inBackwardFreeZone(int newOrdering, int oldOrdering, CommittedWorkflow each){
+    private boolean inBackwardFreeZone(int newOrdering, int oldOrdering, CommittedBoard each){
         return (each.getOrdering() < oldOrdering || each.getOrdering() > newOrdering);
     }
 
@@ -110,15 +105,15 @@ public class Workspace extends Entity {
 
     public String dump() {
         StringBuilder sb = new StringBuilder();
-        for (CommittedWorkflow each : committedWorkflows) {
-            sb.append("Workflow");
+        for (CommittedBoard each : committedBoards) {
+            sb.append("board");
             sb.append(String.format("[ordering]=%-16s", each.getOrdering()));
-                sb.append(String.format("[workflow id]=%-40s", each.getWorkflowId()));
+                sb.append(String.format("[board id]=%-40s", each.getBoardId()));
 //                sb.append(String.format("[board id]=%-40s", each.getBoardId()));
                 sb.append("\n");
         }
 
-        System.out.println("Dump Committed Workflows => \n" + sb.toString());
+        System.out.println("Dump Committed Boards => \n" + sb.toString());
 
         return sb.toString();
     }

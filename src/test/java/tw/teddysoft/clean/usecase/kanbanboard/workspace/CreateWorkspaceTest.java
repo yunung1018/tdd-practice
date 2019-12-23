@@ -21,6 +21,9 @@ import static org.junit.Assert.*;
 
 public class CreateWorkspaceTest {
 
+    public static final String USER_ID = "USER_007";
+    public static final String WORKSPACE_NAME = "Teddy's Workspace";
+
     @Before
     public void setUp(){
     }
@@ -29,22 +32,28 @@ public class CreateWorkspaceTest {
     public void add_a_workspace() {
 
         WorkspaceRepository repository = new InMemoryWorkspaceRepository();
+        CreateWorkspaceOutput output = doCreateWorkspaceUseCase(repository, USER_ID, WORKSPACE_NAME);
+
+        assertNotNull(output.getWorkspaceId());
+        assertNotNull(repository.findById(output.getWorkspaceId()));
+        assertEquals(USER_ID, repository.findById(output.getWorkspaceId()).getUserId());
+        assertEquals(1, repository.findAll().size());
+        assertEquals(WORKSPACE_NAME, repository.findAll().get(0).getName());
+    }
+
+
+    public static CreateWorkspaceOutput doCreateWorkspaceUseCase(WorkspaceRepository repository, String userId, String workspaceName){
 
         CreateWorkspaceInput input = CreateWorkspaceUseCaseImpl.createInput();
         CreateWorkspaceOutput output = new SingleWorkspacePresenter();
-        input.setUserId("000-5487");
-        input.setWorkspaceName("Teddy's Workspace");
+        input.setUserId(userId);
+        input.setWorkspaceName(workspaceName);
 
         CreateWorkspaceUseCase createWorkspaceUC = new CreateWorkspaceUseCaseImpl(repository);
         createWorkspaceUC.execute(input, output);
 
-        assertNotNull(output.getWorkspaceId());
-        assertNotNull(repository.findById(output.getWorkspaceId()));
-        assertEquals(input.getUserId(), repository.findById(output.getWorkspaceId()).getUserId());
-        assertEquals(1, repository.findAll().size());
-        assertEquals("Teddy's Workspace", repository.findAll().get(0).getName());
+        return output;
     }
-
 
 
 }
