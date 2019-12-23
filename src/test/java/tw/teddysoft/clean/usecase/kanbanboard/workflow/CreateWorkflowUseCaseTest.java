@@ -10,7 +10,6 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutp
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
 import static org.junit.Assert.*;
 
@@ -21,10 +20,10 @@ public class CreateWorkflowUseCaseTest {
     @Before
     public void setUp(){
         context = new TestContext();
-        context.workspaceId = context.createWorkspace(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoard(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
         assert_creating_a_board_should_craete_a_default_workspace();
     }
 

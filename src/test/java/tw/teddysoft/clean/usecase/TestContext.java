@@ -7,8 +7,6 @@ import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryCardRepository;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.card.CardRepository;
@@ -38,7 +36,8 @@ import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOu
 
 public class TestContext {
 
-    public static final String USER_ID = "USER-8967";
+    public static final String USER_ID = "USER-ID-8967";
+    public static final String WORKSPACE_ID = "WORKSPACE-ID-5678";
     public static final String WORKSPACE_NAME = "Teddy's Workspace";
     public static final String WORKFLOW_NAME = "DEFAULT";
 
@@ -97,7 +96,7 @@ public class TestContext {
     }
 
 
-    public CreateWorkspaceOutput createWorkspace(String userId, String workspaceName) {
+    public CreateWorkspaceOutput createWorkspaceUseCase(String userId, String workspaceName) {
         return CreateWorkspaceTest.doCreateWorkspaceUseCase(workspaceRepository, userId, workspaceName);
     }
 
@@ -105,12 +104,12 @@ public class TestContext {
         return workspaceRepository.findAll().get(0);
     }
 
-    public CreateBoardOutput createBoard(String workspaceId, String boardName) {
+    public CreateBoardOutput createBoardUseCase(String workspaceId, String boardName) {
         return CreateBoardUseCaseTest.doCreateBoardUseCase(workspaceId,
                 boardName, workspaceRepository, boardRepository, workflowRepository);
     }
 
-    public CreateWorkflowOutput createWorkflow(String boardId, String name) {
+    public CreateWorkflowOutput createWorkflowUseCase(String boardId, String name) {
         CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(boardRepository, workflowRepository);
 
         CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
@@ -122,7 +121,7 @@ public class TestContext {
         return output;
     }
 
-    public CreateStageOutput createStage(String workflowId, String name, String parentId){
+    public CreateStageOutput createStageUseCase(String workflowId, String name, String parentId){
 
         CreateStageUseCase createStageLaneUC = new CreateStageUseCaseImpl(workflowRepository);
         CreateStageInput input = CreateStageUseCaseImpl.createInput();
@@ -136,7 +135,7 @@ public class TestContext {
         return output;
     }
 
-    public CreateSwimlaneOutput createSwimlane(String workflowId, String LaneName, String parentId){
+    public CreateSwimlaneOutput createSwimlaneUseCase(String workflowId, String LaneName, String parentId){
 
         CreateSwimlaneUseCase createSwimLaneUC = new CreateSwimlaneUseCaseImpl(workflowRepository);
 
@@ -152,7 +151,7 @@ public class TestContext {
         return output;
     }
 
-    public CreateCardOutput createCard(String name, String workflowId, String laneId) {
+    public CreateCardOutput createCardUseCase(String name, String workflowId, String laneId) {
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(cardRepository, workflowRepository);
         CreateCardInput input = CreateCardUseCaseImpl.createInput() ;

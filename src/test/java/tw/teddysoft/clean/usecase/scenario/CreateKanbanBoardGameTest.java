@@ -3,18 +3,9 @@ package tw.teddysoft.clean.usecase.scenario;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.TestContext;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateBoardUseCaseTest;
-import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.CreateWorkflowUseCaseTest;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -70,7 +61,7 @@ public class CreateKanbanBoardGameTest extends AbstractDomainEventTest {
     }
 
     private String crateWorkspaceUseCase(){
-        context.workspaceId = context.createWorkspace(
+        context.workspaceId = context.createWorkspaceUseCase(
                 CreateWorkspaceTest.USER_ID,
                 CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
@@ -79,32 +70,32 @@ public class CreateKanbanBoardGameTest extends AbstractDomainEventTest {
     }
 
     private String createBoardUseCase(){
-        context.boardId = context.createBoard(context.workspaceId, BOARD_NAME).getBoardId();
+        context.boardId = context.createBoardUseCase(context.workspaceId, BOARD_NAME).getBoardId();
         return context.boardId;
     }
 
     private void createStagesUseCase(){
         workflow = context.getWorkflowRepository().findAll().get(0);
 
-        backlogStageId = context.createStage(workflow.getId(), "Backlog", null).getId();
-        readyStageId = context.createStage(workflow.getId(), "Ready", null).getId();
+        backlogStageId = context.createStageUseCase(workflow.getId(), "Backlog", null).getId();
+        readyStageId = context.createStageUseCase(workflow.getId(), "Ready", null).getId();
 
-        analysisStageId = context.createStage(workflow.getId(), "Analysis", null).getId();
-            analysisInProgressStageId = context.createStage(workflow.getId(), "In Progress", analysisStageId).getId();
-            analysisDoneStageId = context.createStage(workflow.getId(), "Done", analysisStageId).getId();
+        analysisStageId = context.createStageUseCase(workflow.getId(), "Analysis", null).getId();
+            analysisInProgressStageId = context.createStageUseCase(workflow.getId(), "In Progress", analysisStageId).getId();
+            analysisDoneStageId = context.createStageUseCase(workflow.getId(), "Done", analysisStageId).getId();
 
-        developmentStageId = context.createStage(workflow.getId(), "Development", null).getId();
-            developmentInProgressStageId = context.createStage(workflow.getId(), "In Progress", developmentStageId).getId();
-            developmentDoneStageId = context.createStage(workflow.getId(), "Done", developmentStageId).getId();
+        developmentStageId = context.createStageUseCase(workflow.getId(), "Development", null).getId();
+            developmentInProgressStageId = context.createStageUseCase(workflow.getId(), "In Progress", developmentStageId).getId();
+            developmentDoneStageId = context.createStageUseCase(workflow.getId(), "Done", developmentStageId).getId();
 
-        testStageId = context.createStage(workflow.getId(), "Test", null).getId();
-        readyToDeployStageId = context.createStage(workflow.getId(), "Ready to Deploy", null).getId();
-        deployedStageId = context.createStage(workflow.getId(), "Deployed", null).getId();
+        testStageId = context.createStageUseCase(workflow.getId(), "Test", null).getId();
+        readyToDeployStageId = context.createStageUseCase(workflow.getId(), "Ready to Deploy", null).getId();
+        deployedStageId = context.createStageUseCase(workflow.getId(), "Deployed", null).getId();
     }
 
     private void createCardsUseCase(){
         for(int i = 1; i <= 20; i++){
-            context.createCard("S" + 1, workflow.getId(), backlogStageId);
+            context.createCardUseCase("S" + 1, workflow.getId(), backlogStageId);
         }
     }
 }

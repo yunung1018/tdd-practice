@@ -19,10 +19,10 @@ public class CreateLaneTest {
     @Before
     public void setUp(){
         context = new TestContext();
-        context.workspaceId = context.createWorkspace(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoard(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
 
         workflow = context.getWorkflowRepository().findAll().get(0);
     }
@@ -180,7 +180,7 @@ public class CreateLaneTest {
 
 
     private String createWorkflow(String boardId, String name) {
-        return context.createWorkflow(boardId, name).getWorkflowId();
+        return context.createWorkflowUseCase(boardId, name).getWorkflowId();
     }
 
     private String create_top_stage(String workflowId, String name){
@@ -188,11 +188,11 @@ public class CreateLaneTest {
     }
 
     private String createStage(String workflowId, String name, String parentId){
-        return context.createStage(workflowId, name, parentId).getId();
+        return context.createStageUseCase(workflowId, name, parentId).getId();
     }
 
     private String createSwimlane(String workflowId, String name, String parentId){
-        return context.createSwimlane(workflowId, name, parentId).getId();
+        return context.createSwimlaneUseCase(workflowId, name, parentId).getId();
     }
 
 }

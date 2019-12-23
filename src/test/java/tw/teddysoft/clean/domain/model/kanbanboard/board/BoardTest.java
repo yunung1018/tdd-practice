@@ -4,6 +4,7 @@ import org.junit.Test;
 import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
+import tw.teddysoft.clean.usecase.TestContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,7 +12,7 @@ public class BoardTest extends AbstractDomainEventTest {
 
     @Test
     public void creating_board_publishes_BoardCreated_event() {
-        new Board("Scrum Board", KanbanTestUtility.WORKSPACE_ID);
+        new Board("Scrum Board", TestContext.WORKSPACE_ID);
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
         assertThat(subscriber.expectedResult).startsWith("BoardCreated");
     }

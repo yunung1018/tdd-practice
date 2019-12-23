@@ -6,7 +6,6 @@ import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.card.move.MoveCardInput;
 import tw.teddysoft.clean.usecase.card.move.MoveCardOutput;
@@ -34,22 +33,22 @@ public class MoveCardUseCaseTest extends AbstractDomainEventTest {
         super.setUp();
 
         context = new TestContext();
-        context.workspaceId = context.createWorkspace(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoard(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
 
         workflow = context.getWorkflowRepository().findAll().get(0);
-        String todoStageId = context.createStage(workflow.getId(), "To Do", null).getId();
-        String doingStageId = context.createStage(workflow.getId(), "Doing", null).getId();
+        String todoStageId = context.createStageUseCase(workflow.getId(), "To Do", null).getId();
+        String doingStageId = context.createStageUseCase(workflow.getId(), "Doing", null).getId();
 
         todoStage = workflow.findLaneById(todoStageId);
         doingStage = workflow.findLaneById(doingStageId);
         assertEquals(2, workflow.getStages().size());
 
-        card1Id = context.createCard("User story 1", workflow.getId(), todoStageId).getId();
-        card2Id = context.createCard("User story 2", workflow.getId(), todoStageId).getId();
-        card3Id = context.createCard("User story 2", workflow.getId(), todoStageId).getId();
+        card1Id = context.createCardUseCase("User story 1", workflow.getId(), todoStageId).getId();
+        card2Id = context.createCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
+        card3Id = context.createCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
     }
 
     @Test

@@ -7,13 +7,11 @@ import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
 import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
 
@@ -31,14 +29,14 @@ public class CreateCardUseCaseTest extends AbstractDomainEventTest {
         super.setUp();
 
         context = new TestContext();
-        context.workspaceId = context.createWorkspace(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoard(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
 
         workflow = context.getWorkflowRepository().findAll().get(0);
         assertEquals(0, workflow.getStages().size());
-        String todoStageId = context.createStage(workflow.getId(), "To Do", null).getId();
+        String todoStageId = context.createStageUseCase(workflow.getId(), "To Do", null).getId();
         assertEquals(1, workflow.getStages().size());
     }
 

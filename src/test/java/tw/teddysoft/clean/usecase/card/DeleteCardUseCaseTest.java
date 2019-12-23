@@ -4,15 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
-import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.TestContext;
-import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
-import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
-import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
-import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardInput;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardOutput;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardUseCase;
@@ -38,21 +32,21 @@ public class DeleteCardUseCaseTest extends AbstractDomainEventTest {
         super.setUp();
 
         context = new TestContext();
-        context.workspaceId = context.createWorkspace(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoard(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
 
         workflow = context.getWorkflowRepository().findAll().get(0);
         assertEquals(0, workflow.getStages().size());
-        String todoStageId = context.createStage(workflow.getId(), "To Do", null).getId();
+        String todoStageId = context.createStageUseCase(workflow.getId(), "To Do", null).getId();
         todoStage = workflow.findLaneById(todoStageId);
         assertNotNull(todoStage);
         assertEquals(1, workflow.getStages().size());
 
-        card1Id = context.createCard("User story 1", workflow.getId(), todoStageId).getId();
-        card2Id = context.createCard("User story 2", workflow.getId(), todoStageId).getId();
-        card3Id = context.createCard("User story 2", workflow.getId(), todoStageId).getId();
+        card1Id = context.createCardUseCase("User story 1", workflow.getId(), todoStageId).getId();
+        card2Id = context.createCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
+        card3Id = context.createCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
     }
 
     @Test
