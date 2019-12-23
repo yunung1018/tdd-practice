@@ -13,12 +13,10 @@ public class Workflow extends Entity {
 
     private final String boardId;
     private final List<Lane> stages;
-    private String title;
 
-    public Workflow(String title, String boardId){
-        super("");
+    public Workflow(String name, String boardId){
+        super(name);
         this.boardId = boardId;
-        this.title = title;
 
         stages = new ArrayList<>();
 
@@ -27,7 +25,7 @@ public class Workflow extends Entity {
                 .publish(new WorkflowCreated(
                         this.boardId,
                         this.getId(),
-                        this.getTitle()));
+                        this.getName()));
     }
 
     public String getBoardId(){
@@ -38,9 +36,9 @@ public class Workflow extends Entity {
         return Collections.unmodifiableList(stages);
     }
 
-    public Lane addStage(String title) {
+    public Lane addStage(String name) {
         Lane stage = LaneBuilder.getInstance()
-                .title(title)
+                .name(name)
                 .workflowId(getId())
                 .stage()
                 .build();
@@ -50,30 +48,30 @@ public class Workflow extends Entity {
         return stage;
     }
 
-    public Lane addStage(String parentId, String title){
+    public Lane addStage(String parentId, String name){
         Lane parent = findLaneById(parentId);
         if (null == parent)
-            throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the ministage '" + title + "' under it.");
+            throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the stage '" + this.getName() + "' under it.");
 
-        Lane ministage = LaneBuilder.getInstance()
-                .title(title)
+        Lane stage = LaneBuilder.getInstance()
+                .name(name)
                 .workflowId(getId())
                 .stage()
                 .build();
 
-        parent.addSubLane(ministage);
+        parent.addSubLane(stage);
 
         //TODO return a readonly version of ministage
-        return ministage;
+        return stage;
     }
 
-    public Lane addSwimlane(String parentId, String title){
+    public Lane addSwimlane(String parentId, String name){
         Lane parent = findLaneById(parentId);
         if (null == parent)
-            throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the swimlane '" + title + "' under it.");
+            throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the swimlane '" + this.getName() + "' under it.");
 
         Lane swimlane = LaneBuilder.getInstance()
-                .title(title)
+                .name(name)
                 .workflowId(getId())
                 .swimlane()
                 .build();
@@ -97,7 +95,7 @@ public class Workflow extends Entity {
                         this.getId(),
                         toLane.getId(),
                         cardId,
-                        "lane title -> '" + toLane.getTitle() + "'"));
+                        "lane name -> '" + toLane.getName() + "'"));
     }
 
     public void uncommitCard(String cardId, String laneId) {
@@ -115,7 +113,7 @@ public class Workflow extends Entity {
                         this.getId(),
                         lane.getId(),
                         cardId,
-                        lane.getTitle()));
+                        lane.getName()));
     }
 
     public void moveCard(String cardId, String fromLaneId, String toLandId) {
@@ -140,7 +138,7 @@ public class Workflow extends Entity {
                         this.getId(),
                         fromLane.getId(),
                         cardId,
-                        fromLane.getTitle()));
+                        fromLane.getName()));
 
         DomainEventPublisher
                 .instance()
@@ -148,7 +146,7 @@ public class Workflow extends Entity {
                         this.getId(),
                         toLane.getId(),
                         cardId,
-                        toLane.getTitle()));
+                        toLane.getName()));
     }
 
 
@@ -201,8 +199,8 @@ public class Workflow extends Entity {
 
     private Lane findLaneById(Lane each, String parentId) {
 
-//        System.out.println(each.getTitle() + " id = " + each.getId());
-//        System.out.println(each.getTitle() + " has sublane = " + each.hasSubLane());
+//        System.out.println(each.getName() + " id = " + each.getId());
+//        System.out.println(each.getName() + " has sublane = " + each.hasSubLane());
 
         Lane result = null;
 
@@ -211,7 +209,7 @@ public class Workflow extends Entity {
         }
         else if (each.hasSubLane()) {
             for (Lane next : each.getSubLanes()) {
-//                System.out.println("==> " + next.getTitle());
+//                System.out.println("==> " + next.getName());
                 result = findLaneById(next, parentId);
             }
         }
@@ -230,9 +228,9 @@ public class Workflow extends Entity {
 
 
     private void dumpLane(Lane each, int tabs) {
-//        System.out.println("Lane ==>" + each.getTitle() );
+//        System.out.println("Lane ==>" + each.getName() );
 //        System.out.println("each.hasSubLane() ==>" + each.hasSubLane());
-        System.out.printf(getTabs(tabs) + "%-20s %n", each.getTitle());
+        System.out.printf(getTabs(tabs) + "%-20s %n", each.getName());
         if (each.hasSubLane()) {
             for (Lane next : each.getSubLanes()) {
                 dumpLane(next, tabs+1);
@@ -246,14 +244,6 @@ public class Workflow extends Entity {
             sb.append("\t");
         }
         return sb.toString();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     //    public void moveCard(String cardId, String toLandId) {

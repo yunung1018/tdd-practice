@@ -121,7 +121,7 @@ public class CalculateCycleTimeTest {
         System.out.println("Card : [" + card.getTitle() + "]");
         for (FlowEntryPair each : flowEntryPairs){
             Lane lane = kanbanDefaultWorkflow.findLaneById(each.getLaneId());
-            System.out.print("[" + lane.getTitle() + "] ");
+            System.out.print("[" + lane.getName() + "] ");
             System.out.println(each.getCycleTime().toString());
         }
     }

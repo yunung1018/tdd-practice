@@ -14,12 +14,10 @@ abstract public class Lane extends Entity {
     private final List<Lane> sublanes;
     private final List<CommittedCard> committedCards;
     private final LaneOrientation orientation;
-    private String title;
     private int wipLimit;
 
-    Lane(String title, String workflowId, LaneOrientation orientation) {
-        super("");
-        this.title = title;
+    Lane(String name, String workflowId, LaneOrientation orientation) {
+        super(name);
         this.workflowId = workflowId;
         this.orientation = orientation;
         wipLimit = 0;
@@ -27,8 +25,8 @@ abstract public class Lane extends Entity {
         committedCards = new ArrayList<>();
     }
 
-    Lane(String title, String workflowId, LaneOrientation orientation, int wipLimit) {
-        this(title, workflowId, orientation);
+    Lane(String name, String workflowId, LaneOrientation orientation, int wipLimit) {
+        this(name, workflowId, orientation);
         this.wipLimit = wipLimit;
     }
 
@@ -51,10 +49,6 @@ abstract public class Lane extends Entity {
     public void addSubLane(Lane lane) {
         sublanes.add(lane);
     }
-
-    public void setTitle(String title){this.title = title;}
-
-    public String getTitle(){return title;}
 
     public int getWipLimit() {
         return wipLimit;

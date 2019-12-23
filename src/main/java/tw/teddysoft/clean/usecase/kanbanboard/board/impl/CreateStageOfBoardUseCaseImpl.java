@@ -26,15 +26,15 @@ public class CreateStageOfBoardUseCaseImpl implements CreateStageOfBoardUseCase 
     @Override
     public void execute(CreateStageOfBoardInput input, CreateStageOfBoardOutput output) {
 
-        //To Do: Unit of Work
-        Board board = boardRepository.findById(input.getBoardId());
-        Stage stage  = board.createStage(input.getStageName());
-        stageRepository.save(stage);
-
-        board.addStage(stage);
-        boardRepository.save(board);
-
-        output.setStageId(stage.getId());
+//        //To Do: Unit of Work
+//        Board board = boardRepository.findById(input.getBoardId());
+//        Stage stage  = board.createStage(input.getStageName());
+//        stageRepository.save(stage);
+//
+//        board.addStage(stage);
+//        boardRepository.save(board);
+//
+//        output.setStageId(stage.getId());
 
     }
 

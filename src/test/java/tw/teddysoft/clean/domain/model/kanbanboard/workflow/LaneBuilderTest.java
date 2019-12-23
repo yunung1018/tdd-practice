@@ -11,14 +11,14 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
     @Test
     public void default_lane_created_by_lanebuilder_is_ministage() {
         Lane lane = LaneBuilder.getInstance()
-                .title("Backlog")
+                .name("Backlog")
                 .workflowId("000-1234")
                 .build();
 
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
         assertTrue(lane instanceof Stage);
         assertEquals(0, lane.getWipLimit());
-        assertEquals("Backlog", lane.getTitle());
+        assertEquals("Backlog", lane.getName());
         assertEquals("000-1234", lane.getWorkflowId());
 
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
@@ -28,7 +28,7 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
     @Test
     public void create_stage() {
         Lane lane = LaneBuilder.getInstance()
-                .title("Backlog")
+                .name("Backlog")
                 .workflowId("000-1234")
                 .swimlane()
                 .stage()
@@ -44,7 +44,7 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
     @Test
     public void create_swimlane() {
         Lane lane = LaneBuilder.getInstance()
-                .title("Backlog")
+                .name("Backlog")
                 .workflowId("000-1234")
                 .stage()
                 .swimlane()

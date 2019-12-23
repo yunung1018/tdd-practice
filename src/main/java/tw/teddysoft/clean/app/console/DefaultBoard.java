@@ -19,6 +19,7 @@ public class DefaultBoard {
 
     private BoardRepository boardRepository;
     private StageRepository stageRepository;
+    public static final String WORKSPACE_ID = "000-5678";
     public static final String SCRUM_BOARD_ID = "1";
     public static final String KANBAN_BOARD_GAME_ID = "2";
 
@@ -44,7 +45,7 @@ public class DefaultBoard {
         if (stageRepository.findAll().size() > 0)
             return;
 
-        Board board = new Board("Scrum Board");
+        Board board = new Board("Scrum Board", WORKSPACE_ID);
         boardRepository.save(board);
 
         CreateStageOfBoardUseCase createStageOfBoardUseCase = new CreateStageOfBoardUseCaseImpl(boardRepository, stageRepository);
@@ -85,7 +86,7 @@ public class DefaultBoard {
         if (stageRepository.findAll().size() > 0)
             return;
 
-        Board board = new Board("Kanban Board");
+        Board board = new Board("Kanban Board", WORKSPACE_ID);
         boardRepository.save(board);
 
         CreateStageOfBoardUseCase createStageOfBoardUseCase = new CreateStageOfBoardUseCaseImpl(boardRepository, stageRepository);

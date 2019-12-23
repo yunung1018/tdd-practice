@@ -29,7 +29,7 @@ public class InMemoryBoardRepository implements BoardRepository {
 
     public Board findFirstByName(String name) {
         for(Board each : boards){
-            if (each.getTitle().equals(name))
+            if (each.getName().equals(name))
                 return each;
         }
         throw new RuntimeException("Cannot find board with name : " + name);

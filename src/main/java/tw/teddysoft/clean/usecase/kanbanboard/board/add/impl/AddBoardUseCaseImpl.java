@@ -16,11 +16,11 @@ public class AddBoardUseCaseImpl implements AddBoardUseCase {
 
     @Override
     public void execute(AddBoardInput input, AddBoardOutput output) {
-        Board board = new Board(input.getBoardName());
+        Board board = new Board(input.getBoardName(), input.getWorkspaceId());
         repository.save(board);
 
         output.setBoardId(board.getId());
-        output.setBoardName(board.getTitle());
+        output.setBoardName(board.getName());
     }
 
     public static AddBoardInput createInput(){
@@ -28,17 +28,31 @@ public class AddBoardUseCaseImpl implements AddBoardUseCase {
     }
 
     private static class AddBoardInputImpl implements AddBoardInput{
+        private String workspaceId;
         private String boardName;
 
         @Override
-        public void setBoardName(String boardName) {
+        public AddBoardInput setBoardName(String boardName) {
             this.boardName = boardName;
+            return this;
         }
 
         @Override
         public String getBoardName() {
             return boardName;
         }
+
+        @Override
+        public AddBoardInput setWorkspaceId(String workspaceId) {
+            this.workspaceId = workspaceId;
+            return this;
+        }
+
+        @Override
+        public String getWorkspaceId() {
+            return workspaceId;
+        }
+
     }
 
 }

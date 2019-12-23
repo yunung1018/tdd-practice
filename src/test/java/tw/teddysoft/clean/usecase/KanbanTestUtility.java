@@ -40,6 +40,8 @@ public class KanbanTestUtility {
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
 
+    public static final String WORKSPACE_ID = "000-5678";
+
     public static final String KANBAN_STAGE_1_READY_NAME = "Ready";
     public static final String KANBAN_STAGE_NAME_2_ANALYSIS = "Analysis";
 
@@ -141,8 +143,8 @@ public class KanbanTestUtility {
 //        deployed = stageRepository.findFirstByName("Deployed");
     }
 
-    public Board createBoard(String title) {
-        Board board = new Board(title);
+    public Board createBoard(String name) {
+        Board board = new Board(name, WORKSPACE_ID);
         boardRepository.save(board);
         return board;
     }

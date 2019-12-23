@@ -32,7 +32,7 @@ public class CreateLaneTest {
         create_top_stage(workflow.getId(), "Backlog");
         assertEquals(1, workflow.getStages().size());
         assertEquals(LaneOrientation.VERTICAL, workflow.getStages().get(0).getOrientation());
-        assertEquals("Backlog", workflow.getStages().get(0).getTitle());
+        assertEquals("Backlog", workflow.getStages().get(0).getName());
     }
 
 
@@ -44,11 +44,11 @@ public class CreateLaneTest {
         create_stage(workflow.getId(), "Legend", backlog.getId());
         assertEquals(1, backlog.getSubLanes().size());
         assertEquals(LaneOrientation.VERTICAL, backlog.getSubLanes().get(0).getOrientation());
-        assertEquals("Legend", backlog.getSubLanes().get(0).getTitle());
+        assertEquals("Legend", backlog.getSubLanes().get(0).getName());
 
         create_stage(workflow.getId(), "Ready", backlog.getId());
         assertEquals(LaneOrientation.VERTICAL, backlog.getSubLanes().get(1).getOrientation());
-        assertEquals("Ready", backlog.getSubLanes().get(1).getTitle());
+        assertEquals("Ready", backlog.getSubLanes().get(1).getName());
     }
 
     @Test
@@ -59,13 +59,13 @@ public class CreateLaneTest {
         create_swimlane(workflow.getId(), "Top5", backlog.getId());
         assertEquals(1, backlog.getSubLanes().size());
         assertEquals(LaneOrientation.HORIZONTAL, backlog.getSubLanes().get(0).getOrientation());
-        assertEquals("Top5", backlog.getSubLanes().get(0).getTitle());
+        assertEquals("Top5", backlog.getSubLanes().get(0).getName());
 
 
         create_swimlane(workflow.getId(), "Idea", backlog.getId());
         assertEquals(2, backlog.getSubLanes().size());
         assertEquals(LaneOrientation.HORIZONTAL, backlog.getSubLanes().get(1).getOrientation());
-        assertEquals("Idea", backlog.getSubLanes().get(1).getTitle());
+        assertEquals("Idea", backlog.getSubLanes().get(1).getName());
     }
 
 
@@ -181,20 +181,20 @@ public class CreateLaneTest {
     }
 
 
-    private String create_workflow(String boardId, String title) {
-        return KanbanTestUtility.create_workflow(boardId, title, repository);
+    private String create_workflow(String boardId, String name) {
+        return KanbanTestUtility.create_workflow(boardId, name, repository);
     }
 
-    private String create_top_stage(String workflowId, String title){
-        return create_stage(workflowId, title, null);
+    private String create_top_stage(String workflowId, String name){
+        return create_stage(workflowId, name, null);
     }
 
-    private String create_stage(String workflowId, String title, String parentId){
-        return KanbanTestUtility.create_stage(workflowId, title, parentId, repository);
+    private String create_stage(String workflowId, String name, String parentId){
+        return KanbanTestUtility.create_stage(workflowId, name, parentId, repository);
     }
 
-    private String create_swimlane(String workflowId, String title, String parentId){
-        return KanbanTestUtility.create_swimlane(workflowId, title, parentId, repository);
+    private String create_swimlane(String workflowId, String name, String parentId){
+        return KanbanTestUtility.create_swimlane(workflowId, name, parentId, repository);
     }
 
 }

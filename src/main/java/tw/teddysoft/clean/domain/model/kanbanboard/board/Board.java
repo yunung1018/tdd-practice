@@ -2,28 +2,24 @@ package tw.teddysoft.clean.domain.model.kanbanboard.board;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 
 import java.util.*;
 
 public class Board extends Entity {
 
-    private String title;
-    private Set<BoardStage> boardStages;
+    private String workspaceId;
     private Set<CommittedWorkflow> committedWorkflows;
 
-    public Board(String title) {
-        super("");
-        this.title = title;
-        boardStages = new HashSet<>();
+    public Board(String name, String workspaceId) {
+        super(name);
+        this.workspaceId = workspaceId;
         committedWorkflows = new HashSet<>();
 
         DomainEventPublisher
                 .instance()
                 .publish(new BoardCreated(
                         this.getId(),
-                        this.getTitle()));
+                        this.getName()));
     }
 
     public void commitWorkflow(String workflowId){
@@ -32,24 +28,24 @@ public class Board extends Entity {
         committedWorkflows.add(committedWorkflow);
     }
 
-    public Stage createStage(String stageName) {
-        Stage stage = new Stage(stageName, this.getId());
-        return stage;
+//    public Stage createStage(String stageName) {
+//        Stage stage = new Stage(stageName, this.getId());
+//        return stage;
+//    }
+
+//    public void addStage(Stage stage) {
+//        BoardStage boardStage = new BoardStage(this.getId(), stage.getId());
+//        boardStage.setOrdering(boardStages.size() + 1);
+//        boardStages.add(boardStage);
+//    }
+
+    public Set<CommittedWorkflow> getCommittedWorkflow() {
+        return Collections.unmodifiableSet(committedWorkflows);
     }
 
-    public void addStage(Stage stage) {
-        BoardStage boardStage = new BoardStage(this.getId(), stage.getId());
-        boardStage.setOrdering(boardStages.size() + 1);
-        boardStages.add(boardStage);
-    }
-
-    public Set<BoardStage> getBoardStages() {
-        return Collections.unmodifiableSet(boardStages);
-    }
-
-    public int getStageOrderingByStageId(String id){
-        for (BoardStage each : boardStages){
-            if (each.getStageId().equalsIgnoreCase(id)){
+    public int getWorkflowOrderingById(String workflowId){
+        for (CommittedWorkflow each : committedWorkflows){
+            if (each.getWorkflowId().equalsIgnoreCase(workflowId)){
                 return each.getOrdering();
             }
         }
@@ -60,7 +56,7 @@ public class Board extends Entity {
         if(isMoveToSameOrdering(newOrdering, oldOrdering))
             return;
 
-        for(BoardStage each : boardStages){
+        for(CommittedWorkflow each : committedWorkflows){
             if(each.getOrdering() == oldOrdering){
                 each.setOrdering(newOrdering);
                 continue;
@@ -83,20 +79,20 @@ public class Board extends Entity {
     }
 
 
-    private boolean inForwardAffectedZone(int newOrdering, int oldOrdering, BoardStage each){
+    private boolean inForwardAffectedZone(int newOrdering, int oldOrdering, CommittedWorkflow each){
         return each.getOrdering() >= newOrdering && each.getOrdering() < oldOrdering;
     }
 
-    private boolean inBackwardAffectedZone(int newOrdering, int oldOrdering, BoardStage each){
+    private boolean inBackwardAffectedZone(int newOrdering, int oldOrdering, CommittedWorkflow each){
         return each.getOrdering() > oldOrdering && each.getOrdering() <= newOrdering;
     }
 
 
-    private boolean inForwardFreeZone(int newOrdering, int oldOrdering, BoardStage each) {
+    private boolean inForwardFreeZone(int newOrdering, int oldOrdering, CommittedWorkflow each) {
         return each.getOrdering() < newOrdering || each.getOrdering() > oldOrdering;
     }
 
-    private boolean inBackwardFreeZone(int newOrdering, int oldOrdering, BoardStage each){
+    private boolean inBackwardFreeZone(int newOrdering, int oldOrdering, CommittedWorkflow each){
         return (each.getOrdering() < oldOrdering || each.getOrdering() > newOrdering);
     }
 
@@ -110,24 +106,20 @@ public class Board extends Entity {
 
     public String dump() {
         StringBuilder sb = new StringBuilder();
-        for (BoardStage each : boardStages) {
-            sb.append("BoardStage");
+        for (CommittedWorkflow each : committedWorkflows) {
+            sb.append("Workflow");
             sb.append(String.format("[ordering]=%-16s", each.getOrdering()));
-                sb.append(String.format("[stage id]=%-40s", each.getStageId()));
+                sb.append(String.format("[workflow id]=%-40s", each.getWorkflowId()));
 //                sb.append(String.format("[board id]=%-40s", each.getBoardId()));
                 sb.append("\n");
         }
 
-        System.out.println("Dump BoardStages => \n" + sb.toString());
+        System.out.println("Dump Committed Workflows => \n" + sb.toString());
 
         return sb.toString();
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public String getWorkspaceId() {
+        return workspaceId;
     }
 }

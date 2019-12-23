@@ -37,7 +37,7 @@ public class CreateCardTest extends AbstractDomainEventTest {
 
         assertEquals(0, util.getCardRepository().findAll().size());
         assertEquals(0, todoStage.getCommittedCards().size());
-        assertEquals("To Do", todoStage.getTitle());
+        assertEquals("To Do", todoStage.getName());
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(util.getCardRepository(), util.getWorkflowRepository());
         CreateCardInput input = CreateCardUseCaseImpl.createInput() ;

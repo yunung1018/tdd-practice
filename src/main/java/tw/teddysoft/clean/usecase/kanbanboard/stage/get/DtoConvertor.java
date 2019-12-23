@@ -13,8 +13,8 @@ public class DtoConvertor {
     public static List<StageDto> createStageDtoList(List<Stage> stages, BoardRepository boardRepository){
         List<StageDto> result = new ArrayList<>();
         for(Stage each : stages){
-            boardRepository.findById(each.getBoardId()).getStageOrderingByStageId(each.getId());
-            result.add(crateStageDto(each, boardRepository.findById(each.getBoardId()).getStageOrderingByStageId(each.getId())));
+            boardRepository.findById(each.getBoardId()).getWorkflowOrderingById(each.getId());
+            result.add(crateStageDto(each, boardRepository.findById(each.getBoardId()).getWorkflowOrderingById(each.getId())));
         }
         return result;
     }

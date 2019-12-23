@@ -20,7 +20,7 @@ public class Swimlane extends Lane {
                 .instance()
                 .publish(new SwimlaneCreated(
                         this.getId(),
-                        this.getTitle(),
+                        this.getName(),
                         this.getWorkflowId()));
     }
 

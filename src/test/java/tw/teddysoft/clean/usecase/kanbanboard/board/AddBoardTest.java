@@ -18,21 +18,24 @@ public class AddBoardTest {
     }
 
     @Test
-    public void add_the_first_board_to_cleankanban() {
+    public void add_a_board() {
 
         BoardRepository repository = new InMemoryBoardRepository();
 
         AddBoardInput input = AddBoardUseCaseImpl.createInput();
         AddBoardOutput output = new SingleBoardPresenter();
+        input.setWorkspaceId("000-5487");
         input.setBoardName("ScrumBoard");
 
         AddBoardUseCase addBoardUC = new AddBoardUseCaseImpl(repository);
         addBoardUC.execute(input, output);
 
         assertNotNull(output.getBoardId());
+        assertNotNull(repository.findById(output.getBoardId()));
+        assertEquals(input.getWorkspaceId(), repository.findById(output.getBoardId()).getWorkspaceId());
         assertEquals("ScrumBoard", output.getBoardName());
         assertEquals(1, repository.findAll().size());
-        assertEquals("ScrumBoard", repository.findAll().get(0).getTitle());
+        assertEquals("ScrumBoard", repository.findAll().get(0).getName());
         assertTrue(output.toString().startsWith("Board Name: ScrumBoard; Board Id: "));
     }
 

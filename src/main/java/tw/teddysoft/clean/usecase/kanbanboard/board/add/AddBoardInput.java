@@ -4,6 +4,9 @@ import tw.teddysoft.clean.domain.usecase.Input;
 
 public interface AddBoardInput extends Input {
 
-    void setBoardName(String boardName);
+    AddBoardInput setBoardName(String boardName);
     String getBoardName();
+
+    AddBoardInput setWorkspaceId(String workspaceId);
+    String getWorkspaceId();
 }

@@ -2,7 +2,7 @@ package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
 public class LaneBuilder {
 
-    private String title;
+    private String name;
     private String workflowId;
     private LaneOrientation orientation = LaneOrientation.VERTICAL;
     private boolean isStage = true;
@@ -14,8 +14,8 @@ public class LaneBuilder {
         return new LaneBuilder();
     }
 
-    public LaneBuilder title(String title) {
-        this.title = title;
+    public LaneBuilder name(String name) {
+        this.name = name;
         return this;
     }
 
@@ -43,9 +43,9 @@ public class LaneBuilder {
 
     public Lane build(){
         if (isStage)
-            return new Stage(title,workflowId, wipLimit);
+            return new Stage(name,workflowId, wipLimit);
         else
-            return new Swimlane(title,workflowId, wipLimit);
+            return new Swimlane(name,workflowId, wipLimit);
     }
 
     private boolean isVertical(){

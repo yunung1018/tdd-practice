@@ -20,7 +20,7 @@ public class Stage extends Lane {
                 .instance()
                 .publish(new StageCreated(
                         this.getId(),
-                        this.getTitle(),
+                        this.getName(),
                         this.getWorkflowId()));
     }
 }
