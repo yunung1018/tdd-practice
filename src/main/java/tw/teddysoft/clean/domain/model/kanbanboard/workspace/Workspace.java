@@ -1,28 +1,28 @@
-package tw.teddysoft.clean.domain.model.kanbanboard.board;
+package tw.teddysoft.clean.domain.model.kanbanboard.workspace;
 
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.BoardCreated;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.CommittedWorkflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.event.WorkspaceCreated;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-public class Board extends Entity {
+public class Workspace extends Entity {
 
-    private String workspaceId;
+    private String userId;
     private Set<CommittedWorkflow> committedWorkflows;
 
-    public Board(String name, String workspaceId) {
+    public Workspace(String name, String userId) {
         super(name);
-        this.workspaceId = workspaceId;
+        this.userId = userId;
         committedWorkflows = new HashSet<>();
 
         DomainEventPublisher
                 .instance()
-                .publish(new BoardCreated(
+                .publish(new WorkspaceCreated(
                         this.getId(),
-                        this.getWorkspaceId(),
+                        this.getUserId(),
                         this.getName()));
     }
 
@@ -123,7 +123,7 @@ public class Board extends Entity {
         return sb.toString();
     }
 
-    public String getWorkspaceId() {
-        return workspaceId;
+    public String getUserId() {
+        return userId;
     }
 }

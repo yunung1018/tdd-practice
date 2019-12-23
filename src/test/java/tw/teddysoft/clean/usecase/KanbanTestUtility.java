@@ -8,6 +8,7 @@ import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowP
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
+import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
@@ -40,6 +41,7 @@ public class KanbanTestUtility {
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
 
+    public static final String USER_ID = "USER-8967";
     public static final String WORKSPACE_ID = "000-5678";
 
     public static final String KANBAN_STAGE_1_READY_NAME = "Ready";

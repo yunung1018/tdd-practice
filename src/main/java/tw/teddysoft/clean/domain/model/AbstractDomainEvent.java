@@ -9,17 +9,17 @@ public class AbstractDomainEvent implements DomainEvent {
 
     private final Date occurredOn;
     private final String sourceId;
-    private final String sourceTitle;
+    private final String sourceName;
     private final String id;
 
     private static final long serialVersionUID = 1L;
 
-    public AbstractDomainEvent(String sourceId, String sourceTitle) {
+    public AbstractDomainEvent(String sourceId, String sourceName) {
         super();
         this.id = UUID.randomUUID().toString();
         this.sourceId = sourceId;
         this.occurredOn = DateProvider.now();
-        this.sourceTitle = sourceTitle;
+        this.sourceName = sourceName;
     }
 
 //        this.occurredOn = new Date();
@@ -38,9 +38,9 @@ public class AbstractDomainEvent implements DomainEvent {
     public String detail() {
         String formatDate = String.format("occurredOn='%1$tY-%1$tm-%1$td %1$tH:%1$tM']", occurredOn());
         String format = String.format(
-                "%s[Title='%s', id='%s'] ",
+                "%s[Name='%s', id='%s'] ",
                 this.getClass().getSimpleName(),
-                this.getSourceTitle(), this.getSourceId());
+                this.getSourceName(), this.getSourceId());
         return format + formatDate;
     }
 
@@ -48,8 +48,8 @@ public class AbstractDomainEvent implements DomainEvent {
         return sourceId;
     }
 
-    public String getSourceTitle() {
-        return sourceTitle;
+    public String getSourceName() {
+        return sourceName;
     }
 
     public String getId() {

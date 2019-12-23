@@ -1,6 +1,7 @@
 package tw.teddysoft.clean.usecase.kanbanboard.board;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
+import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 
 import java.util.List;
 

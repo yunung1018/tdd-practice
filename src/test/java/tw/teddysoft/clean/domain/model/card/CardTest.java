@@ -9,7 +9,7 @@ import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CardDomainEventTest extends AbstractDomainEventTest {
+public class CardTest extends AbstractDomainEventTest {
 
     @Before
     public void setUp(){
@@ -21,7 +21,7 @@ public class CardDomainEventTest extends AbstractDomainEventTest {
         storedSubscriber.expectedResults.clear();
         Card card = new Card("Implement apply pay.");
         assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardCreated[Title='Implement apply pay.'");
+        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardCreated[Name='Implement apply pay.'");
     }
 
 

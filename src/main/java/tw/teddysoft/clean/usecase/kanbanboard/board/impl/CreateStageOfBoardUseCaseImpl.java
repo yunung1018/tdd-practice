@@ -1,7 +1,5 @@
 package tw.teddysoft.clean.usecase.kanbanboard.board.impl;
 
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardOutput;

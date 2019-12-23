@@ -2,6 +2,7 @@ package tw.teddysoft.clean.app.console;
 
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.board.SingleStageOfBoardPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
+import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardOutput;

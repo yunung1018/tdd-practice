@@ -1,28 +1,24 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.board;
 
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
+import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
+import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
+import tw.teddysoft.clean.usecase.KanbanTestUtility;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class BoardTest {
-
+public class BoardTest extends AbstractDomainEventTest {
 
     @Test
-    public void when_add_a_stage_to_board_a_boardstage_is_created_and_its_ordering_is_increased_by_1(){
-
-//        Board board = new Board("Kanban Game Board");
-//        Stage stage1 = board.createStage("Ready");
-//        board.addStage(stage1);
-//
-//        assertEquals(1, board.getCommittedWorkflow().size());
-//        assertEquals(1, board.getWorkflowOrderingById(stage1.getId()));
-//
-//        Stage stage2 = board.createStage("Analysis");
-//        board.addStage(stage2);
-//        assertEquals(2, board.getCommittedWorkflow().size());
-//        assertEquals(2, board.getWorkflowOrderingById(stage2.getId()));
-
+    public void creating_board_publishes_BoardCreated_event() {
+        new Board("Scrum Board", KanbanTestUtility.WORKSPACE_ID);
+        assertThat(subscriber.expectedResult).startsWith("BoardCreated");
     }
 
+    //TODO
+    @Test
+    public void deleting_board_publishes_a_BoardDeleted_event() {
+        Workspace board = new Workspace("Scrum Board", KanbanTestUtility.WORKSPACE_ID);
+        // how to delete a board?
+    }
 }
