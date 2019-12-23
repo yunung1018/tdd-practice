@@ -1,31 +1,20 @@
 package tw.teddysoft.clean.app.console;
 
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.board.SingleStageOfBoardPresenter;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.board.impl.CreateStageOfBoardUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.impl.AddMiniStageUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.update.UpdateMiniStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.update.UpdateMiniStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.update.impl.UpdateMiniStageUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
-public class DefaultBoard {
+public class DefaultWorkspace {
 
+    private WorkspaceRepository workspaceRepository;
     private BoardRepository boardRepository;
     private WorkflowRepository workflowRepository;
     public static final String WORKSPACE_ID = "000-5678";
     public static final String SCRUM_BOARD_ID = "1";
     public static final String KANBAN_BOARD_GAME_ID = "2";
 
-    public DefaultBoard(BoardRepository boardRepository, WorkflowRepository workflowRepository){
+    public DefaultWorkspace(WorkspaceRepository workspaceRepository, BoardRepository boardRepository, WorkflowRepository workflowRepository){
+        this.workspaceRepository = workspaceRepository;
         this.boardRepository = boardRepository;
         this.workflowRepository = workflowRepository;
     }
@@ -39,6 +28,7 @@ public class DefaultBoard {
     }
 
     public void clearRepository(){
+        workspaceRepository.findAll().clear();
         boardRepository.findAll().clear();
         workflowRepository.findAll().clear();
     }

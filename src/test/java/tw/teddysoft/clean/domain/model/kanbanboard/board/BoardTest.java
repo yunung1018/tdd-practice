@@ -18,7 +18,6 @@ public class BoardTest extends AbstractDomainEventTest {
     //TODO
     @Test
     public void deleting_board_publishes_a_BoardDeleted_event() {
-        Workspace board = new Workspace("Scrum Board", KanbanTestUtility.WORKSPACE_ID);
         // how to delete a board?
     }
 }
