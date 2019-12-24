@@ -64,16 +64,7 @@ abstract public class Lane extends Entity {
     public void commitCard(String cardId) {
 //        if (isReachWipLimit())
 //            throw new WipLimitExceedException("Exceed WIP limit : " + wipLimit);
-
         committedCards.add(new CommittedCard(cardId, committedCards.size()+1));
-
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new CardMovedIn(
-//                        this.getId(),
-//                        this.getTitle(),
-//                        cardId);
-
     }
 
     public boolean uncommitCard(String cardId) {

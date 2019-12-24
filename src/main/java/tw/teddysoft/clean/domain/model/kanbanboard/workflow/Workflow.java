@@ -5,6 +5,8 @@ import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.card.event.CardCommitted;
 import tw.teddysoft.clean.domain.model.card.event.CardUncommitted;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
+import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.StageCreated;
+import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.SwimlaneCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
 
 import java.util.*;
@@ -20,12 +22,22 @@ public class Workflow extends Entity {
 
         stages = new ArrayList<>();
 
-        DomainEventPublisher
-                .instance()
-                .publish(new WorkflowCreated(
-                        this.boardId,
-                        this.getId(),
-                        this.getName()));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new WorkflowCreated(
+//                        this.boardId,
+//                        this.getId(),
+//                        this.getName()));
+
+//        DomainEventPublisher
+////                .instance()
+////                .publish(new WorkflowCreated(this));
+
+//        DomainEventPublisher
+//                .instance()
+//                .add(new WorkflowCreated(this));
+
+        addDomainEvent(new WorkflowCreated(this));
     }
 
     public String getBoardId(){
@@ -44,6 +56,8 @@ public class Workflow extends Entity {
                 .build();
         stages.add(stage);
 
+
+        addDomainEvent(new StageCreated(this));
         //TODO return a readonly version of stage
         return stage;
     }
@@ -60,6 +74,7 @@ public class Workflow extends Entity {
                 .build();
 
         parent.addSubLane(stage);
+        addDomainEvent(new StageCreated(this));
 
         //TODO return a readonly version of ministage
         return stage;
@@ -77,6 +92,7 @@ public class Workflow extends Entity {
                 .build();
 
         parent.addSubLane(swimlane);
+        addDomainEvent(new SwimlaneCreated(this));
 
         //TODO return a readonly version of swimlane
         return swimlane;
@@ -89,10 +105,16 @@ public class Workflow extends Entity {
 
         toLane.commitCard(cardId);
 
-        DomainEventPublisher
-                .instance()
-                .publish(new CardCommitted(
-                        this.getBoardId(),
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardCommitted(
+//                        this.getBoardId(),
+//                        this.getId(),
+//                        toLane.getId(),
+//                        cardId,
+//                        "lane name -> '" + toLane.getName() + "'"));
+
+        addDomainEvent(new CardCommitted(this.getBoardId(),
                         this.getId(),
                         toLane.getId(),
                         cardId,
@@ -108,14 +130,21 @@ public class Workflow extends Entity {
             throw new RuntimeException("Cannot uncommit card '" + cardId + "' + which does not exist in land '" + laneId + "'");
 
         lane.uncommitCard(cardId);
-        DomainEventPublisher
-                .instance()
-                .publish(new CardUncommitted(
-                        this.getBoardId(),
-                        this.getId(),
-                        lane.getId(),
-                        cardId,
-                        lane.getName()));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardUncommitted(
+//                        this.getBoardId(),
+//                        this.getId(),
+//                        lane.getId(),
+//                        cardId,
+//                        lane.getName()));
+
+        addDomainEvent(new CardUncommitted(
+                this.getBoardId(),
+                this.getId(),
+                lane.getId(),
+                cardId,
+                lane.getName()));
     }
 
     public void moveCard(String cardId, String fromLaneId, String toLandId) {
@@ -134,23 +163,38 @@ public class Workflow extends Entity {
         fromLane.uncommitCard(cardId);
         toLane.commitCard(cardId);
 
-        DomainEventPublisher
-                .instance()
-                .publish(new CardUncommitted(
-                        this.getBoardId(),
-                        this.getId(),
-                        fromLane.getId(),
-                        cardId,
-                        fromLane.getName()));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardUncommitted(
+//                        this.getBoardId(),
+//                        this.getId(),
+//                        fromLane.getId(),
+//                        cardId,
+//                        fromLane.getName()));
+//
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardCommitted(
+//                        this.getBoardId(),
+//                        this.getId(),
+//                        toLane.getId(),
+//                        cardId,
+//                        toLane.getName()));
 
-        DomainEventPublisher
-                .instance()
-                .publish(new CardCommitted(
-                        this.getBoardId(),
-                        this.getId(),
-                        toLane.getId(),
-                        cardId,
-                        toLane.getName()));
+
+        addDomainEvent(new CardUncommitted(
+                this.getBoardId(),
+                this.getId(),
+                fromLane.getId(),
+                cardId,
+                fromLane.getName()));
+
+        addDomainEvent(new CardCommitted(
+                this.getBoardId(),
+                this.getId(),
+                toLane.getId(),
+                cardId,
+                toLane.getName()));
     }
 
 
@@ -249,24 +293,4 @@ public class Workflow extends Entity {
         }
         return sb.toString();
     }
-
-    //    public void moveCard(String cardId, String toLandId) {
-//        Lane toLane = findLaneById(toLandId);
-//        if (null == toLane)
-//            throw new RuntimeException("Cannot commit a card to a non-existing land '" + toLandId + "'");
-//
-//        if (isCardPresented(cardId)){
-//            Lane fromLane = findLaneByCardId(cardId);
-//            fromLane.uncommitCard(cardId);
-//        }
-//        else{
-//            toLane.commitCard(cardId);
-//        }
-//
-//        // 在這裡發 domain event
-//    }
-
-//    public boolean isCardPresented(String cardId){
-//        return false;
-//    }
 }

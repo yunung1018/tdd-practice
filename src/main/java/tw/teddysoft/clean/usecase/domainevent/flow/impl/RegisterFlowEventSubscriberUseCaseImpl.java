@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.usecase.domainevent.flow.impl;
 
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.FlowEvent;
 import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
@@ -13,9 +14,11 @@ import tw.teddysoft.clean.usecase.domainevent.sourcing.EventSourcingSubscriber;
 public class RegisterFlowEventSubscriberUseCaseImpl implements RegisterFlowEventSubscriberUseCase {
 
     private DomainEventRepository<FlowEvent> repository;
+    private DomainEventBus eventBus;
 
-    public RegisterFlowEventSubscriberUseCaseImpl(DomainEventRepository<FlowEvent> repository){
+    public RegisterFlowEventSubscriberUseCaseImpl(DomainEventRepository<FlowEvent> repository, DomainEventBus eventBus){
         this.repository = repository;
+        this.eventBus = eventBus;
     }
 
     public static RegisterFlowEventSubscriberInput createInput(){

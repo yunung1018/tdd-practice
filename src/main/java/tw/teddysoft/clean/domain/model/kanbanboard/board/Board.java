@@ -19,12 +19,7 @@ public class Board extends Entity {
         this.workspaceId = workspaceId;
         committedWorkflows = new HashSet<>();
 
-        DomainEventPublisher
-                .instance()
-                .publish(new BoardCreated(
-                        this.getId(),
-                        this.getWorkspaceId(),
-                        this.getName()));
+        addDomainEvent(new BoardCreated(this));
     }
 
     public void commitWorkflow(String workflowId){
@@ -32,24 +27,9 @@ public class Board extends Entity {
         committedWorkflow.setOrdering(committedWorkflows.size() + 1);
         committedWorkflows.add(committedWorkflow);
 
-        DomainEventPublisher
-                .instance()
-                .publish(new WorkflowCommitted(
-                        this.getId(),
-                        workflowId));
+        addDomainEvent(new WorkflowCommitted(this));
 
     }
-
-//    public Stage createStage(String stageName) {
-//        Stage stage = new Stage(stageName, this.getId());
-//        return stage;
-//    }
-
-//    public void addStage(Stage stage) {
-//        BoardStage boardStage = new BoardStage(this.getId(), stage.getId());
-//        boardStage.setOrdering(boardStages.size() + 1);
-//        boardStages.add(boardStage);
-//    }
 
     public Set<CommittedWorkflow> getCommittedWorkflow() {
         return Collections.unmodifiableSet(committedWorkflows);

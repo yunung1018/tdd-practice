@@ -3,6 +3,7 @@ package tw.teddysoft.clean.usecase.kanbanboard.workflow;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
@@ -20,14 +21,16 @@ public class CreateWorkflowUseCaseTest {
     @Before
     public void setUp(){
         context = new TestContext();
-        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.registerAllEventHandler();
+
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
-        assert_creating_a_board_should_craete_a_default_workspace();
+        context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        assert_creating_a_board_should_create_a_default_workspace();
     }
 
-    private void assert_creating_a_board_should_craete_a_default_workspace(){
+    private void assert_creating_a_board_should_create_a_default_workspace(){
         assertEquals(1, context.getWorkflowRepository().findAll().size());
     }
 
@@ -35,8 +38,8 @@ public class CreateWorkflowUseCaseTest {
     public void create_a_workflow() {
         CreateWorkflowOutput output = createWorkflow(context.boardId,
                 TestContext.WORKFLOW_NAME,
-                context.getBoardRepository(),
-                context.getWorkflowRepository());
+                context.getWorkflowRepository(),
+                context.getDomainEventBus());
 
         assertNotNull(output.getWorkflowId());
         assertEquals(TestContext.WORKFLOW_NAME, output.getWorkflowName());
@@ -47,10 +50,10 @@ public class CreateWorkflowUseCaseTest {
 
     public static CreateWorkflowOutput createWorkflow(String boardId,
                                                       String name,
-                                                      BoardRepository boardRepository,
-                                                      WorkflowRepository workflowRepository){
+                                                      WorkflowRepository workflowRepository,
+                                                      DomainEventBus eventBus){
 
-        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(boardRepository, workflowRepository);
+        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository, eventBus);
 
         CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
         CreateWorkflowOutput output = new SingleWorkflowPresenter();

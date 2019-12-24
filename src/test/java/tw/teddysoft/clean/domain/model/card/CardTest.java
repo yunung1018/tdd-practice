@@ -2,26 +2,21 @@ package tw.teddysoft.clean.domain.model.card;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
-import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
-import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CardTest extends AbstractDomainEventTest {
+public class CardTest {
 
     @Before
     public void setUp(){
-        super.setUp();
+
     }
 
     @Test
     public void creating_a_card_should_publish_a_CardCreated_event() {
-        storedSubscriber.expectedResults.clear();
         Card card = new Card("Implement apply pay.");
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardCreated[Name='Implement apply pay.'");
+        assertThat(card.getDomainEvents().size()).isEqualTo(1);
+        assertThat(card.getDomainEvents().get(0).detail()).startsWith("CardCreated[Name='Implement apply pay.'");
     }
 
 

@@ -3,6 +3,7 @@ package tw.teddysoft.clean.domain.model.card;
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.card.event.CardCreated;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.event.WorkflowCommitted;
 
 
 public class Card extends Entity {
@@ -14,22 +15,24 @@ public class Card extends Entity {
     public static String NOT_ASSIGNED = "";
 
     public Card(String name) {
-        this(name, NOT_ASSIGNED, NOT_ASSIGNED);
+        this(name, NOT_ASSIGNED, NOT_ASSIGNED, NOT_ASSIGNED);
     }
 
 
-    public Card(String name, String boardId, String workflowId) {
+    public Card(String name, String boardId, String workflowId, String laneId) {
         super(name);
         this.boardId = boardId;
         this.workflowId = workflowId;
 
-        DomainEventPublisher
-                .instance()
-                .publish(new CardCreated(
-                        this.getId(),
-                        this.getName(),
-                        this.getBoardId(),
-                        this.getWorkflowId()));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardCreated(
+//                        this.getId(),
+//                        this.getName(),
+//                        this.getBoardId(),
+//                        this.getWorkflowId()));
+
+        addDomainEvent(new CardCreated(this, laneId));
     }
 
 //    public void moveTo(String workflowId, String laneId){

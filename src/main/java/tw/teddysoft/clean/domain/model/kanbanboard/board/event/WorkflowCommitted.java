@@ -1,6 +1,8 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.board.event;
 
 import tw.teddysoft.clean.domain.model.AssociationDomainEvent;
+import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 
 public class WorkflowCommitted extends AssociationDomainEvent {
 
@@ -9,6 +11,15 @@ public class WorkflowCommitted extends AssociationDomainEvent {
 
     public WorkflowCommitted(String boardId, String workflowId){
         super(boardId, workflowId);
+    }
+
+    public WorkflowCommitted(Entity entity) {
+        super(entity);
+    }
+
+    @Override
+    public Board getEntity(){
+        return (Board) super.getEntity();
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.junit.Test;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventRepository;
 import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.domainevent.sourcing.RegisterEventSourcingSubscriberUseCase;
@@ -13,7 +12,7 @@ import tw.teddysoft.clean.usecase.domainevent.sourcing.impl.RegisterEventSourcin
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EventSourcingSubscriberTest extends AbstractDomainEventTest {
+public class EventSourcingSubscriberTest {
 
     private Stage stage;
     private DomainEventRepository<PersistentDomainEvent> domainEventRepository;

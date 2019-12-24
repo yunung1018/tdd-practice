@@ -12,6 +12,8 @@ public class AbstractDomainEvent implements DomainEvent {
     private final String sourceName;
     private final String id;
 
+    private Entity entity;
+
     private static final long serialVersionUID = 1L;
 
     public AbstractDomainEvent(String sourceId, String sourceName) {
@@ -21,6 +23,21 @@ public class AbstractDomainEvent implements DomainEvent {
         this.occurredOn = DateProvider.now();
         this.sourceName = sourceName;
     }
+
+    public AbstractDomainEvent(Entity entity) {
+        super();
+        this.entity = entity;
+        this.id = UUID.randomUUID().toString();
+        this.occurredOn = DateProvider.now();
+
+        sourceId = null;
+        sourceName = null;
+    }
+
+    public Entity getEntity(){
+        return entity;
+    }
+
 
 //        this.occurredOn = new Date();
 

@@ -1,17 +1,5 @@
 package tw.teddysoft.clean.usecase.kanbanboard.board;
 
-import org.junit.Before;
-import org.junit.Test;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.stage.MultipleStagePresenter;
-import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
-import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
-import tw.teddysoft.clean.usecase.KanbanTestUtility;
-import tw.teddysoft.clean.usecase.kanbanboard.board.impl.MoveStageOfBoardUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.get.GetStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.get.GetStageOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.get.GetStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.get.impl.GetStageUseCaseImpl;
-
 import static org.junit.Assert.assertEquals;
 
 /*
@@ -26,7 +14,7 @@ Deployed
  */
 
 
-public class ReorderStageOfBoardTest extends AbstractDomainEventTest {
+public class ReorderStageOfBoardTest  {
 
 //    private KanbanTestUtility util;
 //    private MoveStageOfBoardUseCase moveStageOfBoardUseCase;

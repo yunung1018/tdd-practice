@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl;
 
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
@@ -10,12 +11,12 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseC
 
 public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
 
-    private BoardRepository boardRepository;
-    private WorkflowRepository workflowRepository;
+    private final WorkflowRepository workflowRepository;
+    private final DomainEventBus eventBus;
 
-    public CreateWorkflowUseCaseImpl(BoardRepository boardRepository, WorkflowRepository workflowRepository) {
-        this.boardRepository = boardRepository;
+    public CreateWorkflowUseCaseImpl(WorkflowRepository workflowRepository, DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
+        this.eventBus = eventBus;
     }
 
 
@@ -28,11 +29,13 @@ public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
 
         Workflow workflow = new Workflow(input.getWorkflowName(), input.getBoardId());
         workflowRepository.save(workflow);
+        eventBus.postAll(workflow);
 
-        // TODO: commit the workflow to its board
-        Board board = boardRepository.findById(input.getBoardId());
-        board.commitWorkflow(workflow.getId());
-        boardRepository.save(board);
+
+//        // TODO: commit the workflow to its board
+//        Board board = boardRepository.findById(input.getBoardId());
+//        board.commitWorkflow(workflow.getId());
+//        boardRepository.save(board);
 
         output.setWorkflowId(workflow.getId());
         output.setWorkflowName(workflow.getName());

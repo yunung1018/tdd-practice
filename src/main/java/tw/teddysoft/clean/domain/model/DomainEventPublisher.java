@@ -17,6 +17,7 @@ package tw.teddysoft.clean.domain.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DomainEventPublisher {
@@ -33,6 +34,9 @@ public class DomainEventPublisher {
         }
     };
 
+    private List<DomainEvent> domainEvents;
+    private List<DomainEvent> pendingDomainEvents;
+
     private boolean publishing;
 
     @SuppressWarnings("rawtypes")
@@ -41,6 +45,19 @@ public class DomainEventPublisher {
     public static DomainEventPublisher instance() {
         return instance.get();
     }
+
+    private DomainEventPublisher() {
+        super();
+        this.setPublishing(false);
+        this.ensureSubscribersList();
+        domainEvents = new CopyOnWriteArrayList<>();
+        pendingDomainEvents = new CopyOnWriteArrayList<>();
+    }
+
+    public void add(final DomainEvent aDomainEvent) {
+        domainEvents.add(aDomainEvent);
+    }
+
 
     public <T> void publish(final T aDomainEvent) {
 
@@ -68,6 +85,19 @@ public class DomainEventPublisher {
         }
     }
 
+    public void publishAll(Entity entity) {
+        for (DomainEvent each : entity.getDomainEvents()) {
+            this.publish(each);
+        }
+        entity.clearDomainEvents();
+    }
+
+    public void publishAll() {
+        for (DomainEvent each : domainEvents) {
+            this.publish(each);
+        }
+    }
+
     public void publishAll(Collection<DomainEvent> aDomainEvents) {
         for (DomainEvent domainEvent : aDomainEvents) {
             this.publish(domainEvent);
@@ -89,12 +119,6 @@ public class DomainEventPublisher {
         }
     }
 
-    private DomainEventPublisher() {
-        super();
-
-        this.setPublishing(false);
-        this.ensureSubscribersList();
-    }
 
     @SuppressWarnings("rawtypes")
     private void ensureSubscribersList() {

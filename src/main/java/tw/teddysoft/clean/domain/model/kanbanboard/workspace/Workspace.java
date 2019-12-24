@@ -18,12 +18,14 @@ public class Workspace extends Entity {
         this.userId = userId;
         committedBoards = new HashSet<>();
 
-        DomainEventPublisher
-                .instance()
-                .publish(new WorkspaceCreated(
-                        this.getId(),
-                        this.getUserId(),
-                        this.getName()));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new WorkspaceCreated(
+//                        this.getId(),
+//                        this.getUserId(),
+//                        this.getName()));
+
+        addDomainEvent(new WorkspaceCreated(this));
     }
 
     public void commitBoard(String boardId){
@@ -31,11 +33,13 @@ public class Workspace extends Entity {
         committedBoard.setOrdering(committedBoards.size() + 1);
         committedBoards.add(committedBoard);
 
-        DomainEventPublisher
-                .instance()
-                .publish(new BoardCommitted(
-                        this.getId(),
-                        boardId));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new BoardCommitted(
+//                        this.getId(),
+//                        boardId));
+
+        addDomainEvent(new BoardCommitted(this));
     }
 
     public Set<CommittedBoard> getCommittedBoards() {

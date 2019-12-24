@@ -2,65 +2,69 @@ package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
-public class WorkflowTest extends AbstractDomainEventTest {
+public class WorkflowTest {
 
     private Workflow workflow;
     private String backlogStageId;
 
     @Before
     public void mySetUp(){
-        creating_a_workflow_publishes_a_WorkflowCreated_event();
-        creating_a_stage_should_publish_a_StageCreated_event();
+        creating_a_workflow_should_generate_a_WorkflowCreated_event();
+        creating_a_stage_should_generate_a_StageCreated_event();
     }
 
-    private void creating_a_workflow_publishes_a_WorkflowCreated_event() {
-            workflow = new Workflow("Default", "BOARD_ID");
-            assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-            assertThat(storedSubscriber.expectedResults.get(0)).startsWith("WorkflowCreated");
-            storedSubscriber.expectedResults.clear();
+    private void creating_a_workflow_should_generate_a_WorkflowCreated_event() {
+            workflow = new Workflow("Default", "BOARD_lID");
+            assertThat(workflow.getDomainEvents().size()).isEqualTo(1);
+            assertThat(workflow.getDomainEvents().get(0).detail()).startsWith("WorkflowCreated");
+            workflow.clearDomainEvents();
     }
 
-    private void creating_a_stage_should_publish_a_StageCreated_event() {
+    private void creating_a_stage_should_generate_a_StageCreated_event() {
         backlogStageId = workflow.addStage("Backlog").getId();
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageCreated");
-        storedSubscriber.expectedResults.clear();
+        assertThat(workflow.getDomainEvents().size()).isEqualTo(1);
+        assertThat(workflow.getDomainEvents().get(0).detail()).startsWith("StageCreated");
+        workflow.clearDomainEvents();
     }
 
     @Test
-    public void committing_a_card_should_publish_a_CardCommitted_event() {
-            storedSubscriber.expectedResults.clear();
+    public void committing_a_card_should_generate_a_CardCommitted_event() {
             workflow.commitCard("this_is_card_id_123", backlogStageId);
-            assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardCommitted");
+            assertThat(workflow.getDomainEvents().size()).isEqualTo(1);
+            assertThat(workflow.getDomainEvents().get(0).detail()).startsWith("CardCommitted");
+            workflow.clearDomainEvents();
     }
 
     @Test
-    public void uncommitting_a_card_should_publish_a_CardUncommitted_event() {
-        committing_a_card_should_publish_a_CardCommitted_event();
-        storedSubscriber.expectedResults.clear();
+    public void uncommitting_a_card_should_generate_a_CardUncommitted_event() {
+        committing_a_card_should_generate_a_CardCommitted_event();
 
         workflow.uncommitCard("this_is_card_id_123", backlogStageId);
-
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardUncommitted");
+        assertThat(workflow.getDomainEvents().size()).isEqualTo(1);
+        assertThat(workflow.getDomainEvents().get(0).detail()).startsWith("CardUncommitted");
+        workflow.clearDomainEvents();
     }
 
     @Test
-    public void moving_a_card_should_publish_CardUncommitted_and_CardCommitted_events() {
+    public void moving_a_card_should_generate_CardUncommitted_and_CardCommitted_events() {
+
         String analysisStageId = workflow.addStage("Analysis").getId();
+        workflow.clearDomainEvents();
+
         workflow.commitCard("this_is_card_id_123", backlogStageId);
-        storedSubscriber.expectedResults.clear();
+        assertThat(workflow.getDomainEvents().size()).isEqualTo(1);
+        assertThat(workflow.getDomainEvents().get(0).detail()).startsWith("CardCommitted");
+        workflow.clearDomainEvents();
 
         workflow.moveCard("this_is_card_id_123", backlogStageId, analysisStageId);
-
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(2);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardUncommitted");
-        assertThat(storedSubscriber.expectedResults.get(1)).startsWith("CardCommitted");
+        assertThat(workflow.getDomainEvents().size()).isEqualTo(2);
+        assertThat(workflow.getDomainEvents().get(0).detail()).startsWith("CardUncommitted");
+        assertThat(workflow.getDomainEvents().get(1).detail()).startsWith("CardCommitted");
+        workflow.clearDomainEvents();
     }
 
 

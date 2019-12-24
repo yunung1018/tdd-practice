@@ -1,15 +1,14 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
 import org.junit.Test;
-import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
-public class LaneBuilderTest extends AbstractDomainEventTest {
+public class LaneBuilderTest {
 
     @Test
-    public void default_lane_created_by_lanebuilder_is_ministage() {
+    public void default_lane_created_by_lanebuilder_is_stage() {
         Lane lane = LaneBuilder.getInstance()
                 .name("Backlog")
                 .workflowId("000-1234")
@@ -20,13 +19,11 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
         assertEquals(0, lane.getWipLimit());
         assertEquals("Backlog", lane.getName());
         assertEquals("000-1234", lane.getWorkflowId());
-
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageCreated");
+        assertThat(lane.getDomainEvents().size()).isEqualTo(0);
     }
 
     @Test
-    public void create_stage() {
+    public void create_stage_should_not_generate_domainevent() {
         Lane lane = LaneBuilder.getInstance()
                 .name("Backlog")
                 .workflowId("000-1234")
@@ -35,14 +32,13 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
                 .wipLimit(5)
                 .build();
 
+        assertThat(lane.getDomainEvents().size()).isEqualTo(0);
         assertEquals(5, lane.getWipLimit());
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("StageCreated");
     }
 
     @Test
-    public void create_swimlane() {
+    public void create_swimlane_should_not_generate_domainevent() {
         Lane lane = LaneBuilder.getInstance()
                 .name("Backlog")
                 .workflowId("000-1234")
@@ -53,8 +49,7 @@ public class LaneBuilderTest extends AbstractDomainEventTest {
 
         assertEquals(LaneOrientation.HORIZONTAL, lane.getOrientation());
         assertEquals(1, lane.getWipLimit());
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(1);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("SwimlaneCreated");
+        assertThat(lane.getDomainEvents().size()).isEqualTo(0);
     }
 
 }

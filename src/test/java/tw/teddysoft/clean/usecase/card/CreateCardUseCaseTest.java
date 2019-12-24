@@ -3,7 +3,7 @@ package tw.teddysoft.clean.usecase.card;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
-import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
@@ -19,33 +19,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.registerCustomDateFormat;
 import static org.junit.Assert.*;
 
-public class CreateCardUseCaseTest extends AbstractDomainEventTest {
+public class CreateCardUseCaseTest {
 
     private TestContext context;
     private Workflow workflow;
 
     @Before
     public void setUp(){
-        super.setUp();
 
         context = new TestContext();
-        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.registerAllEventHandler();
+
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
 
         workflow = context.getWorkflowRepository().findAll().get(0);
         assertEquals(0, workflow.getStages().size());
-        String todoStageId = context.createStageUseCase(workflow.getId(), "To Do", null).getId();
+        String todoStageId = context.doCreateStageUseCase(workflow.getId(), "To Do", null).getId();
         assertEquals(1, workflow.getStages().size());
     }
 
     @Test
-    public void create_a_card_also_commit_it_to_a_lane() {
-        storedSubscriber.expectedResults.clear();
+    public void create_a_card_should_commit_it_to_a_lane_by_WorkflowEventHandler() {
 
         Lane todoStage = workflow.getStages().get(0);
-
         assertEquals(0, context.getCardRepository().findAll().size());
         assertEquals(0, todoStage.getCommittedCards().size());
         assertEquals("To Do", todoStage.getName());
@@ -53,7 +52,8 @@ public class CreateCardUseCaseTest extends AbstractDomainEventTest {
         String cardId = doCreateCardUseCase("As a user, I want to move a card on boards",
                 todoStage.getId(),
                 context.getCardRepository(),
-                context.getWorkflowRepository()).getId();
+                context.getWorkflowRepository(),
+                context.getDomainEventBus()).getId();
 
         Card card = context.getCardRepository().findById(cardId);
 
@@ -61,15 +61,16 @@ public class CreateCardUseCaseTest extends AbstractDomainEventTest {
         assertEquals(1, todoStage.getCommittedCards().size());
         assertEquals(card.getId(), todoStage.getCommittedCards().get(0).getCardId());
         assertEquals(workflow.getId(), card.getWorkflowId());
-
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(2);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardCreated");
-        assertThat(storedSubscriber.expectedResults.get(1)).startsWith("CardCommitted");
     }
 
-    public CreateCardOutput doCreateCardUseCase(String Name, String laneId, CardRepository cardRepository, WorkflowRepository workflowRepository){
+    public CreateCardOutput doCreateCardUseCase(
+            String Name,
+            String laneId,
+            CardRepository cardRepository,
+            WorkflowRepository workflowRepository,
+            DomainEventBus eventBus){
 
-        CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(cardRepository, workflowRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(cardRepository, workflowRepository, eventBus);
         CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
         CreateCardOutput output = new SingleCardPresenter();
         input.setName(Name)

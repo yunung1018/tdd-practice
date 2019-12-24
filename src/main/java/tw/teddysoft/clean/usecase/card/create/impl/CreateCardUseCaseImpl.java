@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.usecase.card.create.impl;
 
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.card.CardRepository;
@@ -12,23 +13,25 @@ public class CreateCardUseCaseImpl implements CreateCardUseCase {
 
     private final CardRepository cardRepository;
     private final WorkflowRepository workflowRepository;
+    private final DomainEventBus eventBus;
 
 
-    public CreateCardUseCaseImpl(CardRepository cardRepository, WorkflowRepository workflowRepository) {
+    public CreateCardUseCaseImpl(CardRepository cardRepository, WorkflowRepository workflowRepository, DomainEventBus eventBus) {
         this.cardRepository = cardRepository;
         this.workflowRepository = workflowRepository;
-
+        this.eventBus = eventBus;
     }
 
 
     @Override
     public void execute(CreateCardInput input, CreateCardOutput output) {
-        Card card = new Card(input.getName(), input.getBoardId(), input.getWorkflowId());
+        Card card = new Card(input.getName(), input.getBoardId(), input.getWorkflowId(), input.getLaneId());
         cardRepository.save(card);
+        eventBus.postAll(card);
 
-        Workflow workflow = workflowRepository.findById(input.getWorkflowId());
-        workflow.commitCard(card.getId(), input.getLaneId());
-        workflowRepository.save(workflow);
+//        Workflow workflow = workflowRepository.findById(input.getWorkflowId());
+//        workflow.commitCard(card.getId(), input.getLaneId());
+//        workflowRepository.save(workflow);
 
         output.setId(card.getId());
     }

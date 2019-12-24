@@ -3,7 +3,6 @@ package tw.teddysoft.clean.usecase.card;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
-import tw.teddysoft.clean.domain.model.AbstractDomainEventTest;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.TestContext;
@@ -17,7 +16,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
-public class MoveCardUseCaseTest extends AbstractDomainEventTest {
+public class MoveCardUseCaseTest {
 
     private TestContext context;
     private Workflow workflow;
@@ -30,30 +29,30 @@ public class MoveCardUseCaseTest extends AbstractDomainEventTest {
 
     @Before
     public void setUp(){
-        super.setUp();
 
         context = new TestContext();
-        context.workspaceId = context.createWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.registerAllEventHandler();
+
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
-        context.boardId = context.createBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
+        context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
 
         workflow = context.getWorkflowRepository().findAll().get(0);
-        String todoStageId = context.createStageUseCase(workflow.getId(), "To Do", null).getId();
-        String doingStageId = context.createStageUseCase(workflow.getId(), "Doing", null).getId();
+        String todoStageId = context.doCreateStageUseCase(workflow.getId(), "To Do", null).getId();
+        String doingStageId = context.doCreateStageUseCase(workflow.getId(), "Doing", null).getId();
 
         todoStage = workflow.findLaneById(todoStageId);
         doingStage = workflow.findLaneById(doingStageId);
         assertEquals(2, workflow.getStages().size());
 
-        card1Id = context.createCardUseCase("User story 1", workflow.getId(), todoStageId).getId();
-        card2Id = context.createCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
-        card3Id = context.createCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
+        card1Id = context.doCreateCardUseCase("User story 1", workflow.getId(), todoStageId).getId();
+        card2Id = context.doCreateCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
+        card3Id = context.doCreateCardUseCase("User story 2", workflow.getId(), todoStageId).getId();
     }
 
     @Test
     public void move_card() {
-        storedSubscriber.expectedResults.clear();
 
         doMoveCardUseCase(
                 workflow.getId(),
@@ -70,10 +69,6 @@ public class MoveCardUseCaseTest extends AbstractDomainEventTest {
         assertEquals(card2Id, todoStage.getCommittedCards().get(0).getCardId());
         assertEquals(card3Id, todoStage.getCommittedCards().get(1).getCardId());
         assertEquals(card1Id, doingStage.getCommittedCards().get(0).getCardId());
-
-        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(2);
-        assertThat(storedSubscriber.expectedResults.get(0)).startsWith("CardUncommitted");
-        assertThat(storedSubscriber.expectedResults.get(1)).startsWith("CardCommitted");
     }
 
     public MoveCardOutput doMoveCardUseCase(

@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.usecase.card.delete.impl;
 
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.card.event.CardCreated;
@@ -18,10 +19,12 @@ public class DeleteCardUseCaseImpl implements DeleteCardUseCase {
 
     private final CardRepository cardRepository;
     private final WorkflowRepository workflowRepository;
+    private final DomainEventBus eventBus;
 
-    public DeleteCardUseCaseImpl(CardRepository cardRepository, WorkflowRepository workflowRepository) {
+    public DeleteCardUseCaseImpl(CardRepository cardRepository, WorkflowRepository workflowRepository, DomainEventBus eventBus) {
         this.cardRepository = cardRepository;
         this.workflowRepository = workflowRepository;
+        this.eventBus = eventBus;
     }
 
 
@@ -31,15 +34,17 @@ public class DeleteCardUseCaseImpl implements DeleteCardUseCase {
         Card card = cardRepository.findById(input.getCardId());
         cardRepository.remove(card);
 
-        DomainEventPublisher
-                .instance()
-                .publish(new CardDeleted(
-                        card.getId(),
-                        card.getName()));
+//        DomainEventPublisher
+//                .instance()
+//                .publish(new CardDeleted(
+//                        card.getId(),
+//                        card.getName()));
+        eventBus.post(new CardDeleted(card.getId(), card.getName(), input.getWorkflowId(), input.getLaneId()));
 
-        Workflow workflow = workflowRepository.findById(input.getWorkflowId());
-        workflow.uncommitCard(input.getCardId(), input.getLaneId());
-        workflowRepository.save(workflow);
+
+//        Workflow workflow = workflowRepository.findById(input.getWorkflowId());
+//        workflow.uncommitCard(input.getCardId(), input.getLaneId());
+//        workflowRepository.save(workflow);
     }
 
     public static DeleteCardInput createInput() {

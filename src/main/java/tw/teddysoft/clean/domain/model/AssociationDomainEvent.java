@@ -5,7 +5,7 @@ import tw.teddysoft.clean.domain.common.DateProvider;
 import java.util.Date;
 import java.util.UUID;
 
-public class AssociationDomainEvent implements DomainEvent {
+public class AssociationDomainEvent extends AbstractDomainEvent {
 
     private final String id;
     private final Date occurredOn;
@@ -15,11 +15,20 @@ public class AssociationDomainEvent implements DomainEvent {
     private static final long serialVersionUID = 1L;
 
     public AssociationDomainEvent(String containerId, String containeeId) {
-        super();
+        super(containerId, containeeId);
         this.id = UUID.randomUUID().toString();
         this.occurredOn = DateProvider.now();
         this.containerId = containerId;
         this.containeeId = containeeId;
+    }
+
+    public AssociationDomainEvent(Entity entity) {
+        super(entity);
+
+        this.id = UUID.randomUUID().toString();
+        this.occurredOn = DateProvider.now();
+        this.containerId = null;
+        this.containeeId = null;
     }
 
     @Override
