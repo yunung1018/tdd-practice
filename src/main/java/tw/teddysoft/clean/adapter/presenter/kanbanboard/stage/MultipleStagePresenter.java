@@ -1,7 +1,7 @@
 package tw.teddysoft.clean.adapter.presenter.kanbanboard.stage;
 
-import tw.teddysoft.clean.usecase.kanbanboard.stage.get.GetStageOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.get.StageDto;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.GetStageOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.StageDto;
 
 import java.util.ArrayList;
 import java.util.List;

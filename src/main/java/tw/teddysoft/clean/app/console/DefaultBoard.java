@@ -1,20 +1,6 @@
 package tw.teddysoft.clean.app.console;
 
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.board.SingleStageOfBoardPresenter;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.board.impl.CreateStageOfBoardUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.AddMiniStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.add.impl.AddMiniStageUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.update.UpdateMiniStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.update.UpdateMiniStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.ministage.update.impl.UpdateMiniStageUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 
 public class DefaultBoard {

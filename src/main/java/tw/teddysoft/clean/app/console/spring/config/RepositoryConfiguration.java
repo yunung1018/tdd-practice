@@ -6,10 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkflowRepository;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.SerializableBoardRepository;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.SerializableStageRepository;
 import tw.teddysoft.clean.app.console.DefaultBoard;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 
 @Configuration

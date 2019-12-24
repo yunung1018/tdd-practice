@@ -4,7 +4,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.StageRepository;
 
 public class CreateStageOfBoardUseCaseImpl implements CreateStageOfBoardUseCase {
 

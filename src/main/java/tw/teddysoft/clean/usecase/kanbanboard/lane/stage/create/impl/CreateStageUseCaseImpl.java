@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.impl;
 
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.*;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageInput;
@@ -9,9 +10,12 @@ import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageUseCa
 public class CreateStageUseCaseImpl implements CreateStageUseCase {
 
     private WorkflowRepository repository;
+    private DomainEventBus eventBus;
 
-    public CreateStageUseCaseImpl(WorkflowRepository repository) {
+    public CreateStageUseCaseImpl(WorkflowRepository repository,
+                                  DomainEventBus eventBus) {
         this.repository = repository;
+        this.eventBus = eventBus;
     }
 
 
@@ -25,11 +29,12 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
 
         Lane stage;
         if (input.isTopStage())
-            stage = workflow.addStage(input.getTitle());
+            stage = workflow.addStage(input.getName());
         else
-            stage = workflow.addStage(input.getParentId(), input.getTitle());
+            stage = workflow.addStage(input.getParentId(), input.getName());
 
         repository.save(workflow);
+        eventBus.postAll(workflow);
 
         output.setId(stage.getId());
     }
@@ -51,8 +56,8 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
         }
 
         @Override
-        public void setTitle(String title) {
-            this.title = title;
+        public void setName(String name) {
+            this.title = name;
         }
 
         @Override
@@ -61,7 +66,7 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
         }
 
         @Override
-        public String getTitle(){
+        public String getName(){
             return this.title;
         }
 

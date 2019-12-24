@@ -8,8 +8,10 @@ import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryCardRepository;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
+import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.FlowEvent;
+import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.card.CardRepository;
@@ -18,10 +20,7 @@ import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
 import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.handler.BoardEventHandler;
-import tw.teddysoft.clean.usecase.domainevent.handler.FlowEventHandler;
-import tw.teddysoft.clean.usecase.domainevent.handler.WorkflowEventHandler;
-import tw.teddysoft.clean.usecase.domainevent.handler.WorkspaceEventHandler;
+import tw.teddysoft.clean.usecase.domainevent.handler.*;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateBoardUseCaseWithEventHandlerTest;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
@@ -56,10 +55,12 @@ public class TestContext {
     private WorkflowRepository workflowRepository;
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
-
     private DomainEventRepository<FlowEvent> flowEventRepository;
+    private DomainEventRepository<PersistentDomainEvent> storedEventRepository;
+
     private WorkflowEventHandler workflowEventHandler;
     private FlowEventHandler flowEventHandler;
+    private EventSourcingHandler eventSourcingHandler;
 
     public String workspaceId;
     public String boardId;
@@ -81,6 +82,7 @@ public class TestContext {
                 new InMemoryBoardRepository(),
                 new InMemoryWorkflowRepository(),
                 new InMemoryCardRepository(),
+                new InMemoryDomainEventRepository(),
                 new InMemoryDomainEventRepository());
     }
     public static TestContext newInstance() {
@@ -92,18 +94,22 @@ public class TestContext {
             BoardRepository boardRepository,
                        WorkflowRepository workflowRepository,
                        CardRepository cardRepository,
-                        DomainEventRepository<FlowEvent> flowEventRepository){
+                        DomainEventRepository<FlowEvent> flowEventRepository,
+                        DomainEventRepository<PersistentDomainEvent> storedEventRepository){
 
         this.workspaceRepository = workspaceRepository;
         this.boardRepository = boardRepository;
         this.workflowRepository = workflowRepository;
         this.cardRepository = cardRepository;
         this.flowEventRepository = flowEventRepository;
+        this.storedEventRepository = storedEventRepository;
 
         this.eventBus = new DomainEventBus();
 
         this.workflowEventHandler = new WorkflowEventHandler(this.getBoardRepository(), this.getWorkflowRepository(), eventBus);
         this.flowEventHandler = new FlowEventHandler(flowEventRepository, eventBus);
+        this.eventSourcingHandler = new EventSourcingHandler(storedEventRepository);
+
     }
 
     public void registerAllEventHandler(){
@@ -111,6 +117,11 @@ public class TestContext {
         eventBus.register(new BoardEventHandler(workspaceRepository, workflowRepository, eventBus));
         eventBus.register(new WorkspaceEventHandler(workspaceRepository, workflowRepository, eventBus));
         eventBus.register(flowEventHandler);
+        eventBus.register(eventSourcingHandler);
+    }
+
+    public DomainEventRepository<PersistentDomainEvent> getStoredEventRepository() {
+        return storedEventRepository;
     }
 
     public DomainEventRepository<FlowEvent> getFlowEventRepository() {
@@ -174,11 +185,11 @@ public class TestContext {
 
     public CreateStageOutput doCreateStageUseCase(String workflowId, String name, String parentId){
 
-        CreateStageUseCase createStageLaneUC = new CreateStageUseCaseImpl(workflowRepository);
+        CreateStageUseCase createStageLaneUC = new CreateStageUseCaseImpl(workflowRepository, getDomainEventBus());
         CreateStageInput input = CreateStageUseCaseImpl.createInput();
         CreateStageOutput output = new tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter();
         input.setWorkflowId(workflowId);
-        input.setTitle(name);
+        input.setName(name);
         input.setParentId(parentId);
 
         createStageLaneUC.execute(input, output);
@@ -188,7 +199,7 @@ public class TestContext {
 
     public CreateSwimlaneOutput doCreateSwimlaneUseCase(String workflowId, String LaneName, String parentId){
 
-        CreateSwimlaneUseCase createSwimLaneUC = new CreateSwimlaneUseCaseImpl(workflowRepository);
+        CreateSwimlaneUseCase createSwimLaneUC = new CreateSwimlaneUseCaseImpl(workflowRepository, getDomainEventBus());
 
         CreateSwimlaneInput input = CreateSwimlaneUseCaseImpl.createInput();
         CreateSwimlaneOutput output = new SingleStagePresenter();

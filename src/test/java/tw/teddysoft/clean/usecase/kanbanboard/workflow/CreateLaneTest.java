@@ -8,6 +8,7 @@ import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -35,10 +36,13 @@ public class CreateLaneTest {
         assertEquals(1, workflow.getStages().size());
         assertEquals(LaneOrientation.VERTICAL, workflow.getStages().get(0).getOrientation());
         assertEquals("Backlog", workflow.getStages().get(0).getName());
+
+        assertThat(context.getStoredEventRepository().findAll().size()).isEqualTo(6);
+        assertThat(context.getStoredEventRepository().findAll().get(5).getDetail()).startsWith("StageCreated");
     }
 
     @Test
-    public void create_two_ministagelanes_under_the_stagelane_Backlog(){
+    public void create_two_stage_under_Backlog_stage(){
         create_top_stage(workflow.getId(), "Backlog");
         Lane backlog = workflow.getStages().get(0);
 
@@ -53,7 +57,7 @@ public class CreateLaneTest {
     }
 
     @Test
-    public void create_two_swimlanes_under_the_stagelane_Backlog(){
+    public void create_two_swimlanes_under_Backlog_stage(){
         create_top_stage(workflow.getId(), "Backlog");
         Lane backlog = workflow.getStages().get(0);
 
@@ -66,6 +70,9 @@ public class CreateLaneTest {
         assertEquals(2, backlog.getSubLanes().size());
         assertEquals(LaneOrientation.HORIZONTAL, backlog.getSubLanes().get(1).getOrientation());
         assertEquals("Idea", backlog.getSubLanes().get(1).getName());
+
+        int lastEventIndex = context.getStoredEventRepository().findAll().size() - 1;
+        assertThat(context.getStoredEventRepository().findAll().get(lastEventIndex).getDetail()).startsWith("SwimlaneCreated");
     }
 
 

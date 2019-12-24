@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.add.AddStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.add.AddStageOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.add.AddStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.get.*;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.StageRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.add.AddStageInput;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.add.AddStageOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.add.AddStageUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.*;
 
 @ShellComponent
 public class ListStageCommand {

@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.impl;
 
+import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
@@ -10,9 +11,11 @@ import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlan
 public class CreateSwimlaneUseCaseImpl implements CreateSwimlaneUseCase {
 
     private WorkflowRepository repository;
+    private DomainEventBus eventBus;
 
-    public CreateSwimlaneUseCaseImpl(WorkflowRepository repository) {
+    public CreateSwimlaneUseCaseImpl(WorkflowRepository repository, DomainEventBus eventBus) {
         this.repository = repository;
+        this.eventBus = eventBus;
     }
 
 
@@ -26,6 +29,8 @@ public class CreateSwimlaneUseCaseImpl implements CreateSwimlaneUseCase {
         Workflow workflow = repository.findById(input.getWorkflowId());
         Lane swimlane = workflow.addSwimlane(input.getParentId(), input.getTitle());
         repository.save(workflow);
+        eventBus.postAll(workflow);
+
         output.setId(swimlane.getId());
     }
 

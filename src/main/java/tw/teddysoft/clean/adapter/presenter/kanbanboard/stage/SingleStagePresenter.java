@@ -1,6 +1,6 @@
 package tw.teddysoft.clean.adapter.presenter.kanbanboard.stage;
 
-import tw.teddysoft.clean.usecase.kanbanboard.stage.add.AddStageOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.add.AddStageOutput;
 
 public class SingleStagePresenter implements AddStageOutput {
 

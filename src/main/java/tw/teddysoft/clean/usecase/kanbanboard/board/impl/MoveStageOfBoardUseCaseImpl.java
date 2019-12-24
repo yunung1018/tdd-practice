@@ -1,9 +1,8 @@
 package tw.teddysoft.clean.usecase.kanbanboard.board.impl;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.kanbanboard.board.*;
-import tw.teddysoft.clean.usecase.kanbanboard.stage.StageRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.old_stage.StageRepository;
 
 public class MoveStageOfBoardUseCaseImpl implements MoveStageOfBoardUseCase {
 

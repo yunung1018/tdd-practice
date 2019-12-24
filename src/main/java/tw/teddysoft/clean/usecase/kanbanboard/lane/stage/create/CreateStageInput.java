@@ -8,8 +8,8 @@ public interface CreateStageInput extends Input {
     void setWorkflowId(String workflowId);
     String getWorkflowId();
 
-    void setTitle(String title);
-    String getTitle();
+    void setName(String name);
+    String getName();
 
     void setParentId(String parentId);
     String getParentId();
