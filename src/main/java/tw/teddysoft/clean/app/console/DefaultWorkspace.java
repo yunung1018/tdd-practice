@@ -2,7 +2,7 @@ package tw.teddysoft.clean.app.console;
 
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
 
 public class DefaultWorkspace {
 

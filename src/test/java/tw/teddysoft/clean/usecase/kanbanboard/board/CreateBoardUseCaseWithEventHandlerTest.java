@@ -13,11 +13,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.impl.CreateBoardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl.CreateWorkspaceUseCaseImpl;
+import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;

@@ -1,4 +1,4 @@
-package tw.teddysoft.clean.usecase.kanbanboard.workspace.create;
+package tw.teddysoft.clean.usecase.workspace.create;
 
 import tw.teddysoft.clean.domain.usecase.Input;
 

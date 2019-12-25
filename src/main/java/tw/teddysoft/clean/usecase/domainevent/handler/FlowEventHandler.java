@@ -1,16 +1,9 @@
 package tw.teddysoft.clean.usecase.domainevent.handler;
 
 import com.google.common.eventbus.Subscribe;
-import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.FlowEvent;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.event.BoardCreated;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.event.WorkflowCommitted;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
 
 public class FlowEventHandler {

@@ -5,11 +5,9 @@ import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.*;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.event.BoardCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
-import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
 
 import java.util.ArrayList;
 import java.util.List;

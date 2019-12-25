@@ -1,13 +1,13 @@
-package tw.teddysoft.clean.usecase.kanbanboard.workspace;
+package tw.teddysoft.clean.usecase.workspace;
 
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkspaceRepository;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace.SingleWorkspacePresenter;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl.CreateWorkspaceUseCaseImpl;
+import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceInput;
+import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceOutput;
+import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceUseCase;
+import tw.teddysoft.clean.usecase.workspace.create.impl.CreateWorkspaceUseCaseImpl;
 
 import static org.junit.Assert.*;
 

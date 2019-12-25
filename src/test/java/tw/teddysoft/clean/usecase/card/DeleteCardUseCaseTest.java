@@ -11,7 +11,7 @@ import tw.teddysoft.clean.usecase.card.delete.DeleteCardOutput;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardUseCase;
 import tw.teddysoft.clean.usecase.card.delete.impl.DeleteCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.workspace.CreateWorkspaceTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;

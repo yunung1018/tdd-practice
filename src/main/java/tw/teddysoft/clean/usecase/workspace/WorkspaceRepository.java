@@ -1,4 +1,4 @@
-package tw.teddysoft.clean.usecase.kanbanboard.workspace;
+package tw.teddysoft.clean.usecase.workspace;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 

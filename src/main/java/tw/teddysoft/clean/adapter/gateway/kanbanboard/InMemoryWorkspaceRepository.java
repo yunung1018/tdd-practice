@@ -2,7 +2,7 @@ package tw.teddysoft.clean.adapter.gateway.kanbanboard;
 
 
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,7 +8,6 @@ import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryCardRepository;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
-import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.FlowEvent;
 import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
@@ -37,9 +36,9 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInpu
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
+import tw.teddysoft.clean.usecase.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceOutput;
 
 public class TestContext {
 
