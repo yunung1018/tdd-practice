@@ -9,16 +9,11 @@ public abstract class Entity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected String name;
-    protected String id;
-
-    private final List<DomainEvent> domainEvents;
+    protected final String id;
 
     public Entity(String name) {
         this.name = name;
         id = UUID.randomUUID().toString();
-        domainEvents = new CopyOnWriteArrayList<>();
-
-//        domainEvents = new ArrayList<>();
     }
 
     public String getName() {
@@ -31,22 +26,6 @@ public abstract class Entity implements Serializable {
 
     public String getId() {
         return id;
-    }
-
-    public void addDomainEvent(DomainEvent event){
-        domainEvents.add(event);
-    }
-
-    public List<DomainEvent> getDomainEvents(){
-        return Collections.unmodifiableList(domainEvents);
-    }
-
-    public void clearDomainEvents(){
-        domainEvents.clear();
-    }
-
-    public void removeDomainEvent(DomainEvent event){
-        domainEvents.remove(event);
     }
 
 }

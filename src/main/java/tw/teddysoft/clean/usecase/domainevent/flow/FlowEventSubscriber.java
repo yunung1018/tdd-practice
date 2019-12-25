@@ -1,13 +1,15 @@
 package tw.teddysoft.clean.usecase.domainevent.flow;
 
+import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.*;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
+import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
 
-public class FlowEventSubscriber implements DomainEventSubscriber<DomainEvent> {
+public class FlowEventSubscriber{
 
-    private DomainEventRepository<FlowEvent> repository;
+    private FlowEventRepository repository;
 
-    public FlowEventSubscriber(DomainEventRepository<FlowEvent> repo){
+    public FlowEventSubscriber(FlowEventRepository repo){
         repository = repo;
     }
 
@@ -15,7 +17,7 @@ public class FlowEventSubscriber implements DomainEventSubscriber<DomainEvent> {
         return DomainEvent.class;
     }
 
-    @Override
+    @Subscribe
     public void handleEvent(DomainEvent domainEvent) {
 
 //        if(domainEvent instanceof WorkItemMovedIn || domainEvent instanceof WorkItemMovedOut){

@@ -53,7 +53,7 @@ public class DeleteCardUseCaseTest {
     @Test
     public void delete_a_card_should_uncommit_it_from_a_lane_by_WorkflowEventHandler() {
 
-        doDeleteCardUseCase(workflow.getId(), todoStage.getId(), card2Id, context.getCardRepository(), context.getWorkflowRepository());
+        doDeleteCardUseCase(workflow.getId(), todoStage.getId(), card2Id, context.getCardRepository());
         assertEquals(2, context.getCardRepository().findAll().size());
         assertEquals(2, todoStage.getCommittedCards().size());
         assertEquals(card1Id, todoStage.getCommittedCards().get(0).getCardId());
@@ -64,10 +64,9 @@ public class DeleteCardUseCaseTest {
     public DeleteCardOutput doDeleteCardUseCase(String workflowId,
                                                 String stageId,
                                                 String cardId,
-                                                CardRepository cardRepository,
-                                                WorkflowRepository workflowRepository){
+                                                CardRepository cardRepository){
 
-        DeleteCardUseCase deleteCardUseCase = new DeleteCardUseCaseImpl(cardRepository, workflowRepository, context.getDomainEventBus());
+        DeleteCardUseCase deleteCardUseCase = new DeleteCardUseCaseImpl(cardRepository, context.getDomainEventBus());
         DeleteCardInput input = deleteCardUseCase.createInput() ;
         DeleteCardOutput output = new SingleCardPresenter();
         input.setWorkflowId(workflowId)

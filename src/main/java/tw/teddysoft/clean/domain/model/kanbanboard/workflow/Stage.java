@@ -1,8 +1,5 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.StageCreated;
-
 public class Stage extends Lane {
 
     Stage(String name, String workflowId) {

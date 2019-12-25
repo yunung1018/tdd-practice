@@ -1,12 +1,10 @@
 package tw.teddysoft.clean.domain.model.card;
 
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
-import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.AggregateRoot;
 import tw.teddysoft.clean.domain.model.card.event.CardCreated;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.event.WorkflowCommitted;
 
 
-public class Card extends Entity {
+public class Card extends AggregateRoot {
 
 //    private String laneId;
     private String boardId;

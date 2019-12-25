@@ -6,9 +6,9 @@ import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
 
 public class EventSourcingHandler {
 
-    private final DomainEventRepository<PersistentDomainEvent> repository;
+    private final DomainEventRepository repository;
 
-    public EventSourcingHandler(DomainEventRepository<PersistentDomainEvent> repo){
+    public EventSourcingHandler(DomainEventRepository repo){
         repository = repo;
     }
 
@@ -17,7 +17,8 @@ public class EventSourcingHandler {
 //        System.out.println(domainEvent.detail());
         if(null != repository)
         {
-            repository.save(new PersistentDomainEvent(domainEvent));
+//            repository.save(new PersistentDomainEvent(domainEvent));
+            repository.save((AbstractDomainEvent) domainEvent);
         }
         else{
             System.err.println("DomainEventRepository instance is null. The Domain event is not stored." + domainEvent.detail());

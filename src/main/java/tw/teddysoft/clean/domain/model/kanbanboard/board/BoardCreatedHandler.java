@@ -12,13 +12,13 @@ import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardCreatedHandler implements DomainEventSubscriber<BoardCreated> {
+public class BoardCreatedHandler {
 
     private WorkflowRepository workflowRepository;
     private WorkspaceRepository workspaceRepository;
-    private EventBus eventBus;
+    private DomainEventBus eventBus;
 
-    public BoardCreatedHandler(WorkspaceRepository workspaceRepository, WorkflowRepository workflowRepository, EventBus eventBus){
+    public BoardCreatedHandler(WorkspaceRepository workspaceRepository, WorkflowRepository workflowRepository, DomainEventBus eventBus){
         this.workspaceRepository = workspaceRepository;
         this.workflowRepository = workflowRepository;
         this.eventBus = eventBus;
@@ -29,59 +29,17 @@ public class BoardCreatedHandler implements DomainEventSubscriber<BoardCreated> 
     }
 
     @Subscribe
-    @Override
     public void handleEvent(BoardCreated domainEvent) {
 
         Workspace workspace = workspaceRepository.findById(domainEvent.getEntity().getWorkspaceId());
         workspace.commitBoard(domainEvent.getEntity().getId());
         System.out.println("    ======> the board is committed to its workspace");
-        postAll(workspace, eventBus);
-
+        eventBus.postAll(workspace);
 
         Workflow workflow = new Workflow("Default Workflow", domainEvent.getEntity().getId());
         workflowRepository.save(workflow);
         System.out.println("    ======> A default workflow created and saved");
-
-        postAll(workflow, eventBus);
-
-//        workspace.getDomainEvents().stream().forEach(event -> eventBus.post(event));
-//        workspace.clearDomainEvents();
-
-//        postAll(workflow, eventBus);
-
-//        workflow.getDomainEvents().stream().forEach(event -> eventBus.post(event));
-//        workflow.clearDomainEvents();
-
-
-//        DomainEventPublisher.instance().publishAll(workflow);
+        eventBus.postAll(workflow);
     }
 
-    public void postAll(Entity entity, EventBus eventBus){
-        System.out.println("postAll 1 : event size =  " + entity.getDomainEvents().size());
-        List<DomainEvent> events = new ArrayList(entity.getDomainEvents());
-        entity.clearDomainEvents();
-
-        for(DomainEvent each : events){
-            System.out.println("event : " + each.detail());
-//            entity.removeDomainEvent(each);
-            eventBus.post(each);
-        }
-        events.clear();
-    }
-
-
-//    public void postAll(Entity entity, EventBus eventBus){
-//
-//        System.out.println("postAll 1 : event size =  " + entity.getDomainEvents().size());
-//
-//        List<DomainEvent> events = new ArrayList(entity.getDomainEvents());
-//        entity.clearDomainEvents();
-//
-//        for(DomainEvent each : events){
-//            System.out.println("event : " + each.detail());
-//            entity.removeDomainEvent(each);
-//            eventBus.post(each);
-//        }
-////        entity.clearDomainEvents();
-//    }
 }

@@ -1,14 +1,12 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workspace;
 
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
-import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.CommittedWorkflow;
+import tw.teddysoft.clean.domain.model.AggregateRoot;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.event.BoardCommitted;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.event.WorkspaceCreated;
 
 import java.util.*;
 
-public class Workspace extends Entity {
+public class Workspace extends AggregateRoot {
 
     private String userId;
     private Set<CommittedBoard> committedBoards;
@@ -17,14 +15,6 @@ public class Workspace extends Entity {
         super(name);
         this.userId = userId;
         committedBoards = new HashSet<>();
-
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new WorkspaceCreated(
-//                        this.getId(),
-//                        this.getUserId(),
-//                        this.getName()));
-
         addDomainEvent(new WorkspaceCreated(this));
     }
 
@@ -32,12 +22,6 @@ public class Workspace extends Entity {
         CommittedBoard committedBoard = new CommittedBoard(this.getId(), boardId);
         committedBoard.setOrdering(committedBoards.size() + 1);
         committedBoards.add(committedBoard);
-
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new BoardCommitted(
-//                        this.getId(),
-//                        boardId));
 
         addDomainEvent(new BoardCommitted(this));
     }

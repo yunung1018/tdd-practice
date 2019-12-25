@@ -1,9 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.card.Card;
-import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.CommittedWorkItem;
 
 import java.util.*;
 

@@ -2,29 +2,27 @@ package tw.teddysoft.clean.usecase.domainevent;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventRepository;
-import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryAggregateRootRepositoryPeer;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventRepositoryPeer;
+import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.domainevent.sourcing.RegisterEventSourcingSubscriberUseCase;
-import tw.teddysoft.clean.usecase.domainevent.sourcing.impl.RegisterEventSourcingSubscriberUseCaseImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventSourcingSubscriberTest {
 
     private Stage stage;
-    private DomainEventRepository<PersistentDomainEvent> domainEventRepository;
+    private DomainEventRepository domainEventRepository;
     private KanbanTestUtility util;
 
     @Before
     public void mySetUp(){
         util = new KanbanTestUtility();
 //        domainEventRepository = new SerializableDomainEventRepository();
-        domainEventRepository = new InMemoryDomainEventRepository();
-        RegisterEventSourcingSubscriberUseCase useCase = new RegisterEventSourcingSubscriberUseCaseImpl(domainEventRepository);
-        useCase.execute(null,  null);
+        domainEventRepository = new DomainEventRepository(new InMemoryDomainEventRepositoryPeer());
     }
 
     @Test

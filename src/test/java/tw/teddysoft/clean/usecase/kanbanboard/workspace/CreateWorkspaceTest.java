@@ -2,7 +2,7 @@ package tw.teddysoft.clean.usecase.kanbanboard.workspace;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkspaceRepository;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryAggregateRootRepositoryPeer;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace.SingleWorkspacePresenter;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
@@ -23,7 +23,7 @@ public class CreateWorkspaceTest {
     @Test
     public void add_a_workspace() {
 
-        WorkspaceRepository repository = new InMemoryWorkspaceRepository();
+        WorkspaceRepository repository = new WorkspaceRepository(new InMemoryAggregateRootRepositoryPeer());
         CreateWorkspaceOutput output = doCreateWorkspaceUseCase(repository, USER_ID, WORKSPACE_NAME);
 
         assertNotNull(output.getWorkspaceId());

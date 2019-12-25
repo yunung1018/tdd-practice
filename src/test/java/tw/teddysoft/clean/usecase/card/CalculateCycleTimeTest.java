@@ -1,27 +1,12 @@
 package tw.teddysoft.clean.usecase.card;
 
-import org.junit.Before;
-import org.junit.Test;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventRepository;
-import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
-import tw.teddysoft.clean.domain.common.DateProvider;
 import tw.teddysoft.clean.domain.model.FlowEvent;
-import tw.teddysoft.clean.domain.model.card.Card;
-import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
-import tw.teddysoft.clean.usecase.card.move.MoveCardInput;
-import tw.teddysoft.clean.usecase.card.move.MoveCardOutput;
-import tw.teddysoft.clean.usecase.card.move.MoveCardUseCase;
-import tw.teddysoft.clean.usecase.card.move.impl.MoveCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.flow.RegisterFlowEventSubscriberUseCase;
-import tw.teddysoft.clean.usecase.domainevent.flow.impl.RegisterFlowEventSubscriberUseCaseImpl;
+import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -33,7 +18,7 @@ public class CalculateCycleTimeTest {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
     private KanbanTestUtility util;
-    private DomainEventRepository<FlowEvent> flowEventRepository;
+    private FlowEventRepository flowEventRepository;
     private String APPLY_PAY_ID;
 
     private Workflow kanbanDefaultWorkflow;

@@ -1,35 +1,5 @@
 package tw.teddysoft.clean.usecase;
 
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryBoardRepository;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkflowRepository;
-import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryCardRepository;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
-import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
-import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
-import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
-import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
-import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageInput;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.impl.CreateStageUseCaseImpl;
-import tw.teddysoft.clean.usecase.card.CardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneInput;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.impl.CreateSwimlaneUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

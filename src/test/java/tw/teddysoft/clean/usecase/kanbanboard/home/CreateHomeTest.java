@@ -2,11 +2,10 @@ package tw.teddysoft.clean.usecase.kanbanboard.home;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.GenericInMemoryRepository;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.home.SingleHomePresenter;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
-import tw.teddysoft.clean.domain.usecase.GenericRepository;
+import tw.teddysoft.clean.domain.usecase.repository.IRepository;
 import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.home.create.CreateHomeInput;
@@ -41,12 +40,12 @@ public class CreateHomeTest {
         assertEquals(Home_NAME, context.getHomeRepository().findById(output.getHomeId()).getName());
 
         assertThat(context.getStoredEventRepository().findAll().size()).isEqualTo(1);
-        assertThat(context.getStoredEventRepository().findAll().get(0).getDetail()).startsWith("HomeCreated");
+        assertThat(context.getStoredEventRepository().findAll().get(0).detail()).startsWith("HomeCreated");
     }
 
 
     public static CreateHomeOutput doCreateHomeUseCase(
-            GenericRepository<Home> repository,
+            HomeRepository repository,
             DomainEventBus eventBus,
             String userId,
             String homeName){

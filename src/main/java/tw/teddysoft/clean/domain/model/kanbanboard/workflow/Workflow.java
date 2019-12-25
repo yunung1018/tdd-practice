@@ -1,17 +1,15 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
-import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.AggregateRoot;
 import tw.teddysoft.clean.domain.model.card.event.CardCommitted;
 import tw.teddysoft.clean.domain.model.card.event.CardUncommitted;
-import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.StageCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.SwimlaneCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
 
 import java.util.*;
 
-public class Workflow extends Entity {
+public class Workflow extends AggregateRoot {
 
     private final String boardId;
     private final List<Lane> stages;
@@ -19,24 +17,7 @@ public class Workflow extends Entity {
     public Workflow(String name, String boardId){
         super(name);
         this.boardId = boardId;
-
         stages = new ArrayList<>();
-
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new WorkflowCreated(
-//                        this.boardId,
-//                        this.getId(),
-//                        this.getName()));
-
-//        DomainEventPublisher
-////                .instance()
-////                .publish(new WorkflowCreated(this));
-
-//        DomainEventPublisher
-//                .instance()
-//                .add(new WorkflowCreated(this));
-
         addDomainEvent(new WorkflowCreated(this));
     }
 
@@ -162,25 +143,6 @@ public class Workflow extends Entity {
 
         fromLane.uncommitCard(cardId);
         toLane.commitCard(cardId);
-
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new CardUncommitted(
-//                        this.getBoardId(),
-//                        this.getId(),
-//                        fromLane.getId(),
-//                        cardId,
-//                        fromLane.getName()));
-//
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new CardCommitted(
-//                        this.getBoardId(),
-//                        this.getId(),
-//                        toLane.getId(),
-//                        cardId,
-//                        toLane.getName()));
-
 
         addDomainEvent(new CardUncommitted(
                 this.getBoardId(),

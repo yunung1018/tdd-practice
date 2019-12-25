@@ -4,14 +4,15 @@ import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.FlowEvent;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
+import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
 
 
 public class FlowEventHandler {
 
-    private DomainEventRepository<FlowEvent> repository;
+    private FlowEventRepository repository;
     private DomainEventBus eventBus;
 
-    public FlowEventHandler(DomainEventRepository<FlowEvent> repository, DomainEventBus eventBus){
+    public FlowEventHandler(FlowEventRepository repository, DomainEventBus eventBus){
         this.repository = repository;
         this.eventBus = eventBus;
     }

@@ -19,7 +19,6 @@ public class LaneBuilderTest {
         assertEquals(0, lane.getWipLimit());
         assertEquals("Backlog", lane.getName());
         assertEquals("000-1234", lane.getWorkflowId());
-        assertThat(lane.getDomainEvents().size()).isEqualTo(0);
     }
 
     @Test
@@ -32,7 +31,6 @@ public class LaneBuilderTest {
                 .wipLimit(5)
                 .build();
 
-        assertThat(lane.getDomainEvents().size()).isEqualTo(0);
         assertEquals(5, lane.getWipLimit());
         assertEquals(LaneOrientation.VERTICAL, lane.getOrientation());
     }
@@ -49,7 +47,6 @@ public class LaneBuilderTest {
 
         assertEquals(LaneOrientation.HORIZONTAL, lane.getOrientation());
         assertEquals(1, lane.getWipLimit());
-        assertThat(lane.getDomainEvents().size()).isEqualTo(0);
     }
 
 }

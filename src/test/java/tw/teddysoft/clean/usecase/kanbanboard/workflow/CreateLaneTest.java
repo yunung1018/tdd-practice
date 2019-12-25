@@ -38,7 +38,7 @@ public class CreateLaneTest {
         assertEquals("Backlog", workflow.getStages().get(0).getName());
 
         assertThat(context.getStoredEventRepository().findAll().size()).isEqualTo(6);
-        assertThat(context.getStoredEventRepository().findAll().get(5).getDetail()).startsWith("StageCreated");
+        assertThat(context.getStoredEventRepository().findAll().get(5).detail()).startsWith("StageCreated");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class CreateLaneTest {
         assertEquals("Idea", backlog.getSubLanes().get(1).getName());
 
         int lastEventIndex = context.getStoredEventRepository().findAll().size() - 1;
-        assertThat(context.getStoredEventRepository().findAll().get(lastEventIndex).getDetail()).startsWith("SwimlaneCreated");
+        assertThat(context.getStoredEventRepository().findAll().get(lastEventIndex).detail()).startsWith("SwimlaneCreated");
     }
 
 

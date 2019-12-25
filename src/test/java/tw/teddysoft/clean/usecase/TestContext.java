@@ -1,27 +1,24 @@
 package tw.teddysoft.clean.usecase;
 
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.*;
-import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryCardRepository;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
-import tw.teddysoft.clean.domain.model.FlowEvent;
-import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
-import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
-import tw.teddysoft.clean.domain.usecase.GenericRepository;
 import tw.teddysoft.clean.usecase.card.CardRepository;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
 import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
+import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
 import tw.teddysoft.clean.usecase.domainevent.handler.*;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateBoardUseCaseWithEventHandlerTest;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.home.HomeRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageUseCase;
@@ -49,13 +46,13 @@ public class TestContext {
     public static final String SCRUM_BOARD_NAME = "Scrum Board";
     public static final String KANBAN_BOARD_NAME = "Kanban Board";
 
-    private GenericRepository<Home> homeRepository;
+    private HomeRepository homeRepository;
     private WorkspaceRepository workspaceRepository;
     private WorkflowRepository workflowRepository;
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
-    private DomainEventRepository<FlowEvent> flowEventRepository;
-    private DomainEventRepository<PersistentDomainEvent> storedEventRepository;
+    private DomainEventRepository storedEventRepository;
+    private FlowEventRepository flowEventRepository;
 
     private WorkflowEventHandler workflowEventHandler;
     private FlowEventHandler flowEventHandler;
@@ -77,26 +74,26 @@ public class TestContext {
     public static final int TOTAL_WORKFLOW_NUMBER = 2;
 
     public TestContext(){
-        this( new GenericInMemoryRepository<Home>(),
-                new InMemoryWorkspaceRepository(),
-                new InMemoryBoardRepository(),
-                new InMemoryWorkflowRepository(),
-                new InMemoryCardRepository(),
-                new InMemoryDomainEventRepository(),
-                new InMemoryDomainEventRepository());
+        this(  new HomeRepository(new InMemoryAggregateRootRepositoryPeer()),
+                new WorkspaceRepository(new InMemoryAggregateRootRepositoryPeer()),
+                new BoardRepository(new InMemoryAggregateRootRepositoryPeer()),
+                new WorkflowRepository(new InMemoryAggregateRootRepositoryPeer()),
+                new CardRepository(new InMemoryAggregateRootRepositoryPeer()),
+                new FlowEventRepository(new InMemoryDomainEventRepositoryPeer()),
+                new DomainEventRepository(new InMemoryDomainEventRepositoryPeer()));
     }
     public static TestContext newInstance() {
         return new TestContext();
     }
 
     public TestContext(
-            GenericRepository<Home> homeRepository,
+            HomeRepository homeRepository,
             WorkspaceRepository workspaceRepository,
             BoardRepository boardRepository,
                        WorkflowRepository workflowRepository,
                        CardRepository cardRepository,
-                        DomainEventRepository<FlowEvent> flowEventRepository,
-                        DomainEventRepository<PersistentDomainEvent> storedEventRepository){
+                        FlowEventRepository flowEventRepository,
+                        DomainEventRepository storedEventRepository){
 
         this.homeRepository = homeRepository;
         this.workspaceRepository = workspaceRepository;
@@ -122,15 +119,15 @@ public class TestContext {
         eventBus.register(eventSourcingHandler);
     }
 
-    public GenericRepository<Home> getHomeRepository() {
+    public HomeRepository getHomeRepository() {
         return homeRepository;
     }
 
-    public DomainEventRepository<PersistentDomainEvent> getStoredEventRepository() {
+    public DomainEventRepository getStoredEventRepository() {
         return storedEventRepository;
     }
 
-    public DomainEventRepository<FlowEvent> getFlowEventRepository() {
+    public FlowEventRepository getFlowEventRepository() {
         return flowEventRepository;
     }
 

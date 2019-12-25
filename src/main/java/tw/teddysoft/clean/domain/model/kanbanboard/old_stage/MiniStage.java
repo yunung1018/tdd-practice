@@ -1,7 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.old_stage;
 
 import de.cronn.reflection.util.immutable.ReadOnly;
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.event.MiniStageCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.event.SwimLaneDeleted;
@@ -21,12 +20,6 @@ public class MiniStage extends Entity {
         super(name);
         this.stageId = stageId;
         swimLanes = new ArrayList<SwimLane>();
-
-        DomainEventPublisher
-                .instance()
-                .publish(new MiniStageCreated(
-                        this.getId(),
-                        this.getName()));
 
         addDefaultSwimLane();
     }
@@ -80,11 +73,6 @@ public class MiniStage extends Entity {
 
     public void deleteAllSwimLane() {
         for (SwimLane each : swimLanes) {
-            DomainEventPublisher
-                    .instance()
-                    .publish(new SwimLaneDeleted(
-                            each.getId(),
-                            each.getName()));
         }
         swimLanes.clear();
     }

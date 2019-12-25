@@ -1,5 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.home;
 
+import tw.teddysoft.clean.domain.model.AggregateRoot;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.home.event.HomeCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.CommittedBoard;
@@ -10,7 +11,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Home extends Entity {
+public class Home extends AggregateRoot {
 
     private String userId;
     private Set<CommittedBoard> committedBoards;

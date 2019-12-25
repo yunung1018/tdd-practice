@@ -1,8 +1,8 @@
-package tw.teddysoft.clean.domain.usecase;
+package tw.teddysoft.clean.domain.usecase.repository;
 
 import java.util.List;
 
-public interface GenericRepository<T> {
+public interface IRepository<T> {
     List<T> findAll();
     T findById(String id);
     T findFirstByName(String name);

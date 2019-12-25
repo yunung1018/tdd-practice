@@ -11,9 +11,9 @@ public class DomainEventBus extends EventBus {
             super();
         }
 
-    public void postAll(Entity entity){
-        List<DomainEvent> events = new ArrayList(entity.getDomainEvents());
-        entity.clearDomainEvents();
+    public void postAll(AggregateRoot aggregateRoot){
+        List<DomainEvent> events = new ArrayList(aggregateRoot.getDomainEvents());
+        aggregateRoot.clearDomainEvents();
 
         for(DomainEvent each : events){
             post(each);

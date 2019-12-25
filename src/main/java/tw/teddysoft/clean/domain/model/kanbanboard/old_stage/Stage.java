@@ -1,7 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.old_stage;
 
 import de.cronn.reflection.util.immutable.ImmutableProxy;
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.event.MiniStageDeleted;
@@ -21,13 +20,6 @@ public class Stage extends Entity {
         super(name);
         this.boardId = boardId;
         miniStages = new ArrayList<MiniStage>();
-
-        DomainEventPublisher
-                .instance()
-                .publish(new StageCreated(
-                        this.getId(),
-                        this.getName()));
-
         addDefaultMiniStage();
     }
 
@@ -48,11 +40,6 @@ public class Stage extends Entity {
         }
 
         if (miniStages.remove(miniStage)){
-            DomainEventPublisher
-                    .instance()
-                    .publish(new MiniStageDeleted(
-                            miniStage.getId(),
-                            miniStage.getName()));
             return true;
         }
 

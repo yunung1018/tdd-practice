@@ -1,6 +1,5 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.old_stage;
 
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.event.SwimLaneCreated;
@@ -25,11 +24,6 @@ public class SwimLane extends Entity {
         committedWorkItems = new ArrayList<CommittedWorkItem>();
         wipLimit = NO_WIP_LIMIT;
 
-        DomainEventPublisher
-                .instance()
-                .publish(new SwimLaneCreated(
-                        this.getId(),
-                        this.getName()));
     }
 
     public void commitWorkItemById(String workItemId) throws WipLimitExceedException {
@@ -38,16 +32,6 @@ public class SwimLane extends Entity {
 
         committedWorkItems.add(new CommittedWorkItem(
                 this.getStageId(), this.getMiniStageId(), this.getId(), workItemId, committedWorkItems.size()+1));
-
-//        DomainEventPublisher
-//                .instance()
-//                .publish(new CardMovedIn(
-//                        this.getId(),
-//                        this.getTitle(),
-//                        this.getStageId(),
-//                        this.getMiniStageId(),
-//                        this.getId(),
-//                        workItemId));
     }
 
     public int getWipLimit(){
@@ -72,16 +56,6 @@ public class SwimLane extends Entity {
             if (each.getWorkItemId().equalsIgnoreCase(workItemId)){
                 committedWorkItems.remove(each);
                 reorderCommittedWorkItem();
-
-//                DomainEventPublisher
-//                        .instance()
-//                        .publish(new CardMovedOut(
-//                                this.getId(),
-//                                this.getTitle(),
-//                                this.getStageId(),
-//                                this.getMiniStageId(),
-//                                this.getId(),
-//                                workItemId));
                 return true;
             }
         }

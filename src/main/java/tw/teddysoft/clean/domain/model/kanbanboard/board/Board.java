@@ -1,7 +1,6 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.board;
 
-import tw.teddysoft.clean.domain.model.DomainEventPublisher;
-import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.AggregateRoot;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.event.BoardCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.event.WorkflowCommitted;
 
@@ -9,7 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Board extends Entity {
+public class Board extends AggregateRoot {
 
     private String workspaceId;
     private Set<CommittedWorkflow> committedWorkflows;

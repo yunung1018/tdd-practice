@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkflowRepository;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.SerializableBoardRepository;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryAggregateRootRepositoryPeer;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.SerializableAggregateRootRepositoryPeer;
 import tw.teddysoft.clean.app.console.DefaultBoard;
 import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
@@ -20,7 +20,7 @@ public class RepositoryConfiguration {
   @Bean(name="workflowRepository")
   public WorkflowRepository workflowRepository() {
 
-    WorkflowRepository workflowRepository = new InMemoryWorkflowRepository();
+    WorkflowRepository workflowRepository = new WorkflowRepository(new InMemoryAggregateRootRepositoryPeer());
 //    WorkflowRepository workflowRepository = new SerializableWorkflowRepository();
 
 
@@ -36,7 +36,7 @@ public class RepositoryConfiguration {
   @Bean(name="boardRepository")
   public BoardRepository boardRepository() {
 //    BoardRepository repository = new InMemoryBoardRepository();
-    BoardRepository repository = new SerializableBoardRepository();
+    BoardRepository repository = new BoardRepository(new SerializableAggregateRootRepositoryPeer("board-repository.ser"));
     return repository;
   }
 

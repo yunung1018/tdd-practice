@@ -1,37 +1,41 @@
 package tw.teddysoft.clean.adapter.gateway.kanbanboard;
 
 
+import tw.teddysoft.clean.domain.model.AggregateRoot;
 import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.usecase.GenericRepository;
+import tw.teddysoft.clean.domain.usecase.repository.RepositoryPeer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenericInMemoryRepository<T extends Entity> implements GenericRepository<T> {
+public class InMemoryAggregateRootRepositoryPeer<T extends AggregateRoot> implements RepositoryPeer<T> {
 
-    private List<T> aggregates;
+    private final List<T> entities;
 
-    public GenericInMemoryRepository(){
-        aggregates = new ArrayList<T>();
+    public InMemoryAggregateRootRepositoryPeer(){
+        entities = new ArrayList<T>();
     }
 
     @Override
     public List<T> findAll() {
-        return aggregates;
+        return entities;
     }
 
     @Override
     public T findById(String id) {
-        for(T each : aggregates){
+        for(T each : entities){
             if (each.getId().equalsIgnoreCase(id))
                 return each;
         }
-        throw new RuntimeException("Cannot find object with id : " + id);
+
+        return null;
+
+//        throw new RuntimeException("Cannot find object with id : " + id);
     }
 
     @Override
     public T findFirstByName(String name) {
-        for(T each : aggregates){
+        for(T each : entities){
             if (each.getName().equals(name))
                 return each;
         }
@@ -40,9 +44,9 @@ public class GenericInMemoryRepository<T extends Entity> implements GenericRepos
 
     @Override
     public T save(T arg) {
-        if (aggregates.contains(arg))
+        if (entities.contains(arg))
             return arg;
-        else if (aggregates.add(arg))
+        else if (entities.add(arg))
             return arg;
         else
             return null;
@@ -50,7 +54,7 @@ public class GenericInMemoryRepository<T extends Entity> implements GenericRepos
 
     @Override
     public boolean remove(T arg) {
-        return aggregates.remove(arg);
+        return entities.remove(arg);
     }
 
 }

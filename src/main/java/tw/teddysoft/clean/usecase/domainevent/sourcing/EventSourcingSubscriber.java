@@ -1,15 +1,15 @@
 package tw.teddysoft.clean.usecase.domainevent.sourcing;
 
+import com.google.common.eventbus.Subscribe;
+import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEvent;
-import tw.teddysoft.clean.domain.model.DomainEventSubscriber;
-import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
 import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
 
-public class EventSourcingSubscriber implements DomainEventSubscriber<DomainEvent> {
+public class EventSourcingSubscriber {
 
-    private DomainEventRepository<PersistentDomainEvent> repository;
+    private DomainEventRepository repository;
 
-    public EventSourcingSubscriber(DomainEventRepository<PersistentDomainEvent> repo){
+    public EventSourcingSubscriber(DomainEventRepository repo){
         repository = repo;
     }
 
@@ -17,14 +17,13 @@ public class EventSourcingSubscriber implements DomainEventSubscriber<DomainEven
         return DomainEvent.class;
     }
 
-    @Override
+    @Subscribe
     public void handleEvent(DomainEvent domainEvent) {
-
 //        System.out.println(domainEvent.detail());
 
         if(null != repository)
         {
-            repository.save(new PersistentDomainEvent(domainEvent));
+            repository.save((AbstractDomainEvent) domainEvent);
         }
         else{
             System.err.println("DomainEventRepository instance is null. The Domain event is not stored." + domainEvent.detail());
