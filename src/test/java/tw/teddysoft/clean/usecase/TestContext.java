@@ -59,6 +59,7 @@ public class TestContext {
     private FlowEventRepository flowEventRepository;
 
 
+    private UserEventHandler userEventHandler;
     private WorkflowEventHandler workflowEventHandler;
     private FlowEventHandler flowEventHandler;
     private EventSourcingHandler eventSourcingHandler;
@@ -113,6 +114,7 @@ public class TestContext {
 
         this.eventBus = new DomainEventBus();
 
+        this.userEventHandler = new UserEventHandler(this.getHomeRepository(), eventBus);
         this.workflowEventHandler = new WorkflowEventHandler(this.getBoardRepository(), this.getWorkflowRepository(), eventBus);
         this.flowEventHandler = new FlowEventHandler(flowEventRepository, eventBus);
         this.eventSourcingHandler = new EventSourcingHandler(storedEventRepository);
@@ -120,6 +122,7 @@ public class TestContext {
     }
 
     public void registerAllEventHandler(){
+        eventBus.register(userEventHandler);
         eventBus.register(workflowEventHandler);
         eventBus.register(new BoardEventHandler(workspaceRepository, workflowRepository, eventBus));
         eventBus.register(new WorkspaceEventHandler(workspaceRepository, workflowRepository, eventBus));

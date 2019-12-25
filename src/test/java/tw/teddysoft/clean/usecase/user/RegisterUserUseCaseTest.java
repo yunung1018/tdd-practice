@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace.SingleWorkspacePresenter;
 import tw.teddysoft.clean.adapter.presenter.user.SingleUserPresenter;
+import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.TestContext;
@@ -42,8 +43,14 @@ public class RegisterUserUseCaseTest {
         assertEquals(TestContext.USER_LOGIN_ID, context.getUserRepository().findById(output.getUserId()).getLoginId());
         assertEquals(TestContext.USER_NAME, context.getUserRepository().findById(output.getUserId()).getName());
 
+
+        context.getStoredEventRepository().findAll().stream().forEach(x -> System.out.println(x.detail()));
+
+        assertEquals(TestContext.USER_LOGIN_ID, context.getUserRepository().findById(output.getUserId()).getLoginId());
+
         int lastIndex = context.getStoredEventRepository().findAll().size() - 1;
-        assertThat(context.getStoredEventRepository().findAll().get(lastIndex).detail()).startsWith("UserRegistrationSucceeded");
+        assertThat(context.getStoredEventRepository().findAll().get(lastIndex - 1).detail()).startsWith("UserRegistrationSucceeded");
+        assertThat(context.getStoredEventRepository().findAll().get(lastIndex).detail()).startsWith("HomeCreated");
     }
 
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DomainEventBus extends EventBus {
 
-        public DomainEventBus(){
+    public DomainEventBus(){
             super();
         }
 

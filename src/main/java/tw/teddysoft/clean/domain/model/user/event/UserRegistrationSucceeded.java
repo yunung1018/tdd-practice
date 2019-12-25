@@ -13,6 +13,17 @@ public class UserRegistrationSucceeded extends AbstractDomainEvent {
         this.loginId = loginId;
     }
 
+    @Override
+    public String detail() {
+        String formatDate = String.format("occurredOn='%1$tY-%1$tm-%1$td %1$tH:%1$tM']", occurredOn());
+        String format = String.format(
+                "%s[Name='%s', user id='%s'] ",
+                this.getClass().getSimpleName(),
+                this.getSourceName(), this.getSourceId());
+        return format + formatDate;
+    }
+
+
 //    public UserRegistrationSucceeded(Entity entity) {
 //        super(entity);
 //    }
