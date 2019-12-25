@@ -6,11 +6,11 @@ import tw.teddysoft.clean.adapter.presenter.kanbanboard.board.SingleBoardPresent
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
+import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.board.create.impl.CreateBoardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
@@ -86,9 +86,8 @@ public class CreateBoardUseCaseWithoutEventHandlerTest {
             WorkflowRepository workflowRepository,
             DomainEventBus eventBus){
 
-        CreateBoardUseCase addBoardUC = new CreateBoardUseCaseImpl(
-                boardRepository,
-                eventBus);
+        UseCase<CreateBoardInput, CreateBoardOutput> addBoardUC =
+                new CreateBoardUseCase(boardRepository, eventBus);
 
         CreateBoardInput input = addBoardUC.createInput();
         CreateBoardOutput output = new SingleBoardPresenter();

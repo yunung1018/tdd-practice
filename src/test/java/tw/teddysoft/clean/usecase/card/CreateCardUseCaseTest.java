@@ -7,11 +7,11 @@ import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
+import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
-import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
@@ -70,7 +70,8 @@ public class CreateCardUseCaseTest {
             WorkflowRepository workflowRepository,
             DomainEventBus eventBus){
 
-        CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(cardRepository, workflowRepository, eventBus);
+        UseCase<CreateCardInput, CreateCardOutput> createCardUseCase = new CreateCardUseCase(cardRepository, workflowRepository, eventBus);
+
         CreateCardInput input = createCardUseCase.createInput() ;
         CreateCardOutput output = new SingleCardPresenter();
         input.setName(Name)

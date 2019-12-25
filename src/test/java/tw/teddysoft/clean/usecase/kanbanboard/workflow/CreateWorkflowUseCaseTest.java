@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
+import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.junit.Assert.*;
@@ -52,7 +52,7 @@ public class CreateWorkflowUseCaseTest {
                                                       WorkflowRepository workflowRepository,
                                                       DomainEventBus eventBus){
 
-        CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository, eventBus);
+        UseCase<CreateWorkflowInput, CreateWorkflowOutput> createWorkflowUC = new CreateWorkflowUseCase(workflowRepository, eventBus);
 
         CreateWorkflowInput input = createWorkflowUC.createInput();
         CreateWorkflowOutput output = new SingleWorkflowPresenter();

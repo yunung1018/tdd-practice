@@ -4,10 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryAggregateRootRepositoryPeer;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace.SingleWorkspacePresenter;
+import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl.CreateWorkspaceUseCaseImpl;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +36,7 @@ public class CreateWorkspaceUseCaseTest {
 
     public static CreateWorkspaceOutput doCreateWorkspaceUseCase(WorkspaceRepository repository, String userId, String workspaceName){
 
-        CreateWorkspaceUseCase createWorkspaceUC = new CreateWorkspaceUseCaseImpl(repository);
+        UseCase<CreateWorkspaceInput, CreateWorkspaceOutput> createWorkspaceUC = new CreateWorkspaceUseCase(repository);
         CreateWorkspaceInput input = createWorkspaceUC.createInput();
         CreateWorkspaceOutput output = new SingleWorkspacePresenter();
         input.setUserId(userId);

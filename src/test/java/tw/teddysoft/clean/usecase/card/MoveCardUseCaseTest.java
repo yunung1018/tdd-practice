@@ -5,11 +5,11 @@ import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
+import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.card.move.MoveCardInput;
 import tw.teddysoft.clean.usecase.card.move.MoveCardOutput;
 import tw.teddysoft.clean.usecase.card.move.MoveCardUseCase;
-import tw.teddysoft.clean.usecase.card.move.impl.MoveCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
@@ -79,7 +79,9 @@ public class MoveCardUseCaseTest {
             CardRepository cardRepository,
             WorkflowRepository workflowRepository){
 
-        MoveCardUseCase moveCardUseCase = new MoveCardUseCaseImpl(cardRepository, workflowRepository);
+        UseCase<MoveCardInput, MoveCardOutput> moveCardUseCase =
+                new MoveCardUseCase(cardRepository, workflowRepository);
+
         MoveCardInput input = moveCardUseCase.createInput() ;
         MoveCardOutput output = new SingleCardPresenter();
         input.setWorkflowId(workflowId)
