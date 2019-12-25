@@ -20,6 +20,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.GetStageOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.GetStageUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.impl.GetStageUseCaseImpl;
 
+//TODO
 @Configuration
 public class UseCaseBeanConfiguration {
 
@@ -35,7 +36,8 @@ public class UseCaseBeanConfiguration {
   }
   @Bean(name="addStageInput")
   public AddStageInput addStageInput() {
-    return AddStageUseCaseImpl.createInput();
+//    return AddStageUseCaseImpl.createInput();
+    return null;
   }
   @Bean(name="addStageOutput")
   public AddStageOutput addStageOutput() {
@@ -48,7 +50,8 @@ public class UseCaseBeanConfiguration {
   }
   @Bean(name="getStageInput")
   public GetStageInput getStageInput() {
-    return GetStageUseCaseImpl.createInput();
+//    return GetStageUseCaseImpl.createInput();
+    return null;
   }
   @Bean(name="getStageOutput")
   public GetStageOutput getStageOutput() {
@@ -58,11 +61,15 @@ public class UseCaseBeanConfiguration {
 
   @Bean(name="updateMiniStageUseCase")
   public UpdateMiniStageUseCase updateMiniStageUseCase() {
-    return new UpdateMiniStageUseCaseImpl(stageRepository);
+
+//    return new UpdateMiniStageUseCaseImpl(stageRepository
+    return null;
   }
+
   @Bean(name="getUpdateMiniStateInput")
   public UpdateMiniStageInput getUpdateMiniStateInput() {
-    return UpdateMiniStageUseCaseImpl.createInput();
+//    return UpdateMiniStageUseCaseImpl.createInput();
+  return null;
   }
   @Bean(name="getUpdateMiniStageOutput")
   public UpdateMiniStageOutput getUpdateMiniStageOutput() {

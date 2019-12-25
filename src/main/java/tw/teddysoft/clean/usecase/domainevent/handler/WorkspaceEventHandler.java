@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.event.BoardCommitted;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
 
 public class WorkspaceEventHandler {

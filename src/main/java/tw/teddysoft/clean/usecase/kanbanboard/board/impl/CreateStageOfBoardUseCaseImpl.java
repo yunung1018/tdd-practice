@@ -16,8 +16,8 @@ public class CreateStageOfBoardUseCaseImpl implements CreateStageOfBoardUseCase 
         this.stageRepository = stageRepository;
     }
 
-
-    public static CreateStageOfBoardInput createInput(){
+    @Override
+    public CreateStageOfBoardInput createInput(){
         return new CreateStageOfBoardInputImpl();
     }
 

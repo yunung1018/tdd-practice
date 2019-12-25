@@ -1,19 +1,19 @@
-package tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace;
+package tw.teddysoft.clean.adapter.presenter.kanbanboard.home;
 
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.home.create.CreateHomeOutput;
 
-public class SingleWorkspacePresenter implements CreateWorkspaceOutput {
+public class SingleHomePresenter implements CreateHomeOutput {
 
     private String workspaceId;
     private String userId;
 
     @Override
-    public String getWorkspaceId() {
+    public String getHomeId() {
         return workspaceId;
     }
 
     @Override
-    public void setWorkspaceId(String workspaceId) {
+    public void setHomeId(String workspaceId) {
         this.workspaceId = workspaceId;
     }
 
@@ -28,7 +28,7 @@ public class SingleWorkspacePresenter implements CreateWorkspaceOutput {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Workspace id: ").append(getWorkspaceId()).append("; ");
+        sb.append("Workspace id: ").append(getHomeId()).append("; ");
         sb.append("User id: ").append(getUserId()).append(".");
         return sb.toString();
     }

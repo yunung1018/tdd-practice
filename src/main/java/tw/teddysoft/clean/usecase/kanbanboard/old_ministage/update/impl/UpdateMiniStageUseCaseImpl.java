@@ -26,7 +26,8 @@ public class UpdateMiniStageUseCaseImpl implements UpdateMiniStageUseCase {
         repository.save(stage);
     }
 
-    public static UpdateMiniStageInput createInput(){
+    @Override
+    public UpdateMiniStageInput createInput(){
         return new UpdateMiniStageInputImpl();
     }
 

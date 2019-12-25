@@ -22,7 +22,8 @@ public class AddMiniStageUseCaseImpl implements AddMiniStageUseCase {
         repository.save(stage);
     }
 
-    public static AddMiniStageInput createInput(){
+    @Override
+    public AddMiniStageInput createInput(){
         return new AddMiniStageInputImpl();
     }
 

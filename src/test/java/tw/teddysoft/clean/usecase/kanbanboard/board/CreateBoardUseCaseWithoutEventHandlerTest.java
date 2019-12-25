@@ -12,7 +12,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.impl.CreateBoardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 
 import static org.junit.Assert.*;
 
@@ -86,14 +86,15 @@ public class CreateBoardUseCaseWithoutEventHandlerTest {
             WorkflowRepository workflowRepository,
             DomainEventBus eventBus){
 
-        CreateBoardInput input = CreateBoardUseCaseImpl.createInput();
+        CreateBoardUseCase addBoardUC = new CreateBoardUseCaseImpl(
+                boardRepository,
+                eventBus);
+
+        CreateBoardInput input = addBoardUC.createInput();
         CreateBoardOutput output = new SingleBoardPresenter();
         input.setWorkspaceId(workspaceId);
         input.setBoardName(boardName);
 
-        CreateBoardUseCase addBoardUC = new CreateBoardUseCaseImpl(
-                boardRepository,
-                eventBus);
 
         addBoardUC.execute(input, output);
 

@@ -9,7 +9,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInpu
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
-import tw.teddysoft.clean.usecase.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
 
 import static org.junit.Assert.*;
 
@@ -54,7 +54,7 @@ public class CreateWorkflowUseCaseTest {
 
         CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository, eventBus);
 
-        CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
+        CreateWorkflowInput input = createWorkflowUC.createInput();
         CreateWorkflowOutput output = new SingleWorkflowPresenter();
         input.setBoardId(boardId);
         input.setWorkflowName(name);

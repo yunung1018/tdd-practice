@@ -18,8 +18,8 @@ public class CreateStageUseCaseImpl implements CreateStageUseCase {
         this.eventBus = eventBus;
     }
 
-
-    public static CreateStageInput createInput(){
+    @Override
+    public CreateStageInput createInput(){
         return new CreateStageInputImpl();
     }
 

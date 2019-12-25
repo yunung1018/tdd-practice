@@ -16,7 +16,8 @@ public class RegisterEventSourcingSubscriberUseCaseImpl implements RegisterEvent
         this.repository = repository;
     }
 
-    public static RegisterEventSourcingSubscriberInput createInput(){
+    @Override
+    public RegisterEventSourcingSubscriberInput createInput(){
         return new RegisterEventSourcingSubscriberInputImpl();
     }
 

@@ -36,7 +36,8 @@ public class CreateCardUseCaseImpl implements CreateCardUseCase {
         output.setId(card.getId());
     }
 
-    public static CreateCardInput createInput() {
+    @Override
+    public CreateCardInput createInput() {
         return new CreateCardInputImpl();
     }
 

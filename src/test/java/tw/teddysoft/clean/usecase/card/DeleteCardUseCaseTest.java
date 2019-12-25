@@ -11,7 +11,7 @@ import tw.teddysoft.clean.usecase.card.delete.DeleteCardOutput;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardUseCase;
 import tw.teddysoft.clean.usecase.card.delete.impl.DeleteCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
@@ -68,7 +68,7 @@ public class DeleteCardUseCaseTest {
                                                 WorkflowRepository workflowRepository){
 
         DeleteCardUseCase deleteCardUseCase = new DeleteCardUseCaseImpl(cardRepository, workflowRepository, context.getDomainEventBus());
-        DeleteCardInput input = DeleteCardUseCaseImpl.createInput() ;
+        DeleteCardInput input = deleteCardUseCase.createInput() ;
         DeleteCardOutput output = new SingleCardPresenter();
         input.setWorkflowId(workflowId)
                 .setLaneId(stageId)

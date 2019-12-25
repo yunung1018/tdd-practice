@@ -25,7 +25,8 @@ public class AddStageUseCaseImpl implements AddStageUseCase {
         output.setMiniStageId(stage.getDefaultMiniStage().getId());
     }
 
-    public static AddStageInput createInput(){
+    @Override
+    public AddStageInput createInput(){
         return new AddStageInputImpl();
     }
 

@@ -21,7 +21,8 @@ public class RegisterFlowEventSubscriberUseCaseImpl implements RegisterFlowEvent
         this.eventBus = eventBus;
     }
 
-    public static RegisterFlowEventSubscriberInput createInput(){
+    @Override
+    public RegisterFlowEventSubscriberInput createInput(){
         return new RegisterFlowEventSubscriberInputImpl();
     }
 

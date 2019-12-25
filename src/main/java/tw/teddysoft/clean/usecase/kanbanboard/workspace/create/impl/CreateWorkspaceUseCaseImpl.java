@@ -1,10 +1,10 @@
-package tw.teddysoft.clean.usecase.workspace.create.impl;
+package tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
-import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
-import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceInput;
-import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceOutput;
-import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceUseCase;
 
 public class CreateWorkspaceUseCaseImpl implements CreateWorkspaceUseCase {
 
@@ -23,7 +23,8 @@ public class CreateWorkspaceUseCaseImpl implements CreateWorkspaceUseCase {
         output.setWorkspaceId(workspace.getId());
     }
 
-    public static CreateWorkspaceInput createInput(){
+    @Override
+    public CreateWorkspaceInput createInput(){
         return new CreateWorkspaceInputImpl();
     }
 

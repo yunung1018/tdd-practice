@@ -24,7 +24,8 @@ public class AddSwimLaneUseCaseImpl implements AddSwimLaneUseCase {
         repository.save(stage);
     }
 
-    public static AddSwimLaneInput createInput(){
+    @Override
+    public AddSwimLaneInput createInput(){
         return new AddSwimLaneInputImpl();
     }
 

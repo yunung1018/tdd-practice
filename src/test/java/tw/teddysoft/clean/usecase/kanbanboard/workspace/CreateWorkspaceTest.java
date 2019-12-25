@@ -1,13 +1,13 @@
-package tw.teddysoft.clean.usecase.workspace;
+package tw.teddysoft.clean.usecase.kanbanboard.workspace;
 
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkspaceRepository;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace.SingleWorkspacePresenter;
-import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceInput;
-import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceOutput;
-import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceUseCase;
-import tw.teddysoft.clean.usecase.workspace.create.impl.CreateWorkspaceUseCaseImpl;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceUseCase;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl.CreateWorkspaceUseCaseImpl;
 
 import static org.junit.Assert.*;
 
@@ -36,12 +36,12 @@ public class CreateWorkspaceTest {
 
     public static CreateWorkspaceOutput doCreateWorkspaceUseCase(WorkspaceRepository repository, String userId, String workspaceName){
 
-        CreateWorkspaceInput input = CreateWorkspaceUseCaseImpl.createInput();
+        CreateWorkspaceUseCase createWorkspaceUC = new CreateWorkspaceUseCaseImpl(repository);
+        CreateWorkspaceInput input = createWorkspaceUC.createInput();
         CreateWorkspaceOutput output = new SingleWorkspacePresenter();
         input.setUserId(userId);
         input.setWorkspaceName(workspaceName);
 
-        CreateWorkspaceUseCase createWorkspaceUC = new CreateWorkspaceUseCaseImpl(repository);
         createWorkspaceUC.execute(input, output);
 
         return output;

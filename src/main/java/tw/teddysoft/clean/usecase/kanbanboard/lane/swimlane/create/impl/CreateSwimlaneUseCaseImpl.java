@@ -18,8 +18,8 @@ public class CreateSwimlaneUseCaseImpl implements CreateSwimlaneUseCase {
         this.eventBus = eventBus;
     }
 
-
-    public static CreateSwimlaneInput createInput(){
+    @Override
+    public CreateSwimlaneInput createInput(){
         return new CreateSwimlaneInputImpl();
     }
 

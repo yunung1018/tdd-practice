@@ -47,7 +47,8 @@ public class DeleteCardUseCaseImpl implements DeleteCardUseCase {
 //        workflowRepository.save(workflow);
     }
 
-    public static DeleteCardInput createInput() {
+    @Override
+    public DeleteCardInput createInput() {
         return new DeleteCardInputImpl();
     }
 

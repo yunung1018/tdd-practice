@@ -1,9 +1,6 @@
 package tw.teddysoft.clean.usecase;
 
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryBoardRepository;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventRepository;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkflowRepository;
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryWorkspaceRepository;
+import tw.teddysoft.clean.adapter.gateway.kanbanboard.*;
 import tw.teddysoft.clean.adapter.gateway.workitem.InMemoryCardRepository;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
@@ -11,8 +8,10 @@ import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowP
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.FlowEvent;
 import tw.teddysoft.clean.domain.model.PersistentDomainEvent;
+import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
+import tw.teddysoft.clean.domain.usecase.GenericRepository;
 import tw.teddysoft.clean.usecase.card.CardRepository;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
@@ -36,9 +35,9 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInpu
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
-import tw.teddysoft.clean.usecase.workspace.CreateWorkspaceTest;
-import tw.teddysoft.clean.usecase.workspace.WorkspaceRepository;
-import tw.teddysoft.clean.usecase.workspace.create.CreateWorkspaceOutput;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
 
 public class TestContext {
 
@@ -50,6 +49,7 @@ public class TestContext {
     public static final String SCRUM_BOARD_NAME = "Scrum Board";
     public static final String KANBAN_BOARD_NAME = "Kanban Board";
 
+    private GenericRepository<Home> homeRepository;
     private WorkspaceRepository workspaceRepository;
     private WorkflowRepository workflowRepository;
     private BoardRepository boardRepository;
@@ -77,7 +77,8 @@ public class TestContext {
     public static final int TOTAL_WORKFLOW_NUMBER = 2;
 
     public TestContext(){
-        this(new InMemoryWorkspaceRepository(),
+        this( new GenericInMemoryRepository<Home>(),
+                new InMemoryWorkspaceRepository(),
                 new InMemoryBoardRepository(),
                 new InMemoryWorkflowRepository(),
                 new InMemoryCardRepository(),
@@ -89,6 +90,7 @@ public class TestContext {
     }
 
     public TestContext(
+            GenericRepository<Home> homeRepository,
             WorkspaceRepository workspaceRepository,
             BoardRepository boardRepository,
                        WorkflowRepository workflowRepository,
@@ -96,6 +98,7 @@ public class TestContext {
                         DomainEventRepository<FlowEvent> flowEventRepository,
                         DomainEventRepository<PersistentDomainEvent> storedEventRepository){
 
+        this.homeRepository = homeRepository;
         this.workspaceRepository = workspaceRepository;
         this.boardRepository = boardRepository;
         this.workflowRepository = workflowRepository;
@@ -117,6 +120,10 @@ public class TestContext {
         eventBus.register(new WorkspaceEventHandler(workspaceRepository, workflowRepository, eventBus));
         eventBus.register(flowEventHandler);
         eventBus.register(eventSourcingHandler);
+    }
+
+    public GenericRepository<Home> getHomeRepository() {
+        return homeRepository;
     }
 
     public DomainEventRepository<PersistentDomainEvent> getStoredEventRepository() {
@@ -173,7 +180,7 @@ public class TestContext {
     public CreateWorkflowOutput doCreateWorkflowUseCase(String boardId, String name) {
         CreateWorkflowUseCase createWorkflowUC = new CreateWorkflowUseCaseImpl(workflowRepository, eventBus);
 
-        CreateWorkflowInput input = CreateWorkflowUseCaseImpl.createInput();
+        CreateWorkflowInput input = createWorkflowUC.createInput();
         CreateWorkflowOutput output = new SingleWorkflowPresenter();
         input.setBoardId(boardId);
         input.setWorkflowName(name);
@@ -185,7 +192,7 @@ public class TestContext {
     public CreateStageOutput doCreateStageUseCase(String workflowId, String name, String parentId){
 
         CreateStageUseCase createStageLaneUC = new CreateStageUseCaseImpl(workflowRepository, getDomainEventBus());
-        CreateStageInput input = CreateStageUseCaseImpl.createInput();
+        CreateStageInput input = createStageLaneUC.createInput();
         CreateStageOutput output = new tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter();
         input.setWorkflowId(workflowId);
         input.setName(name);
@@ -200,7 +207,7 @@ public class TestContext {
 
         CreateSwimlaneUseCase createSwimLaneUC = new CreateSwimlaneUseCaseImpl(workflowRepository, getDomainEventBus());
 
-        CreateSwimlaneInput input = CreateSwimlaneUseCaseImpl.createInput();
+        CreateSwimlaneInput input = createSwimLaneUC.createInput();
         CreateSwimlaneOutput output = new SingleStagePresenter();
 
         input.setWorkflowId(workflowId);
@@ -215,7 +222,7 @@ public class TestContext {
     public CreateCardOutput doCreateCardUseCase(String name, String workflowId, String laneId) {
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCaseImpl(cardRepository, workflowRepository, getDomainEventBus());
-        CreateCardInput input = CreateCardUseCaseImpl.createInput() ;
+        CreateCardInput input = createCardUseCase.createInput() ;
         CreateCardOutput output = new SingleCardPresenter();
         input.setName(name);
         input.setWorkflowId(workflowId)

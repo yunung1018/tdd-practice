@@ -30,7 +30,8 @@ public class CreateBoardUseCaseImpl implements CreateBoardUseCase {
         output.setBoardName(board.getName());
     }
 
-    public static CreateBoardInput createInput(){
+    @Override
+    public CreateBoardInput createInput(){
         return new CreateBoardInputImpl();
     }
 

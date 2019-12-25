@@ -15,7 +15,8 @@ public class MoveStageOfBoardUseCaseImpl implements MoveStageOfBoardUseCase {
     }
 
 
-    public static MoveStageOfBoardInput createInput(){
+    @Override
+    public MoveStageOfBoardInput createInput(){
         return new InputImpl();
     }
 

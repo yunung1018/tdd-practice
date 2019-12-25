@@ -19,8 +19,8 @@ public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
         this.eventBus = eventBus;
     }
 
-
-    public static CreateWorkflowInput createInput(){
+    @Override
+    public CreateWorkflowInput createInput(){
         return new CreateWorkflowInputImpl();
     }
 

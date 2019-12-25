@@ -28,7 +28,8 @@ public class MoveCardUseCaseImpl implements MoveCardUseCase {
     }
 
 
-    public static MoveCardInput createInput() {
+    @Override
+    public MoveCardInput createInput() {
         return new MoveCardInputImpl();
     }
 

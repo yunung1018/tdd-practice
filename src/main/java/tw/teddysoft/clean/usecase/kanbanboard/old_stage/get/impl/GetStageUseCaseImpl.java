@@ -34,7 +34,8 @@ public class GetStageUseCaseImpl implements GetStageUseCase {
         output.setStageDtos(DtoConvertor.createStageDtoList(stages, boardRepository));
     }
 
-    public static GetStageInput createInput(){
+    @Override
+    public GetStageInput createInput(){
         return new GetStageInputImpl();
     }
 
