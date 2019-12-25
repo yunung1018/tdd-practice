@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.TestContext;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -61,8 +61,8 @@ public class CreateKanbanBoardGameTest {
 
     private String crateWorkspaceUseCase(){
         context.workspaceId = context.doCreateWorkspaceUseCase(
-                CreateWorkspaceTest.USER_ID,
-                CreateWorkspaceTest.WORKSPACE_NAME)
+                CreateWorkspaceUseCaseTest.USER_ID,
+                CreateWorkspaceUseCaseTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
         return context.workspaceId;

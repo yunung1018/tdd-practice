@@ -10,8 +10,7 @@ import tw.teddysoft.clean.usecase.card.delete.DeleteCardInput;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardOutput;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardUseCase;
 import tw.teddysoft.clean.usecase.card.delete.impl.DeleteCardUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
@@ -32,7 +31,7 @@ public class DeleteCardUseCaseTest {
         context = new TestContext();
         context.registerAllEventHandler();
 
-        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceUseCaseTest.USER_ID, CreateWorkspaceUseCaseTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
         context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();

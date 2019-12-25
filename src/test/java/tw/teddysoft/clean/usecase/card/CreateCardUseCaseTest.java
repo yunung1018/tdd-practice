@@ -13,7 +13,7 @@ import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
 import tw.teddysoft.clean.usecase.card.create.impl.CreateCardUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.registerCustomDateFormat;
@@ -30,7 +30,7 @@ public class CreateCardUseCaseTest {
         context = new TestContext();
         context.registerAllEventHandler();
 
-        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceUseCaseTest.USER_ID, CreateWorkspaceUseCaseTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
         context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();

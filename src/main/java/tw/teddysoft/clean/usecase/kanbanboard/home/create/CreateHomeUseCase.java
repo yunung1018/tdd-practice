@@ -2,7 +2,6 @@ package tw.teddysoft.clean.usecase.kanbanboard.home.create;
 
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
-import tw.teddysoft.clean.domain.usecase.repository.IRepository;
 import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.home.HomeRepository;
 

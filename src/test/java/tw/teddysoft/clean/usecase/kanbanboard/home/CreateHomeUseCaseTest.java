@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.home.SingleHomePresenter;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
-import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
-import tw.teddysoft.clean.domain.usecase.repository.IRepository;
 import tw.teddysoft.clean.domain.usecase.UseCase;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.home.create.CreateHomeInput;
@@ -16,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class CreateHomeTest {
+public class CreateHomeUseCaseTest {
 
     public static final String USER_ID = "USER_007";
     public static final String Home_NAME = "Teddy's Home";

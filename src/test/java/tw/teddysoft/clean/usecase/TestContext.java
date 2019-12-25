@@ -32,11 +32,17 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInpu
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
+import tw.teddysoft.clean.usecase.user.UserRepository;
 
 public class TestContext {
+
+    public static final String USER_LOGIN_ID = "teddy@teddysoft.tw";
+    public static final String USER_PASSWORD = "!@#124ASdfadyd08kdvF@tddd";
+    public static final String USER_NAME = "Teddy Chen";
+    public static final String USER_EMAIL = "teddy@teddysoft.tw";
 
     public static final String USER_ID = "USER-ID-8967";
     public static final String WORKSPACE_ID = "WORKSPACE-ID-5678";
@@ -46,6 +52,7 @@ public class TestContext {
     public static final String SCRUM_BOARD_NAME = "Scrum Board";
     public static final String KANBAN_BOARD_NAME = "Kanban Board";
 
+    private UserRepository userRepository;
     private HomeRepository homeRepository;
     private WorkspaceRepository workspaceRepository;
     private WorkflowRepository workflowRepository;
@@ -53,6 +60,7 @@ public class TestContext {
     private CardRepository cardRepository;
     private DomainEventRepository storedEventRepository;
     private FlowEventRepository flowEventRepository;
+
 
     private WorkflowEventHandler workflowEventHandler;
     private FlowEventHandler flowEventHandler;
@@ -74,7 +82,8 @@ public class TestContext {
     public static final int TOTAL_WORKFLOW_NUMBER = 2;
 
     public TestContext(){
-        this(  new HomeRepository(new InMemoryAggregateRootRepositoryPeer()),
+        this(  new UserRepository(new InMemoryAggregateRootRepositoryPeer()),
+                new HomeRepository(new InMemoryAggregateRootRepositoryPeer()),
                 new WorkspaceRepository(new InMemoryAggregateRootRepositoryPeer()),
                 new BoardRepository(new InMemoryAggregateRootRepositoryPeer()),
                 new WorkflowRepository(new InMemoryAggregateRootRepositoryPeer()),
@@ -87,6 +96,7 @@ public class TestContext {
     }
 
     public TestContext(
+            UserRepository userRepository,
             HomeRepository homeRepository,
             WorkspaceRepository workspaceRepository,
             BoardRepository boardRepository,
@@ -95,6 +105,7 @@ public class TestContext {
                         FlowEventRepository flowEventRepository,
                         DomainEventRepository storedEventRepository){
 
+        this.userRepository = userRepository;
         this.homeRepository = homeRepository;
         this.workspaceRepository = workspaceRepository;
         this.boardRepository = boardRepository;
@@ -117,6 +128,10 @@ public class TestContext {
         eventBus.register(new WorkspaceEventHandler(workspaceRepository, workflowRepository, eventBus));
         eventBus.register(flowEventHandler);
         eventBus.register(eventSourcingHandler);
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
     }
 
     public HomeRepository getHomeRepository() {
@@ -162,7 +177,7 @@ public class TestContext {
 
 
     public CreateWorkspaceOutput doCreateWorkspaceUseCase(String userId, String workspaceName) {
-        return CreateWorkspaceTest.doCreateWorkspaceUseCase(workspaceRepository, userId, workspaceName);
+        return CreateWorkspaceUseCaseTest.doCreateWorkspaceUseCase(workspaceRepository, userId, workspaceName);
     }
 
     public Workspace getDefaultWorkspace(){

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.usecase.TestContext;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -23,7 +23,7 @@ public class FlowEventHandlerTest {
     public void executing_CreateCardUseCase_should_publish_CardCommitted_flow_event()  {
 
         context.doCreateWorkspaceUseCase(TestContext.USER_ID, TestContext.WORKSPACE_NAME);
-        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceUseCaseTest.USER_ID, CreateWorkspaceUseCaseTest.WORKSPACE_NAME)
                 .getWorkspaceId();
         context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
         Workflow workflow = context.getWorkflowRepository().findAll().get(0);
@@ -43,7 +43,7 @@ public class FlowEventHandlerTest {
     public void creating_workspace_and_board_and_stage_should_not_publish_any_flow_event()  {
 
         context.doCreateWorkspaceUseCase(TestContext.USER_ID, TestContext.WORKSPACE_NAME);
-        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceUseCaseTest.USER_ID, CreateWorkspaceUseCaseTest.WORKSPACE_NAME)
                 .getWorkspaceId();
         context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();
         Workflow workflow = context.getWorkflowRepository().findAll().get(0);

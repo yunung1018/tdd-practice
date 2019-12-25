@@ -9,7 +9,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInpu
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.impl.CreateWorkflowUseCaseImpl;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceTest;
+import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +22,7 @@ public class CreateWorkflowUseCaseTest {
         context = new TestContext();
         context.registerAllEventHandler();
 
-        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceTest.USER_ID, CreateWorkspaceTest.WORKSPACE_NAME)
+        context.workspaceId = context.doCreateWorkspaceUseCase(CreateWorkspaceUseCaseTest.USER_ID, CreateWorkspaceUseCaseTest.WORKSPACE_NAME)
                 .getWorkspaceId();
 
         context.boardId = context.doCreateBoardUseCase(context.workspaceId, TestContext.SCRUM_BOARD_NAME).getBoardId();

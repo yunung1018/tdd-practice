@@ -11,7 +11,7 @@ import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.impl.CreateWorksp
 
 import static org.junit.Assert.*;
 
-public class CreateWorkspaceTest {
+public class CreateWorkspaceUseCaseTest {
 
     public static final String USER_ID = "USER_007";
     public static final String WORKSPACE_NAME = "Teddy's Workspace";
