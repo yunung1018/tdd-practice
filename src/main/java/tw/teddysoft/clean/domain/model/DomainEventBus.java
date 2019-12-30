@@ -5,6 +5,7 @@ import com.google.common.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DomainEventBus extends EventBus {
 
     public DomainEventBus(){
@@ -12,7 +13,8 @@ public class DomainEventBus extends EventBus {
         }
 
     public void postAll(AggregateRoot aggregateRoot){
-        List<DomainEvent> events = new ArrayList(aggregateRoot.getDomainEvents());
+        List<DomainEvent> events =
+                new ArrayList(aggregateRoot.getDomainEvents());
         aggregateRoot.clearDomainEvents();
 
         for(DomainEvent each : events){

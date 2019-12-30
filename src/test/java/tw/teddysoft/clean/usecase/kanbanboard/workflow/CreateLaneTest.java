@@ -47,13 +47,13 @@ public class CreateLaneTest {
         Lane backlog = workflow.getStages().get(0);
 
         createStage(workflow.getId(), "Legend", backlog.getId());
-        assertEquals(1, backlog.getSubLanes().size());
-        assertEquals(LaneOrientation.VERTICAL, backlog.getSubLanes().get(0).getOrientation());
-        assertEquals("Legend", backlog.getSubLanes().get(0).getName());
+        assertEquals(1, backlog.getChildren().size());
+        assertEquals(LaneOrientation.VERTICAL, backlog.getChildren().get(0).getOrientation());
+        assertEquals("Legend", backlog.getChildren().get(0).getName());
 
         createStage(workflow.getId(), "Ready", backlog.getId());
-        assertEquals(LaneOrientation.VERTICAL, backlog.getSubLanes().get(1).getOrientation());
-        assertEquals("Ready", backlog.getSubLanes().get(1).getName());
+        assertEquals(LaneOrientation.VERTICAL, backlog.getChildren().get(1).getOrientation());
+        assertEquals("Ready", backlog.getChildren().get(1).getName());
     }
 
     @Test
@@ -62,14 +62,14 @@ public class CreateLaneTest {
         Lane backlog = workflow.getStages().get(0);
 
         createSwimlane(workflow.getId(), "Top5", backlog.getId());
-        assertEquals(1, backlog.getSubLanes().size());
-        assertEquals(LaneOrientation.HORIZONTAL, backlog.getSubLanes().get(0).getOrientation());
-        assertEquals("Top5", backlog.getSubLanes().get(0).getName());
+        assertEquals(1, backlog.getChildren().size());
+        assertEquals(LaneOrientation.HORIZONTAL, backlog.getChildren().get(0).getOrientation());
+        assertEquals("Top5", backlog.getChildren().get(0).getName());
 
         createSwimlane(workflow.getId(), "Idea", backlog.getId());
-        assertEquals(2, backlog.getSubLanes().size());
-        assertEquals(LaneOrientation.HORIZONTAL, backlog.getSubLanes().get(1).getOrientation());
-        assertEquals("Idea", backlog.getSubLanes().get(1).getName());
+        assertEquals(2, backlog.getChildren().size());
+        assertEquals(LaneOrientation.HORIZONTAL, backlog.getChildren().get(1).getOrientation());
+        assertEquals("Idea", backlog.getChildren().get(1).getName());
 
         int lastEventIndex = context.getStoredEventRepository().findAll().size() - 1;
         assertThat(context.getStoredEventRepository().findAll().get(lastEventIndex).detail()).startsWith("SwimlaneCreated");

@@ -7,6 +7,7 @@ import tw.teddysoft.clean.adapter.presenter.user.SingleUserPresenter;
 import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.usecase.Context;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
@@ -30,23 +31,23 @@ public class RegisterUserUseCaseTest {
     public void register_user() {
 
         RegisterUserOutput output = doRegisterUserUseCase(
-                TestContext.USER_LOGIN_ID,
-                TestContext.USER_PASSWORD,
-                TestContext.USER_NAME,
-                TestContext.USER_EMAIL,
+                Context.USER_LOGIN_ID,
+                Context.USER_PASSWORD,
+                Context.USER_NAME,
+                Context.USER_EMAIL,
                 context.getUserRepository(),
                 context.getDomainEventBus());
 
         assertNotNull(output.getUserId());
         assertNotNull(context.getUserRepository().findById(output.getUserId()));
         assertEquals(1, context.getUserRepository().findAll().size());
-        assertEquals(TestContext.USER_LOGIN_ID, context.getUserRepository().findById(output.getUserId()).getLoginId());
-        assertEquals(TestContext.USER_NAME, context.getUserRepository().findById(output.getUserId()).getName());
+        assertEquals(Context.USER_LOGIN_ID, context.getUserRepository().findById(output.getUserId()).getLoginId());
+        assertEquals(Context.USER_NAME, context.getUserRepository().findById(output.getUserId()).getName());
 
 
         context.getStoredEventRepository().findAll().stream().forEach(x -> System.out.println(x.detail()));
 
-        assertEquals(TestContext.USER_LOGIN_ID, context.getUserRepository().findById(output.getUserId()).getLoginId());
+        assertEquals(Context.USER_LOGIN_ID, context.getUserRepository().findById(output.getUserId()).getLoginId());
 
         int lastIndex = context.getStoredEventRepository().findAll().size() - 1;
         assertThat(context.getStoredEventRepository().findAll().get(lastIndex - 1).detail()).startsWith("UserRegistrationSucceeded");

@@ -3,6 +3,7 @@ package tw.teddysoft.clean.domain.model.kanbanboard.board;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.domain.model.*;
+import tw.teddysoft.clean.usecase.Context;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.domainevent.handler.BoardEventHandler;
 import tw.teddysoft.clean.usecase.domainevent.handler.WorkflowEventHandler;
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BoardTest {
 
     private TestContext context;
-    private String workspaceId = TestContext.WORKSPACE_ID;
+    private String workspaceId = Context.WORKSPACE_ID;
 
     private DomainEventBus eventBus;
 
@@ -27,7 +28,7 @@ public class BoardTest {
         WorkflowEventHandler workflowEventHandler = new WorkflowEventHandler(context.getBoardRepository(), context.getWorkflowRepository(), eventBus);
         WorkspaceEventHandler workspaceEventHandler = new WorkspaceEventHandler(context.getWorkspaceRepository(), context.getWorkflowRepository(), eventBus);
 
-        workspaceId = context.doCreateWorkspaceUseCase(TestContext.USER_ID, TestContext.WORKSPACE_NAME).getWorkspaceId();
+        workspaceId = context.doCreateWorkspaceUseCase(Context.USER_ID, Context.WORKSPACE_NAME).getWorkspaceId();
 
         eventBus.register(boardEventHandler);
         eventBus.register(workflowEventHandler);

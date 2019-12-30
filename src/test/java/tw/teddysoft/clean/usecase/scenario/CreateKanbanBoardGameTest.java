@@ -46,12 +46,12 @@ public class CreateKanbanBoardGameTest {
 
 //        assertThat(storedSubscriber.expectedResults.size()).isEqualTo(67);
         assertThat(workflow.findLaneById(backlogStageId).getCommittedCards().size()).isEqualTo(20);
-        assertThat(workflow.findLaneById(readyStageId).getSubLanes().size()).isEqualTo(0);
-        assertThat(workflow.findLaneById(analysisStageId).getSubLanes().size()).isEqualTo(2);
-        assertThat(workflow.findLaneById(developmentStageId).getSubLanes().size()).isEqualTo(2);
-        assertThat(workflow.findLaneById(testStageId).getSubLanes().size()).isEqualTo(0);
-        assertThat(workflow.findLaneById(readyToDeployStageId).getSubLanes().size()).isEqualTo(0);
-        assertThat(workflow.findLaneById(deployedStageId).getSubLanes().size()).isEqualTo(0);
+        assertThat(workflow.findLaneById(readyStageId).getChildren().size()).isEqualTo(0);
+        assertThat(workflow.findLaneById(analysisStageId).getChildren().size()).isEqualTo(2);
+        assertThat(workflow.findLaneById(developmentStageId).getChildren().size()).isEqualTo(2);
+        assertThat(workflow.findLaneById(testStageId).getChildren().size()).isEqualTo(0);
+        assertThat(workflow.findLaneById(readyToDeployStageId).getChildren().size()).isEqualTo(0);
+        assertThat(workflow.findLaneById(deployedStageId).getChildren().size()).isEqualTo(0);
     }
 
     private void initContext(){

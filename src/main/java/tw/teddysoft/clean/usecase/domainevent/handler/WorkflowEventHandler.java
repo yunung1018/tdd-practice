@@ -26,7 +26,6 @@ public class WorkflowEventHandler {
         this.eventBus = eventBus;
     }
 
-
     @Subscribe
     public void handleEvent(WorkflowCreated event) {
         System.out.println("WorkflowEventHandler, event = " + event.detail());

@@ -7,6 +7,7 @@ import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.usecase.Context;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
@@ -27,7 +28,7 @@ public class CreateBoardUseCaseWithoutEventHandlerTest {
         context = TestContext.newInstance();
         // do not register domain event handler to see what happens
 //        context.registerAllEventHandler();
-        workspaceId = context.doCreateWorkspaceUseCase(TestContext.USER_ID, TestContext.WORKSPACE_NAME).getWorkspaceId();
+        workspaceId = context.doCreateWorkspaceUseCase(Context.USER_ID, Context.WORKSPACE_NAME).getWorkspaceId();
     }
 
     @Test

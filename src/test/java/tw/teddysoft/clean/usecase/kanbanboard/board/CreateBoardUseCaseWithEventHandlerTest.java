@@ -8,6 +8,7 @@ import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.usecase.Context;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
@@ -28,7 +29,7 @@ public class CreateBoardUseCaseWithEventHandlerTest {
 
         context = TestContext.newInstance();
         context.registerAllEventHandler();
-        workspaceId = context.doCreateWorkspaceUseCase(TestContext.USER_ID, TestContext.WORKSPACE_NAME).getWorkspaceId();
+        workspaceId = context.doCreateWorkspaceUseCase(Context.USER_ID, Context.WORKSPACE_NAME).getWorkspaceId();
     }
 
     @Test
@@ -84,27 +85,27 @@ public class CreateBoardUseCaseWithEventHandlerTest {
     }
 
 
-    public static CreateBoardOutput doCreateBoardUseCase(
-            String workspaceId,
-            String boardName,
-            WorkspaceRepository workspaceRepository,
-            BoardRepository boardRepository,
-            WorkflowRepository workflowRepository,
-            DomainEventBus eventBus){
-
-        UseCase<CreateBoardInput, CreateBoardOutput> addBoardUC = new CreateBoardUseCase(
-                boardRepository,
-                eventBus);
-
-        CreateBoardInput input = addBoardUC.createInput();
-        CreateBoardOutput output = new SingleBoardPresenter();
-        input.setWorkspaceId(workspaceId);
-        input.setBoardName(boardName);
-
-
-        addBoardUC.execute(input, output);
-
-        return output;
-    }
+//    public static CreateBoardOutput doCreateBoardUseCase(
+//            String workspaceId,
+//            String boardName,
+//            WorkspaceRepository workspaceRepository,
+//            BoardRepository boardRepository,
+//            WorkflowRepository workflowRepository,
+//            DomainEventBus eventBus){
+//
+//        UseCase<CreateBoardInput, CreateBoardOutput> addBoardUC = new CreateBoardUseCase(
+//                boardRepository,
+//                eventBus);
+//
+//        CreateBoardInput input = addBoardUC.createInput();
+//        CreateBoardOutput output = new SingleBoardPresenter();
+//        input.setWorkspaceId(workspaceId);
+//        input.setBoardName(boardName);
+//
+//
+//        addBoardUC.execute(input, output);
+//
+//        return output;
+//    }
 
 }

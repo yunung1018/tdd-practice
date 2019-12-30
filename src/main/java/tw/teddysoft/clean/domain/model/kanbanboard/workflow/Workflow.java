@@ -46,7 +46,9 @@ public class Workflow extends AggregateRoot {
     public Lane addStage(String parentId, String name){
         Lane parent = findLaneById(parentId);
         if (null == parent)
-            throw new RuntimeException("Cannot find the parent lane '" + parentId + "' to add the stage '" + this.getName() + "' under it.");
+            throw new RuntimeException("Cannot find the parent lane '" +
+                    parentId + "' to add the stage '" +
+                    this.getName() + "' under it.");
 
         Lane stage = LaneBuilder.getInstance()
                 .name(name)
@@ -54,10 +56,10 @@ public class Workflow extends AggregateRoot {
                 .stage()
                 .build();
 
-        parent.addSubLane(stage);
+        parent.addChildren(stage);
         addDomainEvent(new StageCreated(this));
 
-        //TODO return a readonly version of ministage
+        //TODO return a readonly version of stage
         return stage;
     }
 
@@ -72,7 +74,7 @@ public class Workflow extends AggregateRoot {
                 .swimlane()
                 .build();
 
-        parent.addSubLane(swimlane);
+        parent.addChildren(swimlane);
         addDomainEvent(new SwimlaneCreated(this));
 
         //TODO return a readonly version of swimlane
@@ -190,8 +192,8 @@ public class Workflow extends AggregateRoot {
         if (each.isCardCommitted(cardId)){
             result = each;
         }
-        else if (each.hasSubLane()) {
-            for (Lane next : each.getSubLanes()) {
+        else if (each.hasChildren()) {
+            for (Lane next : each.getChildren()) {
                 result = findLaneById(next, cardId);
             }
         }
@@ -217,8 +219,8 @@ public class Workflow extends AggregateRoot {
         if (parentId == each.getId()){
             result = each;
         }
-        else if (each.hasSubLane()) {
-            for (Lane next : each.getSubLanes()) {
+        else if (each.hasChildren()) {
+            for (Lane next : each.getChildren()) {
 //                System.out.println("==> " + next.getName());
                 result = findLaneById(next, parentId);
             }
@@ -228,8 +230,8 @@ public class Workflow extends AggregateRoot {
 
     private int getTotalLaneSize(Lane each) {
         int result = 1;
-        if (each.hasSubLane()) {
-            for (Lane next : each.getSubLanes()) {
+        if (each.hasChildren()) {
+            for (Lane next : each.getChildren()) {
                 result += getTotalLaneSize(next);
             }
         }
@@ -241,8 +243,8 @@ public class Workflow extends AggregateRoot {
 //        System.out.println("Lane ==>" + each.getName() );
 //        System.out.println("each.hasSubLane() ==>" + each.hasSubLane());
         System.out.printf(getTabs(tabs) + "%-20s %n", each.getName());
-        if (each.hasSubLane()) {
-            for (Lane next : each.getSubLanes()) {
+        if (each.hasChildren()) {
+            for (Lane next : each.getChildren()) {
                 dumpLane(next, tabs+1);
             }
         }

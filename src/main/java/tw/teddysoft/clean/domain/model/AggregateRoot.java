@@ -15,21 +15,20 @@ public abstract class AggregateRoot extends Entity {
         super(name);
         domainEvents = new CopyOnWriteArrayList<>();
     }
-
     public void addDomainEvent(DomainEvent event){
         domainEvents.add(event);
     }
-
     public List<DomainEvent> getDomainEvents(){
         return Collections.unmodifiableList(domainEvents);
     }
-
     public void clearDomainEvents(){
         domainEvents.clear();
     }
-
-    public void removeDomainEvent(DomainEvent event){
-        domainEvents.remove(event);
-    }
-
 }
+
+
+
+//    public void removeDomainEvent(DomainEvent event){
+//        domainEvents.remove(event);
+//    }
+

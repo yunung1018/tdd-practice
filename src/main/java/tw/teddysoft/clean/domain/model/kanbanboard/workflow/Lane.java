@@ -8,7 +8,7 @@ abstract public class Lane extends Entity {
     public static final String DEFAULT_NAME = "";
 
     private final String workflowId;
-    private final List<Lane> sublanes;
+    private final List<Lane> children;
     private final List<CommittedCard> committedCards;
     private final LaneOrientation orientation;
     private int wipLimit;
@@ -18,7 +18,7 @@ abstract public class Lane extends Entity {
         this.workflowId = workflowId;
         this.orientation = orientation;
         wipLimit = 0;
-        sublanes = new ArrayList<>();
+        children = new ArrayList<>();
         committedCards = new ArrayList<>();
     }
 
@@ -35,16 +35,16 @@ abstract public class Lane extends Entity {
         return orientation;
     }
 
-    public List<Lane> getSubLanes(){
-        return Collections.unmodifiableList(sublanes);
+    public List<Lane> getChildren(){
+        return Collections.unmodifiableList(children);
     }
 
-    public boolean hasSubLane() {
-        return 0 == sublanes.size() ? false : true;
+    public boolean hasChildren() {
+        return 0 == children.size() ? false : true;
     }
 
-    public void addSubLane(Lane lane) {
-        sublanes.add(lane);
+    public void addChildren(Lane lane) {
+        children.add(lane);
     }
 
     public int getWipLimit() {
