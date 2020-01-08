@@ -3,13 +3,13 @@ package tw.teddysoft.clean.usecase.kanbanboard.board.create;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class CreateBoardUseCase implements UseCase<CreateBoardInput, CreateBoardOutput> {
-    private BoardRepository boardRepository;
+    private Repository<Board> boardRepository;
     private DomainEventBus eventBus;
 
-    public CreateBoardUseCase(BoardRepository boardRepository,
+    public CreateBoardUseCase(Repository boardRepository,
                                   DomainEventBus eventBus){
 
         this.boardRepository = boardRepository;

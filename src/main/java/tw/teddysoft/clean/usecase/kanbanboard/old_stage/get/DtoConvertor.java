@@ -1,16 +1,17 @@
 package tw.teddysoft.clean.usecase.kanbanboard.old_stage.get;
 
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.MiniStage;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.SwimLane;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DtoConvertor {
 
-    public static List<StageDto> createStageDtoList(List<Stage> stages, BoardRepository boardRepository){
+    public static List<StageDto> createStageDtoList(List<Stage> stages, Repository<Board> boardRepository){
         List<StageDto> result = new ArrayList<>();
         for(Stage each : stages){
             boardRepository.findById(each.getBoardId()).getWorkflowOrderingById(each.getId());

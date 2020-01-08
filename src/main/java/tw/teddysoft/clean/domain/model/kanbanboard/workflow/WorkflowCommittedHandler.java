@@ -2,20 +2,16 @@ package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import tw.teddysoft.clean.domain.model.DomainEvent;
-import tw.teddysoft.clean.domain.model.Entity;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-
-import java.util.ArrayList;
-import java.util.List;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class WorkflowCommittedHandler {
 
-    private BoardRepository boardRepository;
+    private Repository<Board> boardRepository;
     private EventBus eventBus;
 
-    public WorkflowCommittedHandler(BoardRepository boardRepository, EventBus eventBus){
+    public WorkflowCommittedHandler(Repository boardRepository, EventBus eventBus){
         this.boardRepository = boardRepository;
         this.eventBus = eventBus;
     }

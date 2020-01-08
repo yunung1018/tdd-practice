@@ -24,4 +24,8 @@ public interface DomainEvent {
 
     String detail();
 
+    public String getSourceId();
+
+    public String getSourceName();
+
 }

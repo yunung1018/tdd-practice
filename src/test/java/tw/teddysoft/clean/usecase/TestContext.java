@@ -1,38 +1,24 @@
 package tw.teddysoft.clean.usecase;
 
-import tw.teddysoft.clean.adapter.gateway.kanbanboard.*;
-import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.lane.SingleStagePresenter;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.workflow.SingleWorkflowPresenter;
+import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
+import tw.teddysoft.clean.domain.model.FlowEvent;
+import tw.teddysoft.clean.domain.model.card.Card;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
+import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
+import tw.teddysoft.clean.domain.model.user.User;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.card.CardRepository;
-import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
-import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
-import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.handler.*;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.board.CreateBoardUseCaseWithEventHandlerTest;
 import tw.teddysoft.clean.usecase.kanbanboard.board.create.CreateBoardOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.home.HomeRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.stage.create.CreateStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneInput;
 import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneOutput;
-import tw.teddysoft.clean.usecase.kanbanboard.lane.swimlane.create.CreateSwimlaneUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
-import tw.teddysoft.clean.usecase.user.UserRepository;
 
 public class TestContext {
 
@@ -67,32 +53,32 @@ public class TestContext {
         context.registerAllEventHandler();
     }
 
-    public UserRepository getUserRepository() {
+    public Repository<User> getUserRepository() {
         return context.getUserRepository();
     }
 
-    public HomeRepository getHomeRepository() {
+    public Repository<Home> getHomeRepository() {
         return context.getHomeRepository();
     }
 
-    public DomainEventRepository getStoredEventRepository() {
+    public Repository<DomainEvent> getStoredEventRepository() {
         return context.getStoredEventRepository();
     }
 
-    public FlowEventRepository getFlowEventRepository() {
+    public Repository<FlowEvent> getFlowEventRepository() {
         return context.getFlowEventRepository();
     }
 
-    public WorkspaceRepository getWorkspaceRepository() {
+    public Repository<Workspace> getWorkspaceRepository() {
         return context.getWorkspaceRepository();
     }
-    public BoardRepository getBoardRepository(){
+    public Repository<Board> getBoardRepository(){
         return context.getBoardRepository();
     }
-    public WorkflowRepository getWorkflowRepository(){
+    public Repository<Workflow> getWorkflowRepository(){
         return context.getWorkflowRepository();
     }
-    public CardRepository getCardRepository(){
+    public Repository<Card> getCardRepository(){
         return context.getCardRepository();
     }
 
@@ -111,7 +97,7 @@ public class TestContext {
     }
 
     public static UseCase<CreateWorkflowInput, CreateWorkflowOutput>
-                newCreateWorkflowUseCase(WorkflowRepository workflowRepository, DomainEventBus eventBus){
+                newCreateWorkflowUseCase(Repository<Workflow> workflowRepository, DomainEventBus eventBus){
 
         return new CreateWorkflowUseCase(workflowRepository, eventBus);
     }

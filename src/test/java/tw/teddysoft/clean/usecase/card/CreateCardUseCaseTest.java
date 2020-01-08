@@ -8,11 +8,11 @@ import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.card.create.CreateCardInput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardOutput;
 import tw.teddysoft.clean.usecase.card.create.CreateCardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,8 +66,8 @@ public class CreateCardUseCaseTest {
     public CreateCardOutput doCreateCardUseCase(
             String Name,
             String laneId,
-            CardRepository cardRepository,
-            WorkflowRepository workflowRepository,
+            Repository<Card> cardRepository,
+            Repository<Workflow> workflowRepository,
             DomainEventBus eventBus){
 
         UseCase<CreateCardInput, CreateCardOutput> createCardUseCase = new CreateCardUseCase(cardRepository, workflowRepository, eventBus);

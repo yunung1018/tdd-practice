@@ -3,16 +3,15 @@ package tw.teddysoft.clean.usecase.domainevent.handler;
 import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.FlowEvent;
-import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 
 public class FlowEventHandler {
 
-    private FlowEventRepository repository;
+    private Repository<FlowEvent> repository;
     private DomainEventBus eventBus;
 
-    public FlowEventHandler(FlowEventRepository repository, DomainEventBus eventBus){
+    public FlowEventHandler(Repository<FlowEvent> repository, DomainEventBus eventBus){
         this.repository = repository;
         this.eventBus = eventBus;
     }

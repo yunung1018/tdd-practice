@@ -2,14 +2,9 @@ package tw.teddysoft.clean.adapter.gateway.kanbanboard;
 
 
 import tw.teddysoft.clean.domain.model.AggregateRoot;
-import tw.teddysoft.clean.domain.model.Entity;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
-import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.usecase.repository.RepositoryPeer;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SerializableAggregateRootRepositoryPeer<T extends AggregateRoot> implements RepositoryPeer<T> {

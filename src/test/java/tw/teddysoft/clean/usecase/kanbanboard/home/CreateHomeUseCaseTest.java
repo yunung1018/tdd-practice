@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.home.SingleHomePresenter;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
+import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.home.create.CreateHomeInput;
 import tw.teddysoft.clean.usecase.kanbanboard.home.create.CreateHomeOutput;
@@ -43,7 +45,7 @@ public class CreateHomeUseCaseTest {
 
 
     public static CreateHomeOutput doCreateHomeUseCase(
-            HomeRepository repository,
+            Repository<Home> repository,
             DomainEventBus eventBus,
             String userId,
             String homeName){

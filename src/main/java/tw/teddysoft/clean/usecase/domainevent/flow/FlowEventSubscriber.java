@@ -2,14 +2,13 @@ package tw.teddysoft.clean.usecase.domainevent.flow;
 
 import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.*;
-import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class FlowEventSubscriber{
 
-    private FlowEventRepository repository;
+    private Repository<FlowEvent> repository;
 
-    public FlowEventSubscriber(FlowEventRepository repo){
+    public FlowEventSubscriber(Repository repo){
         repository = repo;
     }
 

@@ -4,14 +4,14 @@ import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.card.event.CardDeleted;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.card.CardRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class DeleteCardUseCase implements UseCase<DeleteCardInput, DeleteCardOutput> {
 
-    private final CardRepository cardRepository;
+    private final Repository<Card> cardRepository;
     private final DomainEventBus eventBus;
 
-    public DeleteCardUseCase(CardRepository cardRepository, DomainEventBus eventBus) {
+    public DeleteCardUseCase(Repository cardRepository, DomainEventBus eventBus) {
         this.cardRepository = cardRepository;
         this.eventBus = eventBus;
     }

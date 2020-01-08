@@ -1,26 +1,27 @@
 package tw.teddysoft.clean.app.console;
 
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
+import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class DefaultBoard {
 
-    private BoardRepository boardRepository;
-    private WorkflowRepository workflowRepository;
+    private Repository<Board> boardRepository;
+    private Repository<Workflow> workflowRepository;
     public static final String WORKSPACE_ID = "000-5678";
     public static final String SCRUM_BOARD_ID = "1";
     public static final String KANBAN_BOARD_GAME_ID = "2";
 
-    public DefaultBoard(BoardRepository boardRepository, WorkflowRepository workflowRepository){
+    public DefaultBoard(Repository boardRepository, Repository workflowRepository){
         this.boardRepository = boardRepository;
         this.workflowRepository = workflowRepository;
     }
 
-    public BoardRepository getBoardRepository(){
+    public Repository<Board> getBoardRepository(){
         return boardRepository;
     }
 
-    public WorkflowRepository getWorkflowRepository(){
+    public Repository<Workflow> getWorkflowRepository(){
         return workflowRepository;
     }
 

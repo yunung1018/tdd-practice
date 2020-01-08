@@ -1,7 +1,8 @@
 package tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.impl;
 
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.StageRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.DtoConvertor;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.get.GetStageInput;
@@ -12,10 +13,10 @@ import java.util.List;
 
 public class GetStageUseCaseImpl implements GetStageUseCase {
 
-    private BoardRepository boardRepository;
+    private Repository<Board> boardRepository;
     private StageRepository stageRepository;
 
-    public GetStageUseCaseImpl(BoardRepository boardRepository,
+    public GetStageUseCaseImpl(Repository boardRepository,
                                StageRepository stageRepository) {
         this.boardRepository = boardRepository;
         this.stageRepository = stageRepository;

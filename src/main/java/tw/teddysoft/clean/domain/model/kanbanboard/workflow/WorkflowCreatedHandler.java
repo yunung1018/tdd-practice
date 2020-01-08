@@ -1,23 +1,17 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workflow;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
-import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-
-import java.util.ArrayList;
-import java.util.List;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class WorkflowCreatedHandler {
 
-    private BoardRepository boardRepository;
+    private Repository<Board> boardRepository;
     private DomainEventBus eventBus;
 
-    public WorkflowCreatedHandler(BoardRepository boardRepository, DomainEventBus eventBus) {
+    public WorkflowCreatedHandler(Repository boardRepository, DomainEventBus eventBus) {
         this.boardRepository = boardRepository;
         this.eventBus = eventBus;
     }

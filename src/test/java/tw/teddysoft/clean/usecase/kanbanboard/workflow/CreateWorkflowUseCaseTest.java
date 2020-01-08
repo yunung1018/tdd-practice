@@ -8,6 +8,7 @@ import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.Context;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
@@ -67,7 +68,7 @@ public class CreateWorkflowUseCaseTest {
 
     public static CreateWorkflowOutput createWorkflow(String boardId,
                                                       String name,
-                                                      WorkflowRepository workflowRepository,
+                                                      Repository<Workflow> workflowRepository,
                                                       DomainEventBus eventBus){
 
         UseCase<CreateWorkflowInput, CreateWorkflowOutput> createWorkflowUC = new CreateWorkflowUseCase(workflowRepository, eventBus);

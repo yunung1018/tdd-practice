@@ -2,13 +2,13 @@ package tw.teddysoft.clean.usecase.kanbanboard.workspace.create;
 
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class CreateWorkspaceUseCase implements UseCase<CreateWorkspaceInput, CreateWorkspaceOutput> {
 
-    private WorkspaceRepository repository;
+    private Repository<Workspace> repository;
 
-    public CreateWorkspaceUseCase(WorkspaceRepository repository){
+    public CreateWorkspaceUseCase(Repository repository){
         this.repository = repository;
     }
 

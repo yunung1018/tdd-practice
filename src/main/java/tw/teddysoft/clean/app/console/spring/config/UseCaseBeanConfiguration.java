@@ -5,11 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.stage.MultipleStagePresenter;
 import tw.teddysoft.clean.adapter.presenter.kanbanboard.stage.SingleStagePresenter;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.kanbanboard.old_ministage.update.UpdateMiniStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.old_ministage.update.UpdateMiniStageOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.old_ministage.update.UpdateMiniStageUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.old_ministage.update.impl.UpdateMiniStageUseCaseImpl;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.StageRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.add.AddStageInput;
 import tw.teddysoft.clean.usecase.kanbanboard.old_stage.add.AddStageOutput;
@@ -28,7 +28,7 @@ public class UseCaseBeanConfiguration {
   private StageRepository stageRepository;
 
   @Autowired
-  private BoardRepository boardRepository;
+  private Repository<Board> boardRepository;
 
   @Bean(name="addStageUseCase")
   public AddStageUseCase addStageUseCase() {

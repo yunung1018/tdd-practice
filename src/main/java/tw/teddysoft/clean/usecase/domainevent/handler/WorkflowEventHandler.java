@@ -7,18 +7,17 @@ import tw.teddysoft.clean.domain.model.card.event.CardDeleted;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
-import tw.teddysoft.clean.usecase.kanbanboard.board.BoardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 
 public class WorkflowEventHandler {
 
-    private BoardRepository boardRepository;
-    private WorkflowRepository workflowRepository;
+    private Repository<Board> boardRepository;
+    private Repository<Workflow> workflowRepository;
     private DomainEventBus eventBus;
 
-    public WorkflowEventHandler(BoardRepository boardRepository,
-                                WorkflowRepository workflowRepository,
+    public WorkflowEventHandler(Repository boardRepository,
+                                Repository workflowRepository,
                                 DomainEventBus eventBus){
 
         this.boardRepository = boardRepository;

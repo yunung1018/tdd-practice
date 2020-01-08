@@ -3,14 +3,14 @@ package tw.teddysoft.clean.usecase.kanbanboard.home.create;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.home.Home;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.home.HomeRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class CreateHomeUseCase implements UseCase<CreateHomeInput, CreateHomeOutput> {
 
-    private HomeRepository repository;
+    private Repository<Home> repository;
     private DomainEventBus eventBus;
 
-    public CreateHomeUseCase(HomeRepository repository, DomainEventBus eventBus){
+    public CreateHomeUseCase(Repository repository, DomainEventBus eventBus){
         this.repository = repository;
         this.eventBus = eventBus;
     }

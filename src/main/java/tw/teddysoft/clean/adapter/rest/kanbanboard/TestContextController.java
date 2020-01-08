@@ -26,10 +26,60 @@ public class TestContextController {
             context.registerAllEventHandler();
         }
 
+
+        private String createDefaultWorkspaceUseCase(){
+            return context.doCreateWorkspaceUseCase(
+                    Context.USER_ID,
+                    Context.WORKSPACE_NAME)
+                    .getWorkspaceId();
+        }
+
+    @RequestMapping("/devOpsBoard")
+    public BoardDto getDevOpsBoard(){
+
+        System.out.println("getDevOpsBoard");
+
+        String workspaceId = createDefaultWorkspaceUseCase();
+
+        String boardId = context.doCreateBoardUseCase(
+                workspaceId,
+                Context.SCRUM_BOARD_NAME).getBoardId();
+
+        Board board = context.getBoardRepository().findById(boardId);
+        String workflowId = board.getCommittedWorkflow().iterator().next().getWorkflowId();
+        Workflow workflow = context.getWorkflowRepository().findById(workflowId);
+        context.createDevOpsWorkflow(workflow);
+
+        BoardDto boardDto = new BoardDto(board.getId());
+        board.getCommittedWorkflow().stream().forEach(
+                each ->
+                    boardDto.addWorkflows(context.getWorkflowRepository().findById(each.getWorkflowId()))
+                );
+
+        return boardDto;
+    }
+
+
+    @RequestMapping("/devOpsWorkflow")
+    public List<Lane> getDevOpsWorkflow(){
+        System.out.println("getDevOpsWorkflow");
+        String workspaceId = createDefaultWorkspaceUseCase();
+
+        String boardId = context.doCreateBoardUseCase(
+                workspaceId,
+                Context.SCRUM_BOARD_NAME).getBoardId();
+
+        Board board = context.getBoardRepository().findById(boardId);
+        String workflowId = board.getCommittedWorkflow().iterator().next().getWorkflowId();
+        Workflow workflow = context.getWorkflowRepository().findById(workflowId);
+        context.createDevOpsWorkflow(workflow);
+
+        return workflow.getStages();
+    }
+
+
     @RequestMapping("/operations")
     public List<Lane> getBusinessProcessMaintenanceStages(){
-            System.out.println("==========>");
-
         String workspaceId = context.doCreateWorkspaceUseCase(
                 Context.USER_ID,
                 Context.WORKSPACE_NAME)
@@ -40,14 +90,8 @@ public class TestContextController {
                 Context.SCRUM_BOARD_NAME).getBoardId();
 
         Board board = context.getBoardRepository().findById(boardId);
-        System.out.println("board.getCommittedWorkflow().size() = " + board.getCommittedWorkflow().size());
-
         String workflowId = board.getCommittedWorkflow().iterator().next().getWorkflowId();
-        System.out.println("workflow id = " + workflowId);
-
-
         Workflow workflow = context.getWorkflowRepository().findById(workflowId);
-
         context.createBusinessProcessMaintenanceStage(workflow);
 
         return workflow.getStages();

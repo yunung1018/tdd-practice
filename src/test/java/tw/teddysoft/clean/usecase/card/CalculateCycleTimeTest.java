@@ -2,9 +2,8 @@ package tw.teddysoft.clean.usecase.card;
 
 import tw.teddysoft.clean.domain.model.FlowEvent;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
-import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
 
 import java.text.SimpleDateFormat;
 
@@ -18,7 +17,7 @@ public class CalculateCycleTimeTest {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
     private KanbanTestUtility util;
-    private FlowEventRepository flowEventRepository;
+    private Repository<FlowEvent> flowEventRepository;
     private String APPLY_PAY_ID;
 
     private Workflow kanbanDefaultWorkflow;

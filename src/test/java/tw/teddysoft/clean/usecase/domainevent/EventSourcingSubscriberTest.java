@@ -7,6 +7,7 @@ import tw.teddysoft.clean.adapter.gateway.kanbanboard.InMemoryDomainEventReposit
 import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.kanbanboard.WipLimitExceedException;
 import tw.teddysoft.clean.domain.model.kanbanboard.old_stage.Stage;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.KanbanTestUtility;
 import tw.teddysoft.clean.usecase.domainevent.sourcing.RegisterEventSourcingSubscriberUseCase;
 
@@ -15,14 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EventSourcingSubscriberTest {
 
     private Stage stage;
-    private DomainEventRepository domainEventRepository;
+    private Repository<DomainEvent> domainEventRepository;
     private KanbanTestUtility util;
 
     @Before
     public void mySetUp(){
         util = new KanbanTestUtility();
 //        domainEventRepository = new SerializableDomainEventRepository();
-        domainEventRepository = new DomainEventRepository(new InMemoryDomainEventRepositoryPeer());
+        domainEventRepository = new Repository(new InMemoryDomainEventRepositoryPeer());
     }
 
     @Test

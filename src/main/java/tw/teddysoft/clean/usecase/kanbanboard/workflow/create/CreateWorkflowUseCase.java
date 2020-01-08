@@ -3,14 +3,14 @@ package tw.teddysoft.clean.usecase.kanbanboard.workflow.create;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class CreateWorkflowUseCase implements UseCase<CreateWorkflowInput, CreateWorkflowOutput> {
 
-    private final WorkflowRepository workflowRepository;
+    private final Repository<Workflow> workflowRepository;
     private final DomainEventBus eventBus;
 
-    public CreateWorkflowUseCase(WorkflowRepository workflowRepository, DomainEventBus eventBus) {
+    public CreateWorkflowUseCase(Repository workflowRepository, DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
         this.eventBus = eventBus;
     }

@@ -1,16 +1,15 @@
 package tw.teddysoft.clean.usecase.card;
 
 import tw.teddysoft.clean.domain.model.FlowEvent;
-import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
-import tw.teddysoft.clean.usecase.domainevent.FlowEventRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 import java.util.*;
 
 public class CycleTimeCalculator {
 
-    private FlowEventRepository flowEventRepository;
+    private Repository<FlowEvent> flowEventRepository;
 
-    public CycleTimeCalculator(FlowEventRepository flowEventRepository) {
+    public CycleTimeCalculator(Repository flowEventRepository) {
         this.flowEventRepository = flowEventRepository;
     }
 

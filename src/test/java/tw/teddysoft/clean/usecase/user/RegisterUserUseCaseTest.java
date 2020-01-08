@@ -2,16 +2,13 @@ package tw.teddysoft.clean.usecase.user;
 
 import org.junit.Before;
 import org.junit.Test;
-import tw.teddysoft.clean.adapter.presenter.kanbanboard.workspace.SingleWorkspacePresenter;
 import tw.teddysoft.clean.adapter.presenter.user.SingleUserPresenter;
-import tw.teddysoft.clean.domain.model.DomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
+import tw.teddysoft.clean.domain.model.user.User;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.Context;
 import tw.teddysoft.clean.usecase.TestContext;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceInput;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.create.CreateWorkspaceOutput;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -60,7 +57,7 @@ public class RegisterUserUseCaseTest {
             String password,
             String name,
             String email,
-            UserRepository repository,
+            Repository<User> repository,
             DomainEventBus eventBus){
 
         UseCase<RegisterUserInput, RegisterUserOutput> registerUserUC =

@@ -3,9 +3,11 @@ package tw.teddysoft.clean.usecase.card;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
+import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardInput;
 import tw.teddysoft.clean.usecase.card.delete.DeleteCardOutput;
@@ -63,7 +65,7 @@ public class DeleteCardUseCaseTest {
     public DeleteCardOutput doDeleteCardUseCase(String workflowId,
                                                 String stageId,
                                                 String cardId,
-                                                CardRepository cardRepository){
+                                                Repository<Card> cardRepository){
 
         UseCase<DeleteCardInput, DeleteCardOutput> deleteCardUseCase =
                 new DeleteCardUseCase(cardRepository, context.getDomainEventBus());

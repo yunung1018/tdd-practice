@@ -3,13 +3,13 @@ package tw.teddysoft.clean.usecase.domainevent.sourcing;
 import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
 import tw.teddysoft.clean.domain.model.DomainEvent;
-import tw.teddysoft.clean.usecase.domainevent.DomainEventRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class EventSourcingSubscriber {
 
-    private DomainEventRepository repository;
+    private Repository<DomainEvent> repository;
 
-    public EventSourcingSubscriber(DomainEventRepository repo){
+    public EventSourcingSubscriber(Repository repo){
         repository = repo;
     }
 

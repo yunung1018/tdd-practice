@@ -23,12 +23,21 @@ public class InMemoryDomainEventRepositoryPeer<T extends DomainEvent> implements
 
     @Override
     public T findById(String id) {
-        throw new RuntimeException("Domain event repository does not support findById query");
+        for(T each : entities){
+            if (each.getSourceId().equalsIgnoreCase(id))
+                return each;
+        }
+
+        return null;
     }
 
     @Override
     public T findFirstByName(String name) {
-        throw new RuntimeException("Domain event repository does not support findFirstByName query");
+        for(T each : entities){
+            if (each.getSourceName().equals(name))
+                return each;
+        }
+        throw new RuntimeException("Cannot find domain event with source name : " + name);
     }
 
     @Override
@@ -47,3 +56,7 @@ public class InMemoryDomainEventRepositoryPeer<T extends DomainEvent> implements
     }
 
 }
+
+
+//        throw new RuntimeException("Domain event repository does not support findById query");
+//        throw new RuntimeException("Domain event repository does not support findFirstByName query");

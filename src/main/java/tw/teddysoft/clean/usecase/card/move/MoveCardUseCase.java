@@ -1,18 +1,18 @@
 package tw.teddysoft.clean.usecase.card.move;
 
+import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.card.CardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class MoveCardUseCase
         implements UseCase<MoveCardInput, MoveCardOutput> {
 
-    private WorkflowRepository workflowRepository;
-    private CardRepository cardRepository;
+    private Repository<Workflow> workflowRepository;
+    private Repository<Card> cardRepository;
 
-    public MoveCardUseCase(CardRepository cardRepository,
-                               WorkflowRepository workflowRepository){
+    public MoveCardUseCase(Repository cardRepository,
+                               Repository workflowRepository){
         this.workflowRepository = workflowRepository;
         this.cardRepository = cardRepository;
     }

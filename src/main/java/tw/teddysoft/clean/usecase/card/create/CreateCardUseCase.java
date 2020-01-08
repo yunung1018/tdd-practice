@@ -2,18 +2,18 @@ package tw.teddysoft.clean.usecase.card.create;
 
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.card.Card;
+import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.usecase.UseCase;
-import tw.teddysoft.clean.usecase.card.CardRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class CreateCardUseCase implements UseCase<CreateCardInput, CreateCardOutput> {
 
-    private final CardRepository cardRepository;
-    private final WorkflowRepository workflowRepository;
+    private final Repository<Card> cardRepository;
+    private final Repository<Workflow> workflowRepository;
     private final DomainEventBus eventBus;
 
 
-    public CreateCardUseCase(CardRepository cardRepository, WorkflowRepository workflowRepository, DomainEventBus eventBus) {
+    public CreateCardUseCase(Repository cardRepository, Repository workflowRepository, DomainEventBus eventBus) {
 
         this.cardRepository = cardRepository;
         this.workflowRepository = workflowRepository;

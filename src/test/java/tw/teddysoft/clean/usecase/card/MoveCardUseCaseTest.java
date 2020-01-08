@@ -3,14 +3,15 @@ package tw.teddysoft.clean.usecase.card;
 import org.junit.Before;
 import org.junit.Test;
 import tw.teddysoft.clean.adapter.presenter.card.SingleCardPresenter;
+import tw.teddysoft.clean.domain.model.card.Card;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Lane;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.TestContext;
 import tw.teddysoft.clean.usecase.card.move.MoveCardInput;
 import tw.teddysoft.clean.usecase.card.move.MoveCardOutput;
 import tw.teddysoft.clean.usecase.card.move.MoveCardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
 import tw.teddysoft.clean.usecase.kanbanboard.workspace.CreateWorkspaceUseCaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -76,8 +77,8 @@ public class MoveCardUseCaseTest {
             String fromLaneId,
             String toLaneId,
             String cardId,
-            CardRepository cardRepository,
-            WorkflowRepository workflowRepository){
+            Repository<Card> cardRepository,
+            Repository<Workflow> workflowRepository){
 
         UseCase<MoveCardInput, MoveCardOutput> moveCardUseCase =
                 new MoveCardUseCase(cardRepository, workflowRepository);

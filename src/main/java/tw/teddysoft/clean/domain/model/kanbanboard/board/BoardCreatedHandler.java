@@ -5,16 +5,15 @@ import tw.teddysoft.clean.domain.model.*;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.event.BoardCreated;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
-import tw.teddysoft.clean.usecase.kanbanboard.workflow.WorkflowRepository;
-import tw.teddysoft.clean.usecase.kanbanboard.workspace.WorkspaceRepository;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class BoardCreatedHandler {
 
-    private WorkflowRepository workflowRepository;
-    private WorkspaceRepository workspaceRepository;
+    private Repository<Workflow> workflowRepository;
+    private Repository<Workspace> workspaceRepository;
     private DomainEventBus eventBus;
 
-    public BoardCreatedHandler(WorkspaceRepository workspaceRepository, WorkflowRepository workflowRepository, DomainEventBus eventBus){
+    public BoardCreatedHandler(Repository workspaceRepository, Repository workflowRepository, DomainEventBus eventBus){
         this.workspaceRepository = workspaceRepository;
         this.workflowRepository = workflowRepository;
         this.eventBus = eventBus;

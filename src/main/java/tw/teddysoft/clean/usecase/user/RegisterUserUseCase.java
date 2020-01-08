@@ -3,13 +3,14 @@ package tw.teddysoft.clean.usecase.user;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.user.User;
 import tw.teddysoft.clean.domain.usecase.UseCase;
+import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 public class RegisterUserUseCase implements UseCase<RegisterUserInput, RegisterUserOutput> {
 
-    private UserRepository repository;
+    private Repository<User> repository;
     private DomainEventBus eventBus;
 
-    public RegisterUserUseCase(UserRepository repository, DomainEventBus eventBus){
+    public RegisterUserUseCase(Repository repository, DomainEventBus eventBus){
         this.repository = repository;
         this.eventBus = eventBus;
     }
