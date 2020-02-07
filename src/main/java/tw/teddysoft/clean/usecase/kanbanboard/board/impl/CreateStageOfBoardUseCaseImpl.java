@@ -5,17 +5,16 @@ import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardInput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardOutput;
 import tw.teddysoft.clean.usecase.kanbanboard.board.CreateStageOfBoardUseCase;
-import tw.teddysoft.clean.usecase.kanbanboard.old_stage.StageRepository;
 
 public class CreateStageOfBoardUseCaseImpl implements CreateStageOfBoardUseCase {
 
-    private StageRepository stageRepository;
-    private Repository<Board> boardRepository;
-
-    public CreateStageOfBoardUseCaseImpl(Repository boardRepository, StageRepository stageRepository) {
-        this.boardRepository = boardRepository;
-        this.stageRepository = stageRepository;
-    }
+//    private StageRepository stageRepository;
+//    private Repository<Board> boardRepository;
+//
+//    public CreateStageOfBoardUseCaseImpl(Repository boardRepository, StageRepository stageRepository) {
+//        this.boardRepository = boardRepository;
+//        this.stageRepository = stageRepository;
+//    }
 
     @Override
     public CreateStageOfBoardInput createInput(){

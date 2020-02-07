@@ -3,17 +3,16 @@ package tw.teddysoft.clean.usecase.kanbanboard.board.impl;
 import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
 import tw.teddysoft.clean.domain.usecase.repository.Repository;
 import tw.teddysoft.clean.usecase.kanbanboard.board.*;
-import tw.teddysoft.clean.usecase.kanbanboard.old_stage.StageRepository;
 
 public class MoveStageOfBoardUseCaseImpl implements MoveStageOfBoardUseCase {
 
-    private StageRepository stateRepository;
-    private Repository<Board> boardRepository;
-
-    public MoveStageOfBoardUseCaseImpl(Repository boardRepository, StageRepository stageRepository) {
-        this.boardRepository = boardRepository;
-        this.stateRepository = stageRepository;
-    }
+//    private StageRepository stateRepository;
+//    private Repository<Board> boardRepository;
+//
+//    public MoveStageOfBoardUseCaseImpl(Repository boardRepository, StageRepository stageRepository) {
+//        this.boardRepository = boardRepository;
+//        this.stateRepository = stageRepository;
+//    }
 
 
     @Override
@@ -25,9 +24,9 @@ public class MoveStageOfBoardUseCaseImpl implements MoveStageOfBoardUseCase {
     @Override
     public void execute(MoveStageOfBoardInput input, MoveStageOfBoardOutput output) {
 
-        Board board = boardRepository.findById(input.getBoardId());
-        board.reorderBoardStage(input.getStageId(), input.getOldOrdering(), input.getNewOrdering());
-        boardRepository.save(board);
+//        Board board = boardRepository.findById(input.getBoardId());
+//        board.reorderBoardStage(input.getStageId(), input.getOldOrdering(), input.getNewOrdering());
+//        boardRepository.save(board);
     }
 
     private static class InputImpl implements MoveStageOfBoardInput {
