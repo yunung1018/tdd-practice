@@ -5,9 +5,9 @@ import org.junit.Test;
 import tw.teddysoft.clean.domain.model.*;
 import tw.teddysoft.clean.usecase.Context;
 import tw.teddysoft.clean.usecase.TestContext;
-import tw.teddysoft.clean.usecase.domainevent.handler.BoardEventHandler;
-import tw.teddysoft.clean.usecase.domainevent.handler.WorkflowEventHandler;
-import tw.teddysoft.clean.usecase.domainevent.handler.WorkspaceEventHandler;
+import tw.teddysoft.clean.usecase.domainevent.handler.NotifyWorkflow;
+import tw.teddysoft.clean.usecase.domainevent.handler.NotifyBoard;
+import tw.teddysoft.clean.usecase.domainevent.handler.NotifyWorkspace;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,15 +24,15 @@ public class BoardTest {
         eventBus = new DomainEventBus();
         context = TestContext.newInstance();
 
-        BoardEventHandler boardEventHandler = new BoardEventHandler(context.getWorkspaceRepository(), context.getWorkflowRepository(), eventBus);
-        WorkflowEventHandler workflowEventHandler = new WorkflowEventHandler(context.getBoardRepository(), context.getWorkflowRepository(), eventBus);
-        WorkspaceEventHandler workspaceEventHandler = new WorkspaceEventHandler(context.getWorkspaceRepository(), context.getWorkflowRepository(), eventBus);
+        NotifyWorkflow notifyWorkflow = new NotifyWorkflow(context.getWorkflowRepository(), eventBus);
+        NotifyBoard notifyBoard = new NotifyBoard(context.getBoardRepository(), eventBus);
+        NotifyWorkspace notifyWorkspace = new NotifyWorkspace(context.getWorkspaceRepository(), context.getWorkflowRepository(), eventBus);
 
         workspaceId = context.doCreateWorkspaceUseCase(Context.USER_ID, Context.WORKSPACE_NAME).getWorkspaceId();
 
-        eventBus.register(boardEventHandler);
-        eventBus.register(workflowEventHandler);
-        eventBus.register(workspaceEventHandler);
+        eventBus.register(notifyWorkflow);
+        eventBus.register(notifyBoard);
+        eventBus.register(notifyWorkspace);
     }
 
 

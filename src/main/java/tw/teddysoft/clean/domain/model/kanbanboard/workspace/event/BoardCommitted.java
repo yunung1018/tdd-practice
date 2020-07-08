@@ -1,7 +1,5 @@
 package tw.teddysoft.clean.domain.model.kanbanboard.workspace.event;
 
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
-import tw.teddysoft.clean.domain.model.AbstractDomainEvent;
 import tw.teddysoft.clean.domain.model.AssociationDomainEvent;
 import tw.teddysoft.clean.domain.model.Entity;
 import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;

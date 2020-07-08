@@ -73,12 +73,12 @@ public class Context {
     private final Repository<DomainEvent> storedEventRepository;
     private final Repository<FlowEvent> flowEventRepository;
 
-    private final UserEventHandler userEventHandler;
-    private final WorkflowEventHandler workflowEventHandler;
+    private final NotifyHome notifyHome;
+    private final NotifyBoard notifyBoard;
     private final FlowEventHandler flowEventHandler;
     private final EventSourcingHandler eventSourcingHandler;
-    private final BoardEventHandler boardEventHandler;
-    private final WorkspaceEventHandler workspaceEventHandler;
+    private final NotifyWorkflow notifyWorkflow;
+    private final NotifyWorkspace notifyWorkspace;
 
     private final DomainEventBus eventBus;
 
@@ -130,12 +130,12 @@ public class Context {
 
         this.eventBus = new DomainEventBus();
 
-        this.userEventHandler = new UserEventHandler(this.getHomeRepository(), eventBus);
-        this.workflowEventHandler = new WorkflowEventHandler(this.getBoardRepository(), this.getWorkflowRepository(), eventBus);
+        this.notifyHome = new NotifyHome(this.getHomeRepository(), eventBus);
+        this.notifyBoard = new NotifyBoard(this.getBoardRepository(), eventBus);
         this.flowEventHandler = new FlowEventHandler(flowEventRepository, eventBus);
         this.eventSourcingHandler = new EventSourcingHandler(storedEventRepository);
-        this.boardEventHandler = new BoardEventHandler(workspaceRepository, workflowRepository, eventBus);
-        this.workspaceEventHandler = new WorkspaceEventHandler(workspaceRepository, workflowRepository, eventBus);
+        this.notifyWorkflow = new NotifyWorkflow(workflowRepository, eventBus);
+        this.notifyWorkspace = new NotifyWorkspace(workspaceRepository, workflowRepository, eventBus);
 
     }
 
@@ -204,10 +204,10 @@ public class Context {
     }
 
     public void registerAllEventHandler(){
-        eventBus.register(userEventHandler);
-        eventBus.register(workflowEventHandler);
-        eventBus.register(boardEventHandler);
-        eventBus.register(workspaceEventHandler);
+        eventBus.register(notifyHome);
+        eventBus.register(notifyBoard);
+        eventBus.register(notifyWorkflow);
+        eventBus.register(notifyWorkspace);
         eventBus.register(flowEventHandler);
         eventBus.register(eventSourcingHandler);
     }

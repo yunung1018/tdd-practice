@@ -7,19 +7,19 @@ import tw.teddysoft.clean.domain.model.user.event.UserRegistrationSucceeded;
 import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 
-public class UserEventHandler {
+public class NotifyHome {
 
     private Repository<Home> homeRepository;
     private DomainEventBus eventBus;
 
-    public UserEventHandler(Repository homeRepository, DomainEventBus eventBus){
+    public NotifyHome(Repository homeRepository, DomainEventBus eventBus){
         this.homeRepository = homeRepository;
         this.eventBus = eventBus;
     }
 
     @Subscribe
-    public void handleEvent(UserRegistrationSucceeded domainEvent) {
-        System.out.println("UserEventHandler, event = " + domainEvent.detail());
+    public void whenRegistrationSucceeded(UserRegistrationSucceeded domainEvent) {
+        System.out.println("NotifyHome, event = " + domainEvent.detail());
 
         Home home = new Home(domainEvent.getSourceName(), domainEvent.getSourceId());
         homeRepository.save(home);

@@ -4,40 +4,27 @@ import com.google.common.eventbus.Subscribe;
 import tw.teddysoft.clean.domain.model.DomainEventBus;
 import tw.teddysoft.clean.domain.model.card.event.CardCreated;
 import tw.teddysoft.clean.domain.model.card.event.CardDeleted;
-import tw.teddysoft.clean.domain.model.kanbanboard.board.Board;
+import tw.teddysoft.clean.domain.model.kanbanboard.board.event.WorkflowCommitted;
 import tw.teddysoft.clean.domain.model.kanbanboard.workflow.Workflow;
-import tw.teddysoft.clean.domain.model.kanbanboard.workflow.event.WorkflowCreated;
+import tw.teddysoft.clean.domain.model.kanbanboard.workspace.Workspace;
 import tw.teddysoft.clean.domain.usecase.repository.Repository;
 
 
-public class WorkflowEventHandler {
+public class NotifyWorkflow {
 
-    private Repository<Board> boardRepository;
     private Repository<Workflow> workflowRepository;
     private DomainEventBus eventBus;
 
-    public WorkflowEventHandler(Repository boardRepository,
-                                Repository workflowRepository,
-                                DomainEventBus eventBus){
+    public NotifyWorkflow(Repository<Workflow> workflowRepository,
+                          DomainEventBus eventBus){
 
-        this.boardRepository = boardRepository;
         this.workflowRepository = workflowRepository;
         this.eventBus = eventBus;
     }
 
     @Subscribe
-    public void handleEvent(WorkflowCreated event) {
-        System.out.println("WorkflowEventHandler, event = " + event.detail());
-
-        Board board = boardRepository.findById(event.getEntity().getBoardId());
-        board.commitWorkflow(event.getEntity().getId());
-        boardRepository.save(board);
-        eventBus.postAll(board);
-    }
-
-    @Subscribe
-    public void handleEvent(CardCreated event) {
-        System.out.println("WorkflowEventHandler, event = " + event.detail());
+    public void whenCardCreated(CardCreated event) {
+        System.out.println("NotifyWorkflow, event = " + event.detail());
 
         Workflow workflow = workflowRepository.findById(event.getEntity().getWorkflowId());
         workflow.commitCard(event.getEntity().getId(), event.getLaneId());
@@ -46,8 +33,8 @@ public class WorkflowEventHandler {
     }
 
     @Subscribe
-    public void handleEvent(CardDeleted event) {
-        System.out.println("WorkflowEventHandler, event = " + event.detail());
+    public void whenCardDeleted(CardDeleted event) {
+        System.out.println("NotifyWorkflow, event = " + event.detail());
 
         Workflow workflow = workflowRepository.findById(event.getWorkflowId());
         workflow.uncommitCard(event.getCardId(), event.getLaneId());
