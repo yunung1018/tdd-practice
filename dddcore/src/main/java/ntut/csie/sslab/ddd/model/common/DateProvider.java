@@ -1,4 +1,4 @@
-package ntut.csie.sslab.ddd.model;
+package ntut.csie.sslab.ddd.model.common;
 
 import java.util.Date;
 

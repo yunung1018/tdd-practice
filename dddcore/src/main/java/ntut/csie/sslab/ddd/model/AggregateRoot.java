@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public abstract class AggregateRoot<ID> extends Entity<ID> {
 
     private final List<DomainEvent> domainEvents;
+    protected boolean isDeleted;
 
     public AggregateRoot(ID id) {
         super(id);

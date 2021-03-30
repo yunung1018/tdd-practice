@@ -1,8 +1,6 @@
 package ntut.csie.sslab.kanban.entity.model.card.event;
 
-import java.util.Date;
-
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
 
 public class CardNoteChanged extends DomainEvent{

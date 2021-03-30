@@ -1,9 +1,7 @@
 package ntut.csie.sslab.kanban.entity.model.board.event;
 
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
-
-import java.util.Date;
 
 public class WorkflowCommitted extends DomainEvent {
 

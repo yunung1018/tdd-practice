@@ -132,6 +132,7 @@ public abstract class AbstractSpringBootJpaTest {
         rootStageId = UUID.randomUUID().toString();
         userId = UUID.randomUUID().toString();
         username = "Teddy";
+        boardName = "Scrum Board";
 
         notifyBoardAdapter = new NotifyBoardAdapter(new NotifyBoard(boardRepository, domainEventBus));
         notifyWorkflowAdapter = new NotifyWorkflowAdapter(new NotifyWorkflow(cardRepository, workflowRepository, domainEventBus));

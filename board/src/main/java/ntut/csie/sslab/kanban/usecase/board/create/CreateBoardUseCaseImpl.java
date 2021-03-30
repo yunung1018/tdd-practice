@@ -26,7 +26,7 @@ public class CreateBoardUseCaseImpl implements CreateBoardUseCase {
 				.teamId(input.getTeamId())
 				.userId(input.getUserId())
 				.build();
-		board.addBoardMember(BoardMemberType.Manager, input.getUserId());
+		board.becameBoardMember(BoardMemberType.Manager, input.getUserId());
 
 		boardRepository.save(board);
 		domainEventBus.postAll(board);

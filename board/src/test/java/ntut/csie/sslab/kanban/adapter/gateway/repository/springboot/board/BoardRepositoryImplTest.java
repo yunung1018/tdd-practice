@@ -21,7 +21,7 @@ public class BoardRepositoryImplTest extends AbstractSpringBootJpaTest {
     @Test
     public void when_get_board_by_id_with_existing_id_then_the_result_is_present(){
         boardId = UUID.randomUUID().toString();
-        Board board = new Board(userId, teamId, boardId, boardName);
+        Board board = new Board(teamId, boardId, boardName, userId);
         boardRepository.save(board);
         Assertions.assertTrue(boardRepository.findById(boardId).isPresent());
     }

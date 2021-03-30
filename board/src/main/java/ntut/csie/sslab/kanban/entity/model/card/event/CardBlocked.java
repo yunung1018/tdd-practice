@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.entity.model.card.event;
 
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
 
 import java.util.Date;

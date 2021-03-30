@@ -1,8 +1,6 @@
 package ntut.csie.sslab.kanban.entity.model.board.event;
 
-import java.util.Date;
-
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
 
 public class BoardDeleted extends DomainEvent {

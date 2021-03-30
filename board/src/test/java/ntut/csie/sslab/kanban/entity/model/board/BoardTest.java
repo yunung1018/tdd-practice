@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BoardTest {
 
     private Board createBoard(){
-        return new Board("userId", "teamId", "boardId", "Scrum Board");
+        return new Board("teamId", "boardId", "Scrum Board", "userId");
     }
 
     @Test
@@ -17,7 +17,7 @@ public class BoardTest {
         String boardId = "boardId";
         String boardName = "First board";
 
-        Board board = new Board(userId, teamId, boardId, boardName);
+        Board board = new Board(teamId, boardId, boardName, userId);
 
         assertEquals(teamId, board.getTeamId());
         assertEquals(boardId, board.getBoardId());

@@ -1,9 +1,8 @@
 package ntut.csie.sslab.kanban.entity.model.workflow.event;
 
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class CardMoved extends DomainEvent {

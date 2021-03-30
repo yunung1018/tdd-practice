@@ -1,11 +1,9 @@
 package ntut.csie.sslab.team.entity.model.team.event;
 
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
 import ntut.csie.sslab.team.entity.model.team.ProjectId;
 import ntut.csie.sslab.team.entity.model.team.TeamId;
-
-import java.util.Date;
 
 public class ProjectDeleted extends DomainEvent {
     private final TeamId teamId;

@@ -1,8 +1,6 @@
 package ntut.csie.sslab.kanban.entity.model.board;
 
 import ntut.csie.sslab.kanban.entity.model.board.event.*;
-import ntut.csie.sslab.kanban.entity.model.workflow.Workflow;
-import ntut.csie.sslab.kanban.entity.model.workflow.WorkflowBuilder;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +11,7 @@ public class BoardDomainEventTest {
     private String userId = "userId";
 
     private Board createBoard(){
-        return new Board(userId, "teamId", "boardId", "Scrum Board");
+        return new Board("teamId", "boardId", "Scrum Board", userId);
     }
 
     @Test
@@ -105,6 +103,7 @@ public class BoardDomainEventTest {
     @Test
     public void enter_a_board_publishes_a_board_entered_domain_event(){
         Board board = createBoard();
+        board.becameBoardMember(BoardMemberType.Member, userId);
         board.clearDomainEvents();
 
         board.acceptUserEntry(userId);
@@ -119,6 +118,7 @@ public class BoardDomainEventTest {
     @Test
     public void leave_a_board_publishes_a_board_left_domain_event(){
         Board board = createBoard();
+        board.becameBoardMember(BoardMemberType.Member, userId);
         String boardSessionId = board.acceptUserEntry(userId);
         board.clearDomainEvents();
 

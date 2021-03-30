@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.usecase.workflow;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.entity.model.board.Board;
 import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;

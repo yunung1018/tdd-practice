@@ -17,7 +17,7 @@ public class BoardMapper {
 
 	public static Board transformToDomain(BoardData data) {
 
-		Board board = new Board("", data.getTeamId(), data.getBoardId(), data.getName());
+		Board board = new Board(data.getTeamId(), data.getBoardId(), data.getName(), "");
 		for(BoardMemberData boardMemberData : data.getBoardMemberDatas()) {
 			BoardMemberType boardMemberType = BoardMemberType.Member;
 			switch (boardMemberData.getMemberType()) {
@@ -28,13 +28,12 @@ public class BoardMapper {
 					boardMemberType = BoardMemberType.Member;
 					break;
 			}
-			board.addBoardMember(boardMemberType, boardMemberData.getUserId());
+			board.becameBoardMember(boardMemberType, boardMemberData.getUserId());
 		}
-
 
 		if(data.getCommittedWorkflowDatas() != null)
 			for (CommittedWorkflowData committedWorkflowData : data.getCommittedWorkflowDatas()) {
-				board.addWorkflow(committedWorkflowData.getWorkflowId());
+				board.commitWorkflow(committedWorkflowData.getWorkflowId());
 			}
 
 		board.clearDomainEvents();

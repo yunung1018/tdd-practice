@@ -29,7 +29,7 @@ public class BoardBuilder {
 	
 	public Board build() {
 		boardId = UUID.randomUUID().toString();
-		Board board = new Board(userId, teamId, boardId, name);
+		Board board = new Board(teamId, boardId, name, userId);
 		return board;
 	}
 }

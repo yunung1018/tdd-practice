@@ -9,6 +9,9 @@ import ntut.csie.sslab.ddd.model.AggregateRoot;
 import ntut.csie.sslab.kanban.entity.model.board.event.*;
 import ntut.csie.sslab.kanban.entity.model.board.event.BoardEntered;
 
+import static java.lang.String.format;
+import static ntut.csie.sslab.ddd.model.common.Contract.*;
+
 public class Board extends AggregateRoot<String> {
 	private String name;
 	private String teamId;
@@ -17,8 +20,14 @@ public class Board extends AggregateRoot<String> {
 	private List<BoardSession> boardSessions;
 
 
-	public Board(String userId, String teamId, String boardId, String name) {
+	public Board(String teamId, String boardId, String name, String userId) {
 		super(boardId);
+
+		requireNotNull("Team id", teamId);
+		requireNotNull("board id", boardId);
+		requireNotNull("Board name", name);
+		requireNotNull("User id", userId);
+
 		this.name = name;
 		this.teamId = teamId;
 
@@ -30,50 +39,68 @@ public class Board extends AggregateRoot<String> {
 	}
 
 	public void markAsRemoved(String userId, String username) {
+		requireNotNull("User id", userId);
+
+		isDeleted = true;
 		addDomainEvent(new BoardDeleted(teamId, getBoardId(), userId, username));
+
+		ensure("Board is marked as deleted", isDeleted);
 	}
 
 	public void renameName(String newName) {
-		if(!(name.equals(newName))){
-			String oldName = name;
-			setName(newName);
-			addDomainEvent(new BoardRenamed(teamId, getBoardId(), oldName, newName));
-		}
+		requireNotNull("Board name", newName);
+
+		if((name.equals(newName)))
+			return;
+
+		String oldName = name;
+		this.name = newName;
+		addDomainEvent(new BoardRenamed(teamId, getBoardId(), oldName, newName));
+
+		ensure(format("Board name is '%s'", newName), () -> getName().equals(newName));
 	}
 
-	public void addWorkflow(String workflowId) {
-		int order = 0;
-		if(committedWorkflows.size() > 0) {
-			order = committedWorkflows.get(committedWorkflows.size()-1).getOrder() + 1;
-		}
-		CommittedWorkflow committedWorkflow = new CommittedWorkflow(getBoardId(), workflowId, order);
-		committedWorkflows.add(committedWorkflow);
+
+	public Optional<CommittedWorkflow> getCommittedWorkflow(String workflowId) {
+		requireNotNull("Workflow id", workflowId);
+
+		return committedWorkflows
+				.stream()
+				.filter(x->x.getWorkflowId().equals(workflowId))
+				.findFirst();
 	}
 
 	public void commitWorkflow(String workflowId) {
+		requireNotNull("Workflow id", workflowId);
+
 		addWorkflow(workflowId);
 		addDomainEvent(new WorkflowCommitted(getBoardId(), workflowId));
+
+		ensure(format("Workflow '%s' is committed", workflowId), () -> getCommittedWorkflow(workflowId).isPresent());
 	}
 
-	public void removeWorkflow(String workflowId) {
-		for(int i = 0; i < committedWorkflows.size(); i++){
-			if(committedWorkflows.get(i).getWorkflowId().equals(workflowId)) {
-				committedWorkflows.remove(i);
-			}
-		}
-	}
 
 	public void uncommitworkflow(String workflowId) {
+		requireNotNull("Workflow id", workflowId);
+
 		removeWorkflow(workflowId);
 		addDomainEvent(new WorkflowUncommitted(getBoardId(), workflowId));
+
+		ensure(format("Workflow '%s' is uncommitted", workflowId), () -> !getCommittedWorkflow(workflowId).isPresent());
 	}
 
 	public void becameBoardMember(BoardMemberType memberType, String userId) {
+		requireNotNull("Board member type", memberType);
+		requireNotNull("User id", userId);
+
 		addBoardMember(memberType, userId);
 		addDomainEvent(new BoardMemberAdded(userId, getBoardId(), memberType.toString()));
+
+		ensure(format("User '%s' becomes a board member", userId), () -> getBoardMember(userId).isPresent());
+		ensure(format("User role is '%s'", memberType), () -> getBoardMember(userId).get().getMemberType().equals(memberType));
 	}
 
-	public void addBoardMember(BoardMemberType memberType, String userId) {
+	private void addBoardMember(BoardMemberType memberType, String userId) {
 		BoardMember boardMember = BoardMemberBuilder.newInstance()
 				.memberType(memberType)
 				.boardId(getBoardId())
@@ -84,6 +111,8 @@ public class Board extends AggregateRoot<String> {
 
 
 	public void removeBoardMember(String userId) {
+		requireNotNull("User id", userId);
+
 		for(BoardMember boardMember : boardMembers) {
 			if(boardMember.getUserId().equals(userId)) {
 				boardMembers.remove(boardMember);
@@ -91,40 +120,26 @@ public class Board extends AggregateRoot<String> {
 				break;
 			}
 		}
+
+		ensure(format("Board member '%s' is removed", userId), () -> !getBoardMember(userId).isPresent());
 	}
-
-
-	public boolean isCreator(String userId) {
-		for(BoardMember boardMember : boardMembers) {
-			if(boardMember.getMemberType().equals(BoardMemberType.Manager)
-					&& boardMember.getUserId().equals(userId)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isInvitedMember(String userId) {
-		for(BoardMember boardMember : boardMembers) {
-			if(boardMember.getMemberType().equals(BoardMemberType.Member)
-				&& boardMember.getUserId().equals(userId)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-
 
 	public String acceptUserEntry(String userId) {
+		requireNotNull("User id", userId);
+		require(format("User '%s' is a board member", userId), () -> isBoardMember(userId));
+
 		BoardSession boardSession = new BoardSession(UUID.randomUUID().toString(), userId, getBoardId());
 		boardSessions.add(boardSession);
-
 		addDomainEvent(new BoardEntered(userId, getBoardId(), boardSession.getBoardSessionId()));
+
+		ensure(format("Board session '%s' is accepted", boardSession.getBoardSessionId()), () -> getBoardSession(boardSession.getBoardSessionId()).isPresent());
+
 		return boardSession.getBoardSessionId();
 	}
 
 	public String acceptUserLeaving(String boardSessionId) {
+		requireNotNull("Board session id", boardSessionId);
+
 		String userId = null;
 		for(BoardSession boardSession: boardSessions){
 			if(boardSession.getBoardSessionId().equals(boardSessionId)){
@@ -134,6 +149,8 @@ public class Board extends AggregateRoot<String> {
 			}
 		}
 		addDomainEvent(new BoardLeft(userId,getBoardId(), boardSessionId));
+
+		ensure("User left board", ()-> !boardSessions.stream().anyMatch(x-> x.getBoardSessionId().equals(boardSessionId)));
 		return boardSessionId;
 	}
 
@@ -141,9 +158,6 @@ public class Board extends AggregateRoot<String> {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getBoardId() {
 		return getId();
@@ -157,43 +171,43 @@ public class Board extends AggregateRoot<String> {
 		this.teamId = teamId;
 	}
 
-	public BoardMember getBoardMember(String userId){
+
+	public Optional<BoardMember> getBoardMember(String userId){
+		requireNotNull("User id", userId);
 
 		for(BoardMember each : boardMembers){
 			if(each.getUserId().equalsIgnoreCase(userId)){
-				return each;
+				return Optional.of(each);
 			}
 		}
-		return null;
+		return Optional.empty();
+	}
+
+	public boolean isBoardMember(String userId){
+		requireNotNull("User id", userId);
+
+		return getBoardMember(userId).isPresent();
+	}
+
+	public Optional<BoardSession> getBoardSession(String sessionId){
+		for(BoardSession each : boardSessions){
+			if(each.getBoardSessionId().equals(sessionId)){
+				return Optional.of(each);
+			}
+		}
+		return Optional.empty();
 	}
 
 	public List<BoardMember> getBoardMembers() {
 		return boardMembers;
 	}
 
-	public void setBoardMembers(List<BoardMember> boardMembers) {
-		this.boardMembers = boardMembers;
-	}
-
 	public List<CommittedWorkflow> getCommittedWorkflows() {
 		return committedWorkflows;
 	}
 
-	public void setCommittedWorkflows(List<CommittedWorkflow> committedWorkflows) {
-		this.committedWorkflows = committedWorkflows;
-	}
-
 	public List<BoardSession> getBoardSessions() {
 		return boardSessions;
-	}
-
-	public void setBoardSessions(List<BoardSession> boardSessions) {
-		this.boardSessions = boardSessions;
-	}
-
-
-	public void addBoardSession(BoardSession boardSession) {
-		boardSessions.add(boardSession);
 	}
 
     public Optional<BoardMember> getBoardMemberById(String userId) {
@@ -201,4 +215,27 @@ public class Board extends AggregateRoot<String> {
 				filter( x -> x.getUserId().equalsIgnoreCase(userId)).
 				findFirst();
     }
+
+	private void addWorkflow(String workflowId) {
+		requireNotNull("Workflow id", workflowId);
+
+		int order = 0;
+		if(committedWorkflows.size() > 0) {
+			order = committedWorkflows.get(committedWorkflows.size()-1).getOrder() + 1;
+		}
+		CommittedWorkflow committedWorkflow = new CommittedWorkflow(getBoardId(), workflowId, order);
+		committedWorkflows.add(committedWorkflow);
+
+		ensure(format("Workflow '%s' is committed", workflowId), () -> getCommittedWorkflow(workflowId).isPresent());
+	}
+
+	private void removeWorkflow(String workflowId) {
+
+		for(int i = 0; i < committedWorkflows.size(); i++){
+			if(committedWorkflows.get(i).getWorkflowId().equals(workflowId)) {
+				committedWorkflows.remove(i);
+			}
+		}
+	}
+
 }

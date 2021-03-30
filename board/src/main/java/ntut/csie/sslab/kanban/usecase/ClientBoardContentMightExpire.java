@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.usecase;
 
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
 
 import java.util.Date;

@@ -1,9 +1,7 @@
 package ntut.csie.sslab.account.users.command.entity.event;
 
-import ntut.csie.sslab.ddd.model.DateProvider;
+import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;
-
-import java.util.Date;
 
 public class UserLoggedIn extends DomainEvent {
 
