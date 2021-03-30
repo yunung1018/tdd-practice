@@ -23,7 +23,7 @@ public class GetBoardContentUseCaseTest extends AbstractSpringBootJpaTest {
     @BeforeEach
     public void setUp() {
         super.setUp();
-        domainEventBus.register(notifyBoard);
+        domainEventBus.register(notifyBoardAdapter);
     }
 
     @Test

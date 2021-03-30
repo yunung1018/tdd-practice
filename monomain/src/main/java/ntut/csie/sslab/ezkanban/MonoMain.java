@@ -4,6 +4,8 @@ import ntut.csie.sslab.account.application.springboot.web.AccountWebMain;
 import ntut.csie.sslab.account.application.springboot.web.config.AccountDataSourceConfiguration;
 import ntut.csie.sslab.account.application.springboot.web.config.AccountEventBusInjection;
 import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyBoardAdapter;
+import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyWorkflowAdapter;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.board.BoardRepositoryPeer;
 import ntut.csie.sslab.kanban.application.springboot.web.EzKanbanWebMain;
 import ntut.csie.sslab.kanban.application.springboot.web.config.KanbanDataSourceConfiguration;
@@ -39,8 +41,8 @@ import org.springframework.context.annotation.FilterType;
 public class MonoMain extends SpringBootServletInitializer implements CommandLineRunner {
 
     private DomainEventBus domainEventBus;
-    private NotifyBoard notifyBoard;
-    private NotifyWorkflow notifyWorkflow;
+    private NotifyBoardAdapter notifyBoardAdapter;
+    private NotifyWorkflowAdapter notifyWorkflowAdapter;
     private BoardRepositoryPeer boardRepositoryPeer;
     
     @Autowired
@@ -49,11 +51,10 @@ public class MonoMain extends SpringBootServletInitializer implements CommandLin
     }
 
     @Autowired
-    public void setNotifyBoard(NotifyBoard notifyBoard) { this.notifyBoard = notifyBoard; }
+    public void setNotifyBoardAdapter(NotifyBoardAdapter notifyBoardAdapter) { this.notifyBoardAdapter = notifyBoardAdapter; }
 
     @Autowired
-    public void setNotifyWorkflow(NotifyWorkflow notifyWorkflow) { this.notifyWorkflow = notifyWorkflow; }
-
+    public void setNotifyWorkflowAdapter(NotifyWorkflowAdapter notifyWorkflowAdapter) { this.notifyWorkflowAdapter = notifyWorkflowAdapter; }
 
     @Autowired
     public void setBoardRepositoryPeer(BoardRepositoryPeer boardRepositoryPeer) {
@@ -72,7 +73,7 @@ public class MonoMain extends SpringBootServletInitializer implements CommandLin
     @Override
     public void run(String... arg0) {
         System.out.println("MonoMain run");
-        domainEventBus.register(notifyBoard);
-        domainEventBus.register(notifyWorkflow);
+        domainEventBus.register(notifyBoardAdapter);
+        domainEventBus.register(notifyWorkflowAdapter);
     }
 }

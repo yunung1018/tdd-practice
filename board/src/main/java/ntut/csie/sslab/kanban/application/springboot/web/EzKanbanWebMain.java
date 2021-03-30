@@ -1,5 +1,7 @@
 package ntut.csie.sslab.kanban.application.springboot.web;
 
+import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyBoardAdapter;
+import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyWorkflowAdapter;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.board.BoardRepositoryPeer;
 import ntut.csie.sslab.ddd.model.DomainEventBus;
 import ntut.csie.sslab.kanban.usecase.eventhandler.*;
@@ -21,8 +23,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class EzKanbanWebMain extends SpringBootServletInitializer implements CommandLineRunner {
 
     private DomainEventBus domainEventBus;
-    private NotifyBoard notifyBoard;
-    private NotifyWorkflow notifyWorkflow;
+    private NotifyBoardAdapter notifyBoardAdapter;
+    private NotifyWorkflowAdapter notifyWorkflowAdapter;
     private BoardRepositoryPeer boardRepositoryPeer;
 
 
@@ -32,10 +34,10 @@ public class EzKanbanWebMain extends SpringBootServletInitializer implements Com
     }
 
     @Autowired
-    public void setNotifyBoard(NotifyBoard notifyBoard) { this.notifyBoard = notifyBoard; }
+    public void setNotifyBoardAdapter(NotifyBoardAdapter notifyBoardAdapter) { this.notifyBoardAdapter = notifyBoardAdapter; }
 
     @Autowired
-    public void setNotifyWorkflow(NotifyWorkflow notifyWorkflow) { this.notifyWorkflow = notifyWorkflow; }
+    public void setNotifyWorkflowAdapter(NotifyWorkflowAdapter notifyWorkflowAdapter) { this.notifyWorkflowAdapter = notifyWorkflowAdapter; }
 
 
     @Autowired
@@ -57,7 +59,7 @@ public class EzKanbanWebMain extends SpringBootServletInitializer implements Com
     public void run(String... arg0) throws Exception {
         System.out.println("EzKanbanWebMain run");
 
-        domainEventBus.register(notifyBoard);
-        domainEventBus.register(notifyWorkflow);
+        domainEventBus.register(notifyBoardAdapter);
+        domainEventBus.register(notifyWorkflowAdapter);
     }
 }

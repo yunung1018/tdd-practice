@@ -15,6 +15,7 @@ import ntut.csie.sslab.account.users.query.usecase.user.get.GetUserUseCaseImpl;
 import ntut.csie.sslab.account.users.command.usecase.user.register.RegisterInput;
 import ntut.csie.sslab.account.users.command.usecase.user.register.RegisterUseCase;
 import ntut.csie.sslab.account.users.command.usecase.user.register.RegisterUseCaseImpl;
+import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBus;
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.model.DomainEventBus;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,7 +66,7 @@ public abstract class AbstractSpringBootJpaTest {
         userRepository = new UserRepositoryImpl(userRepositoryPeer);
         userQueryRepository = new UserQueryRepositoryImpl(jdbcTemplate);
 
-        domainEventBus = new DomainEventBus();
+        domainEventBus = new GoogleEventBus();
         encrypt = new BCryptImpl();
 
         username = UUID.randomUUID().toString();

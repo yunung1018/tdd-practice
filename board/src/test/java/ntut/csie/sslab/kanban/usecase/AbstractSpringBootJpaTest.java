@@ -1,6 +1,9 @@
 package ntut.csie.sslab.kanban.usecase;
 
+import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBus;
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
+import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyBoardAdapter;
+import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyWorkflowAdapter;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.board.BoardRepositoryImpl;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.board.BoardRepositoryPeer;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.card.CardRepositoryImpl;
@@ -85,10 +88,8 @@ public abstract class AbstractSpringBootJpaTest {
     public WorkflowRepository workflowRepository;
     public CardRepository cardRepository;
     public DomainEventBus domainEventBus;
-
-    public NotifyBoard notifyBoard;
-    public NotifyWorkflow notifyWorkflow;
-
+    public NotifyBoardAdapter notifyBoardAdapter;
+    public NotifyWorkflowAdapter notifyWorkflowAdapter;
     public String teamId;
     public String teamName;
     public String projectId;
@@ -119,7 +120,7 @@ public abstract class AbstractSpringBootJpaTest {
         boardRepository = new BoardRepositoryImpl(boardRepositoryPeer);
         workflowRepository = new WorkflowRepositoryImpl(workflowRepositoryPeer);
         cardRepository = new CardRepositoryImpl(cardRepositoryPeer);
-        domainEventBus = new DomainEventBus();
+        domainEventBus = new GoogleEventBus();
 
         teamId = UUID.randomUUID().toString();
         teamName = "ntut team";
@@ -132,8 +133,9 @@ public abstract class AbstractSpringBootJpaTest {
         userId = UUID.randomUUID().toString();
         username = "Teddy";
 
-        notifyBoard = new NotifyBoard(boardRepository, domainEventBus);
-        notifyWorkflow = new NotifyWorkflow(cardRepository, workflowRepository, domainEventBus);
+        notifyBoardAdapter = new NotifyBoardAdapter(new NotifyBoard(boardRepository, domainEventBus));
+        notifyWorkflowAdapter = new NotifyWorkflowAdapter(new NotifyWorkflow(cardRepository, workflowRepository, domainEventBus));
+
     }
 
 

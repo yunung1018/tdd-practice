@@ -16,17 +16,14 @@ import ntut.csie.sslab.kanban.entity.model.card.event.CardDeleted;
 
 public class NotifyWorkflow {
     private CardRepository cardRepository;
-//    private CategoryRepository categoryRepository;
     private WorkflowRepository workflowRepository;
 
     private DomainEventBus domainEventBus;
 
     public NotifyWorkflow(CardRepository cardRepository,
-//                          CategoryRepository categoryRepository,
                           WorkflowRepository workflowRepository,
                           DomainEventBus domainEventBus) {
         this.cardRepository = cardRepository;
-//        this.categoryRepository = categoryRepository;
         this.workflowRepository = workflowRepository;
         this.domainEventBus = domainEventBus;
     }
@@ -72,21 +69,11 @@ public class NotifyWorkflow {
         domainEventBus.postAll(workflow);
     }
 
-    @Subscribe
-    public void handleEvent(CardCommitted cardCommitted) {
-        Card card= cardRepository.findById(cardCommitted.cardId()).get();
-        card.setLaneId(cardCommitted.newLaneId());
-        cardRepository.save(card);
-    }
+//    @Subscribe
+//    public void handleEvent(CardCommitted cardCommitted) {
+//        Card card= cardRepository.findById(cardCommitted.cardId()).get();
+//        card.setLaneId(cardCommitted.newLaneId());
+//        cardRepository.save(card);
+//    }
 
-    @Subscribe
-    public void handleEvent(CardUncommitted cardUncommitted) {
-
-    }
-
-    @Subscribe
-    public void handleEvent(CardBlocked cardBlocked) {}
-
-    @Subscribe
-    public void handleEvent(CardUnblocked cardUnblocked) {}
 }

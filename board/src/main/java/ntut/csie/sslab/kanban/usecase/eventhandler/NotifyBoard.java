@@ -19,7 +19,6 @@ public class NotifyBoard {
         this.domainEventBus = domainEventBus;
     }
 
-    @Subscribe
     public void whenWorkflowCreated(WorkflowCreated workflowCreated) {
         Optional<Board> board = boardRepository.findById(workflowCreated.boardId());
         if (!board.isPresent())
@@ -31,7 +30,6 @@ public class NotifyBoard {
         domainEventBus.postAll(board.get());
     }
 
-    @Subscribe
     public void whenWorkflowDeleted(WorkflowDeleted workflowDeleted) {
         Optional<Board> board = boardRepository.findById(workflowDeleted.boardId());
         if (!board.isPresent())
