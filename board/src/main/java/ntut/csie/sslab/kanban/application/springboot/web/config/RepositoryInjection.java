@@ -7,7 +7,7 @@ import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.card.CardRep
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.card.CardRepositoryPeer;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.workflow.WorkflowRepositoryImpl;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.workflow.WorkflowRepositoryPeer;
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.usecase.board.BoardRepository;
 import ntut.csie.sslab.kanban.usecase.card.CardRepository;
 import ntut.csie.sslab.kanban.usecase.workflow.WorkflowRepository;

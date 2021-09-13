@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.usecase.board.getcontent;
 
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.entity.model.board.Board;
 import ntut.csie.sslab.kanban.usecase.ClientBoardContentMightExpire;

@@ -3,7 +3,7 @@ package ntut.csie.sslab.ddd.adapter.gateway;
 import com.google.common.eventbus.EventBus;
 import ntut.csie.sslab.ddd.model.AggregateRoot;
 import ntut.csie.sslab.ddd.model.DomainEvent;
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 
 import java.util.ArrayList;
 import java.util.List;

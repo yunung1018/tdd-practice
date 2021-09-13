@@ -3,7 +3,7 @@ package ntut.csie.sslab.account.users.command.usecase.user.unregister;
 import ntut.csie.sslab.account.users.command.entity.User;
 import ntut.csie.sslab.account.users.command.usecase.Encrypt;
 import ntut.csie.sslab.account.users.command.usecase.UserRepository;
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 

@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.application.springboot.web.config;
 
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.usecase.board.BoardRepository;
 import ntut.csie.sslab.kanban.usecase.board.create.CreateBoardUseCase;
 import ntut.csie.sslab.kanban.usecase.board.create.CreateBoardUseCaseImpl;
@@ -41,7 +41,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 @Configuration("KanbanUseCaseInjection")

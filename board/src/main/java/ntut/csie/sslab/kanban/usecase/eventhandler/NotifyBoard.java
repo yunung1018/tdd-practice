@@ -1,7 +1,6 @@
 package ntut.csie.sslab.kanban.usecase.eventhandler;
 
-import com.google.common.eventbus.Subscribe;
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.entity.model.board.Board;
 import ntut.csie.sslab.kanban.usecase.board.BoardRepository;
 import ntut.csie.sslab.kanban.entity.model.workflow.event.WorkflowCreated;

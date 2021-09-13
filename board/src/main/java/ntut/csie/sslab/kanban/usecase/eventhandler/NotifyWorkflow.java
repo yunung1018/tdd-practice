@@ -1,14 +1,9 @@
 package ntut.csie.sslab.kanban.usecase.eventhandler;
 
 import com.google.common.eventbus.Subscribe;
-import ntut.csie.sslab.ddd.model.DomainEventBus;
-import ntut.csie.sslab.kanban.entity.model.card.Card;
-import ntut.csie.sslab.kanban.entity.model.card.event.CardBlocked;
-import ntut.csie.sslab.kanban.entity.model.card.event.CardUnblocked;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.entity.model.workflow.Workflow;
-import ntut.csie.sslab.kanban.entity.model.workflow.event.CardCommitted;
 import ntut.csie.sslab.kanban.entity.model.workflow.event.CardMoved;
-import ntut.csie.sslab.kanban.entity.model.workflow.event.CardUncommitted;
 import ntut.csie.sslab.kanban.usecase.card.CardRepository;
 import ntut.csie.sslab.kanban.usecase.workflow.WorkflowRepository;
 import ntut.csie.sslab.kanban.entity.model.card.event.CardCreated;

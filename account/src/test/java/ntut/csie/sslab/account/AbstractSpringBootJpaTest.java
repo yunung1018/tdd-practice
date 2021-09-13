@@ -17,7 +17,7 @@ import ntut.csie.sslab.account.users.command.usecase.user.register.RegisterUseCa
 import ntut.csie.sslab.account.users.command.usecase.user.register.RegisterUseCaseImpl;
 import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBus;
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

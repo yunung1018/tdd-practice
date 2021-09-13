@@ -9,7 +9,7 @@ import ntut.csie.sslab.account.users.command.usecase.user.unregister.UnregisterU
 import ntut.csie.sslab.account.users.query.usecase.UserQueryRepository;
 import ntut.csie.sslab.account.users.query.usecase.user.get.GetUserUseCase;
 import ntut.csie.sslab.account.users.query.usecase.user.get.GetUserUseCaseImpl;
-import ntut.csie.sslab.ddd.model.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
