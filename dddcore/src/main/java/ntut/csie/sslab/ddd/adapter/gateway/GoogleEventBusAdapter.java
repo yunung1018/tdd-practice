@@ -8,9 +8,9 @@ import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleEventBus extends EventBus implements DomainEventBus {
+public class GoogleEventBusAdapter extends EventBus implements DomainEventBus {
 
-    public GoogleEventBus() {
+    public GoogleEventBusAdapter() {
         super();
     }
 

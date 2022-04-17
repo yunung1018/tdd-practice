@@ -1,7 +1,7 @@
 package ntut.csie.sslab.account.application.springboot.web.config;
 
 
-import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBus;
+import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBusAdapter;
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ public class AccountEventBusInjection {
 
     @Bean(name="accountEventBus")
     public DomainEventBus eventBus() {
-        return new GoogleEventBus();
+        return new GoogleEventBusAdapter();
     }
 
 }

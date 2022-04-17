@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.usecase;
 
-import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBus;
+import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBusAdapter;
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyBoardAdapter;
 import ntut.csie.sslab.kanban.adapter.gateway.eventbus.google.NotifyWorkflowAdapter;
@@ -120,7 +120,7 @@ public abstract class AbstractSpringBootJpaTest {
         boardRepository = new BoardRepositoryImpl(boardRepositoryPeer);
         workflowRepository = new WorkflowRepositoryImpl(workflowRepositoryPeer);
         cardRepository = new CardRepositoryImpl(cardRepositoryPeer);
-        domainEventBus = new GoogleEventBus();
+        domainEventBus = new GoogleEventBusAdapter();
 
         teamId = UUID.randomUUID().toString();
         teamName = "ntut team";

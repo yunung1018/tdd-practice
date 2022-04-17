@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.application.springboot.web.config;
 
-import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBus;
+import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBusAdapter;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.board.BoardRepositoryImpl;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.board.BoardRepositoryPeer;
 import ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.card.CardRepositoryImpl;
@@ -60,7 +60,7 @@ public class RepositoryInjection {
 
   @Bean(name="kanbanEventBus")
   public DomainEventBus eventBus() {
-    return new GoogleEventBus();
+    return new GoogleEventBusAdapter();
   }
 
 }
