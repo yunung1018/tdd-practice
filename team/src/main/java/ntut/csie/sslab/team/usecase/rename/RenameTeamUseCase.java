@@ -1,0 +1,7 @@
+package ntut.csie.sslab.team.usecase.rename;
+
+import ntut.csie.sslab.ddd.usecase.cqrs.Command;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+
+public interface RenameTeamUseCase extends Command<RenameTeamInput, CqrsCommandOutput> {
+}

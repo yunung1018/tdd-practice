@@ -1,0 +1,41 @@
+package ntut.csie.sslab.kanban.workflow.usecase.lane.rename.impl;
+
+import ntut.csie.sslab.ddd.usecase.DomainEventBus;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
+import ntut.csie.sslab.kanban.workflow.entity.Workflow;
+import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
+import ntut.csie.sslab.kanban.workflow.usecase.lane.rename.in.RenameLaneInput;
+import ntut.csie.sslab.kanban.workflow.usecase.lane.rename.in.RenameLaneUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.WorkflowRepository;
+
+public class RenameLaneUseCaseImpl implements RenameLaneUseCase {
+
+    private WorkflowRepository workflowRepository;
+    private DomainEventBus domainEventBus;
+
+    public RenameLaneUseCaseImpl(WorkflowRepository workflowRepository, DomainEventBus domainEventBus) {
+        this.workflowRepository = workflowRepository;
+        this.domainEventBus = domainEventBus;
+    }
+
+    @Override
+    public CqrsCommandOutput execute(RenameLaneInput input) {
+        Workflow workflow= workflowRepository.findById(input.getWorkflowId()).orElse(null);
+        CqrsCommandOutput output = CqrsCommandOutput.create();
+
+        if (null == workflow){
+            output.setId(input.getWorkflowId())
+                    .setExitCode(ExitCode.FAILURE)
+                    .setMessage("Rename lane failed: workflow not found, workflow id = " + input.getWorkflowId());
+            domainEventBus.post(new ClientBoardContentMightExpire(input.getBoardId()));
+            return output;
+        }
+        workflow.renameLane(input.getLaneId(), input.getNewName(), input.getUserId(), input.getUsername());
+
+        workflowRepository.save(workflow);
+        domainEventBus.postAll(workflow);
+
+        return output.setId(input.getLaneId()).setExitCode(ExitCode.SUCCESS);
+    }
+}

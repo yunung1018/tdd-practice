@@ -64,7 +64,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>ntut.csie.sslab.team.application.springboot.web.TeamMain</mainClass>
+                            <mainClass>ntut.csie.sslab.team.main.springboot.web.TeamMain</mainClass>
                         </configuration>
                     </execution>
                 </executions>
