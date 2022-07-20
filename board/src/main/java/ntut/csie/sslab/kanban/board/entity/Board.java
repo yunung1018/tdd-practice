@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.entity.board;
+package ntut.csie.sslab.kanban.board.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import ntut.csie.sslab.ddd.model.AggregateRoot;
-import ntut.csie.sslab.kanban.entity.board.event.*;
-import ntut.csie.sslab.kanban.entity.board.event.BoardEntered;
+import ntut.csie.sslab.kanban.board.entity.event.*;
 
 import static java.lang.String.format;
 import static ntut.csie.sslab.ddd.model.common.Contract.*;

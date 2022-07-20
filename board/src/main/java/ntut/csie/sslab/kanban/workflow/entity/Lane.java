@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class Lane extends Entity<String> {
+public abstract class Lane implements Entity<String> {
+    private final String laneId;
     private String workflowId;
     private String name;
     private Lane parent;
@@ -18,7 +19,7 @@ public abstract class Lane extends Entity<String> {
     private LaneLayout layout;
 
     public Lane(String laneId, String workflowId, Lane parent, String name, WipLimit wipLimit, int order, LaneType type) {
-        super(laneId);
+        this.laneId = laneId;
         this.name = name;
         this.workflowId = workflowId;
         this.parent = parent;
@@ -42,9 +43,15 @@ public abstract class Lane extends Entity<String> {
     public void addCard(String cardId, int order) {
         committedCards.add(order, new CommittedCard(cardId, getId(), order));
 
+        List<CommittedCard> newCommittedCards = new ArrayList<>();
         for(int i = 0; i < committedCards.size(); i++) {
-            committedCards.get(i).setOrder(i);
+            newCommittedCards.add(new CommittedCard(
+                    committedCards.get(i).getCardId(),
+                    committedCards.get(i).getLaneId(),
+                    i));
         }
+        committedCards.clear();
+        committedCards.addAll(newCommittedCards);
     }
 
     public Optional<CommittedCard> getCardById(String cardId){
@@ -56,13 +63,19 @@ public abstract class Lane extends Entity<String> {
 }
 
     public void removeCard(String cardId) {
-
+        List<CommittedCard> newCommittedCards = new ArrayList<>();
         for (CommittedCard committedCard : committedCards) {
             if (committedCard.getCardId().equals(cardId)) {
                 committedCards.remove(committedCard);
                 for (int i = 0; i < committedCards.size(); i++) {
-                    committedCards.get(i).setOrder(i);
+                    newCommittedCards.add(new CommittedCard(
+                            committedCards.get(i).getCardId(),
+                            committedCards.get(i).getLaneId(),
+                            i));
+
                 }
+                committedCards.clear();
+                committedCards.addAll(newCommittedCards);
                 break;
             }
         }
@@ -213,5 +226,10 @@ public abstract class Lane extends Entity<String> {
 
     public boolean isStage(){
         return getLayout() == LaneLayout.Vertical;
+    }
+
+    @Override
+    public String getId(){
+        return laneId;
     }
 }

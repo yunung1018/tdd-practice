@@ -1,10 +1,8 @@
-package ntut.csie.sslab.account.user.usecase.unregister.impl;
+package ntut.csie.sslab.account.user.usecase.unregister;
 
 import ntut.csie.sslab.account.user.entity.User;
 import ntut.csie.sslab.account.user.usecase.Encrypt;
 import ntut.csie.sslab.account.user.usecase.UserRepository;
-import ntut.csie.sslab.account.user.usecase.unregister.in.UnregisterInput;
-import ntut.csie.sslab.account.user.usecase.unregister.in.UnregisterUseCase;
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;

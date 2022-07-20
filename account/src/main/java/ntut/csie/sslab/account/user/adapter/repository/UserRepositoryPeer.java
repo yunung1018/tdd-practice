@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.users.adapter.repository;
+package ntut.csie.sslab.account.user.adapter.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

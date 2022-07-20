@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.adapter.presenter.card.get;
+package ntut.csie.sslab.kanban.card.adapter.out.presenter.get;
 
 import ntut.csie.sslab.ddd.adapter.presenter.Presenter;
-import ntut.csie.sslab.kanban.usecase.card.get.in.GetCardOutput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardOutput;
 
 public class GetCardPresenter implements Presenter<GetCardOutput, CardViewModel> {
     private CardViewModel viewModel;

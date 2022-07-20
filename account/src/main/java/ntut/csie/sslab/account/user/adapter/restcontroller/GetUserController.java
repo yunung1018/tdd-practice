@@ -1,9 +1,9 @@
-package ntut.csie.sslab.account.users.adapter.restcontroller;
+package ntut.csie.sslab.account.user.adapter.restcontroller;
 
-import ntut.csie.sslab.account.users.adapter.get.GetUserPresenter;
-import ntut.csie.sslab.account.users.usecase.get.in.GetUserInput;
-import ntut.csie.sslab.account.users.usecase.get.in.GetUserUseCase;
-import ntut.csie.sslab.account.users.adapter.get.UserBasicViewModel;
+import ntut.csie.sslab.account.user.adapter.get.GetUserPresenter;
+import ntut.csie.sslab.account.user.usecase.get.GetUserInput;
+import ntut.csie.sslab.account.user.usecase.get.GetUserUseCase;
+import ntut.csie.sslab.account.user.adapter.get.UserBasicViewModel;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

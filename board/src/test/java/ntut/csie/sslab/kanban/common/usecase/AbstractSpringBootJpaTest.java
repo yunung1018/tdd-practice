@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.usecase;
+package ntut.csie.sslab.kanban.common.usecase;
 
 import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBusAdapter;
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;

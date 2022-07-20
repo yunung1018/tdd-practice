@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.card.usecase.port.in.deadline.in;
+package ntut.csie.sslab.kanban.card.usecase.port.in.deadline;
 
 import ntut.csie.sslab.ddd.usecase.Input;
 

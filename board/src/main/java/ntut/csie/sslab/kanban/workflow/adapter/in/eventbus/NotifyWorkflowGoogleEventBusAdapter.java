@@ -1,17 +1,15 @@
-package ntut.csie.sslab.kanban.workflow.adapter.in.eventbus.google;
+package ntut.csie.sslab.kanban.workflow.adapter.in.eventbus;
 
 import com.google.common.eventbus.Subscribe;
-import ntut.csie.sslab.kanban.workflow.usecase.service.NotifyWorkflowService;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.notify.NotifyWorkflow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ntut.csie.sslab.kanban.card.entity.event.*;
 @Component
-public class NotifyWorkflowAdapter {
-
-    private NotifyWorkflowService notifyWorkflow;
-
+public class NotifyWorkflowGoogleEventBusAdapter {
+    private final NotifyWorkflow notifyWorkflow;
     @Autowired
-    public NotifyWorkflowAdapter(NotifyWorkflowService notifyWorkflow) {
+    public NotifyWorkflowGoogleEventBusAdapter(NotifyWorkflow notifyWorkflow) {
         this.notifyWorkflow = notifyWorkflow;
     }
 

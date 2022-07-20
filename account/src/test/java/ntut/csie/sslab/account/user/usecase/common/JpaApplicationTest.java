@@ -1,6 +1,6 @@
-package ntut.csie.sslab.account;
+package ntut.csie.sslab.account.user.usecase.common;
 
-import ntut.csie.sslab.account.user.application.springboot.web.AccountWebMain;
+import ntut.csie.sslab.account.user.framework.main.springboot.web.AccountWebMain;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;

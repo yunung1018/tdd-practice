@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.adapter.presenter.workflow.get;
+package ntut.csie.sslab.kanban.workflow.adapter.out.presenter;
 
 import ntut.csie.sslab.ddd.adapter.presenter.ViewModel;
-import ntut.csie.sslab.kanban.usecase.workflow.WorkflowDto;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.WorkflowDto;
 
 public class WorkflowViewModel implements ViewModel {
     private WorkflowDto workflowDto;

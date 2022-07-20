@@ -64,7 +64,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>ntut.csie.sslab.account.application.springboot.web.AccountWebMain</mainClass>
+                            <mainClass>ntut.csie.sslab.account.user.framework.main.AccountWebMain</mainClass>
                         </configuration>
                     </execution>
                 </executions>

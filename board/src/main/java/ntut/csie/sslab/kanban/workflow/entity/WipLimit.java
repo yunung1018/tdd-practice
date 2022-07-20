@@ -2,7 +2,7 @@ package ntut.csie.sslab.kanban.workflow.entity;
 
 import ntut.csie.sslab.ddd.model.ValueObject;
 
-public class WipLimit extends ValueObject {
+public class WipLimit implements ValueObject {
 
 	private int value;
 	

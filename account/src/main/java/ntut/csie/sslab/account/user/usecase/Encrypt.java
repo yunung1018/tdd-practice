@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.users.usecase;
+package ntut.csie.sslab.account.user.usecase;
 
 public interface Encrypt {
     public String encrypt(String password);

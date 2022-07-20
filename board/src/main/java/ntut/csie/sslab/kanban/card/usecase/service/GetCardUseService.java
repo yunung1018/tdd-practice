@@ -1,16 +1,16 @@
-package ntut.csie.sslab.kanban.card.usecase.get.impl;
+package ntut.csie.sslab.kanban.card.usecase.service;
 
-import ntut.csie.sslab.kanban.card.usecase.get.out.CardRepository;
-import ntut.csie.sslab.kanban.card.usecase.CardMapper;
-import ntut.csie.sslab.kanban.card.usecase.get.in.GetCardInput;
-import ntut.csie.sslab.kanban.card.usecase.get.in.GetCardOutput;
-import ntut.csie.sslab.kanban.card.usecase.get.in.GetCardUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.out.CardRepository;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.CardMapper;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardOutput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardUseCase;
 
-public class GetCardUseCaseImpl implements GetCardUseCase {
+public class GetCardUseService implements GetCardUseCase {
 
     private final CardRepository cardRepository;
 
-    public GetCardUseCaseImpl(CardRepository cardRepository) {
+    public GetCardUseService(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
 

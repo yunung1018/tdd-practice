@@ -1,14 +1,15 @@
-package ntut.csie.sslab.kanban.entity.board;
+package ntut.csie.sslab.kanban.board.entity;
 
 import ntut.csie.sslab.ddd.model.Entity;
 
 
-public class BoardSession extends Entity<String> {
+public class BoardSession implements Entity<String> {
+    private final String boardSessionId;
     private String userId;
     private String boardId;
 
     public BoardSession(String boardSessionId, String userId, String boardId) {
-        super(boardSessionId);
+        this.boardSessionId = boardSessionId;
         this.userId = userId;
         this.boardId = boardId;
     }
@@ -30,4 +31,9 @@ public class BoardSession extends Entity<String> {
     }
 
     public String getBoardSessionId() { return getId(); }
+
+    @Override
+    public String getId() {
+        return boardSessionId;
+    }
 }

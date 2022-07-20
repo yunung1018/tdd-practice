@@ -1,20 +1,20 @@
-package ntut.csie.sslab.kanban.workflow.usecase.lane.rename.impl;
+package ntut.csie.sslab.kanban.workflow.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
 import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
-import ntut.csie.sslab.kanban.workflow.usecase.lane.rename.in.RenameLaneInput;
-import ntut.csie.sslab.kanban.workflow.usecase.lane.rename.in.RenameLaneUseCase;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowRepository;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.rename.RenameLaneInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.rename.RenameLaneUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.out.WorkflowRepository;
 
-public class RenameLaneUseCaseImpl implements RenameLaneUseCase {
+public class RenameLaneService implements RenameLaneUseCase {
 
     private WorkflowRepository workflowRepository;
     private DomainEventBus domainEventBus;
 
-    public RenameLaneUseCaseImpl(WorkflowRepository workflowRepository, DomainEventBus domainEventBus) {
+    public RenameLaneService(WorkflowRepository workflowRepository, DomainEventBus domainEventBus) {
         this.workflowRepository = workflowRepository;
         this.domainEventBus = domainEventBus;
     }

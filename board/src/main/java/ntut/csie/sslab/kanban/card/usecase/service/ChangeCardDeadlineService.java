@@ -1,20 +1,20 @@
-package ntut.csie.sslab.kanban.card.usecase.port.in.deadline.impl;
+package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
-import ntut.csie.sslab.kanban.card.usecase.port.in.deadline.in.ChangeCardDeadlineInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.deadline.ChangeCardDeadlineInput;
 import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
 import ntut.csie.sslab.kanban.card.usecase.port.out.CardRepository;
-import ntut.csie.sslab.kanban.card.usecase.port.in.deadline.in.ChangeCardDeadlineUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.in.deadline.ChangeCardDeadlineUseCase;
 
-public class ChangeCardDeadlineUseCaseImpl implements ChangeCardDeadlineUseCase {
+public class ChangeCardDeadlineService implements ChangeCardDeadlineUseCase {
 
     private final CardRepository cardRepository;
     private final DomainEventBus domainEventBus;
 
-    public ChangeCardDeadlineUseCaseImpl(CardRepository cardRepository, DomainEventBus domainEventBus) {
+    public ChangeCardDeadlineService(CardRepository cardRepository, DomainEventBus domainEventBus) {
         this.cardRepository = cardRepository;
         this.domainEventBus = domainEventBus;
     }

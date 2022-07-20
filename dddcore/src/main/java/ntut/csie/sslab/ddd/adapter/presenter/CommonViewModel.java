@@ -1,9 +1,8 @@
-package ntut.csie.sslab.ddd.adapter.presenter.cqrs;
+package ntut.csie.sslab.ddd.adapter.presenter;
 
-import ntut.csie.sslab.ddd.adapter.presenter.ViewModel;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 
-public class CqrsCommonViewModel implements ViewModel {
+public class CommonViewModel implements ViewModel {
 
     private String id;
     private String message;

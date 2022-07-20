@@ -1,8 +1,8 @@
-package ntut.csie.sslab.kanban.usecase.workflow;
+package ntut.csie.sslab.kanban.workflow.usecase;
 
 import ntut.csie.sslab.kanban.workflow.adapter.out.presenter.GetWorkflowPresenter;
 import ntut.csie.sslab.kanban.workflow.adapter.out.presenter.WorkflowViewModel;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
 import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.GetWorkflowInput;
 import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.GetWorkflowUseCase;
 import ntut.csie.sslab.kanban.workflow.usecase.service.GetWorkflowService;

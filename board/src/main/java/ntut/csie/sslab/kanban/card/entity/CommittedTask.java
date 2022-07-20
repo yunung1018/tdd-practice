@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.entity.card;
+package ntut.csie.sslab.kanban.card.entity;
 
 public class CommittedTask {
     private String taskId;

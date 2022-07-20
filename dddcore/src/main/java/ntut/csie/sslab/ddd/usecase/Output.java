@@ -1,5 +1,6 @@
 package ntut.csie.sslab.ddd.usecase;
 
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 
 public interface Output {
@@ -11,5 +12,10 @@ public interface Output {
     ExitCode getExitCode();
 
     Output setExitCode(ExitCode exitCode);
+
+    String getId();
+
+    Output setId(String id);
+
 
 }

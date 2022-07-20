@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.adapter.presenter.card.get;
+package ntut.csie.sslab.kanban.card.adapter.out.presenter.get;
 
 import ntut.csie.sslab.ddd.adapter.presenter.ViewModel;
-import ntut.csie.sslab.kanban.usecase.card.CardDto;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.CardDto;
 
 import java.util.List;
 

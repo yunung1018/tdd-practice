@@ -1,14 +1,13 @@
-package ntut.csie.sslab.kanban.entity.card;
+package ntut.csie.sslab.kanban.card.entity;
 
 
-import ntut.csie.sslab.kanban.card.entity.Card;
-import ntut.csie.sslab.kanban.card.entity.CardBuilder;
-import ntut.csie.sslab.kanban.card.entity.CardType;
 import org.junit.jupiter.api.*;
 
 import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import ntut.csie.sslab.kanban.card.entity.event.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class CardTest {

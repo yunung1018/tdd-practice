@@ -1,6 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase;
-
-import ntut.csie.sslab.kanban.workflow.usecase.lane.LaneDto;
+package ntut.csie.sslab.kanban.workflow.usecase.port.in.get;
 
 import java.util.List;
 

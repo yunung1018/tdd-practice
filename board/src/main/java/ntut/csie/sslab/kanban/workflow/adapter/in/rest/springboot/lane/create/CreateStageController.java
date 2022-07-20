@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.lane.create;
+package ntut.csie.sslab.kanban.workflow.adapter.in.rest.springboot.lane.create;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.lane.stage.create.in.CreateStageInput;
-import ntut.csie.sslab.kanban.usecase.lane.stage.create.in.CreateStageUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.stage.create.CreateStageInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.stage.create.CreateStageUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.workflow.create;
+package ntut.csie.sslab.kanban.workflow.adapter.in.rest.springboot.create;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.workflow.create.in.CreateWorkflowInput;
-import ntut.csie.sslab.kanban.usecase.workflow.create.in.CreateWorkflowUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.create.CreateWorkflowInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.create.CreateWorkflowUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

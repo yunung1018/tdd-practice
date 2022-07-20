@@ -1,11 +1,11 @@
-package ntut.csie.sslab.kanban.usecase.workflow;
+package ntut.csie.sslab.kanban.workflow.usecase;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.board.entity.Board;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
 import ntut.csie.sslab.kanban.workflow.usecase.port.in.create.CreateWorkflowInput;
 import ntut.csie.sslab.kanban.workflow.usecase.port.in.create.CreateWorkflowUseCase;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;

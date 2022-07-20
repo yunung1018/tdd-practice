@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.board.usecase.getcontent.out;
+package ntut.csie.sslab.kanban.board.usecase.port.out;
 
 import java.util.List;
 

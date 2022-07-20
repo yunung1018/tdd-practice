@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.card.create;
+package ntut.csie.sslab.kanban.card.adapter.in.rest.springboot.create;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.card.create.in.CreateCardInput;
-import ntut.csie.sslab.kanban.usecase.card.create.in.CreateCardUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.in.create.CreateCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.create.CreateCardUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

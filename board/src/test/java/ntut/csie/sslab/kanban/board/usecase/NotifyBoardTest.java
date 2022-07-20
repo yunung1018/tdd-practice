@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.usecase.eventhandler;
+package ntut.csie.sslab.kanban.board.usecase;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
 import ntut.csie.sslab.kanban.board.entity.Board;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
 import ntut.csie.sslab.kanban.board.usecase.port.in.create.CreateBoardInput;
 import ntut.csie.sslab.kanban.board.usecase.port.in.create.CreateBoardUseCase;
 import ntut.csie.sslab.kanban.workflow.usecase.port.in.create.CreateWorkflowInput;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class NotifyBoardServiceTest extends AbstractSpringBootJpaTest {
+public class NotifyBoardTest extends AbstractSpringBootJpaTest {
 
     @BeforeEach
     @Override

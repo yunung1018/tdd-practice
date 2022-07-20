@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.board.usecase.port.in;
+package ntut.csie.sslab.kanban.board.usecase.port.in.getcontent;
 
 public class CommittedWorkflowDto {
     private String boardId;

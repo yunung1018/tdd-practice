@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.usecase;
+package ntut.csie.sslab.kanban.common;
 
 import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;

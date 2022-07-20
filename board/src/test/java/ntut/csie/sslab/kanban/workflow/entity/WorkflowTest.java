@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.entity.workflow;
+package ntut.csie.sslab.kanban.workflow.entity;
 
 import ntut.csie.sslab.kanban.card.entity.CardBuilder;
 import ntut.csie.sslab.kanban.card.entity.CardType;

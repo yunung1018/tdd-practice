@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.card.usecase.edit.estimate.in;
+package ntut.csie.sslab.kanban.card.usecase.port.in.estimate;
 
 import ntut.csie.sslab.ddd.usecase.cqrs.Command;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;

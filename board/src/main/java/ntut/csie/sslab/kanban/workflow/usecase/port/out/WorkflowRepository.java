@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase;
+package ntut.csie.sslab.kanban.workflow.usecase.port.out;
 
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
 import ntut.csie.sslab.ddd.usecase.AbstractRepository;

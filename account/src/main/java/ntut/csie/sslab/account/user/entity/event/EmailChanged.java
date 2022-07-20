@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.users.entity.event;
+package ntut.csie.sslab.account.user.entity.event;
 
 import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;

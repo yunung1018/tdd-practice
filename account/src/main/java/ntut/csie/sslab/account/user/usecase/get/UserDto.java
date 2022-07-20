@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.users.usecase.get;
+package ntut.csie.sslab.account.user.usecase.get;
 
 public class UserDto {
 	private String id;

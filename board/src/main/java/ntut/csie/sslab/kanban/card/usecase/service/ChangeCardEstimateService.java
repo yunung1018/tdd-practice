@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.card.usecase.port.in.estimate.impl;
+package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
@@ -9,12 +9,12 @@ import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
 import ntut.csie.sslab.kanban.card.usecase.port.out.CardRepository;
 import ntut.csie.sslab.kanban.card.usecase.port.in.estimate.ChangeCardEstimateUseCase;
 
-public class ChangeCardEstimateUseCaseImpl implements ChangeCardEstimateUseCase {
+public class ChangeCardEstimateService implements ChangeCardEstimateUseCase {
 
     private final CardRepository cardRepository;
     private final DomainEventBus domainEventBus;
 
-    public ChangeCardEstimateUseCaseImpl(CardRepository cardRepository, DomainEventBus domainEventBus) {
+    public ChangeCardEstimateService(CardRepository cardRepository, DomainEventBus domainEventBus) {
         this.cardRepository = cardRepository;
         this.domainEventBus = domainEventBus;
     }

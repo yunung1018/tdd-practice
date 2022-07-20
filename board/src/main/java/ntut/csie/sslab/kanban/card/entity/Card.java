@@ -1,8 +1,7 @@
-package ntut.csie.sslab.kanban.entity.card;
+package ntut.csie.sslab.kanban.card.entity;
 
 import ntut.csie.sslab.ddd.model.AggregateRoot;
-import ntut.csie.sslab.kanban.entity.card.event.*;
-import ntut.csie.sslab.kanban.entity.workflow.event.CardMoved;
+import ntut.csie.sslab.kanban.card.entity.event.*;
 
 public class Card extends AggregateRoot<String> {
 	private String userId;
@@ -165,11 +164,4 @@ public class Card extends AggregateRoot<String> {
 	public void setType(CardType type) {
 		this.type = type;
 	}
-
-	public void move(String boardId, String workflowId, String newLaneId, String userId, String username, int newOrder) {
-		String oldLaneId = laneId;
-		setLaneId(newLaneId);
-		addDomainEvent(new CardMoved(workflowId, getId(), oldLaneId, newLaneId, newOrder, userId, username, boardId));
-	}
-
 }

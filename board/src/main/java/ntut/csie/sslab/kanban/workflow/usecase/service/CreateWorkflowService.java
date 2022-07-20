@@ -1,19 +1,19 @@
-package ntut.csie.sslab.kanban.workflow.usecase.create.impl;
+package ntut.csie.sslab.kanban.workflow.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
 import ntut.csie.sslab.kanban.workflow.entity.WorkflowBuilder;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowRepository;
-import ntut.csie.sslab.kanban.workflow.usecase.create.in.CreateWorkflowInput;
-import ntut.csie.sslab.kanban.workflow.usecase.create.in.CreateWorkflowUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.out.WorkflowRepository;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.create.CreateWorkflowInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.create.CreateWorkflowUseCase;
 
-public class CreateWorkflowUseCaseImpl implements CreateWorkflowUseCase {
+public class CreateWorkflowService implements CreateWorkflowUseCase {
     private final WorkflowRepository workflowRepository;
     private final DomainEventBus domainEventBus;
 
-    public CreateWorkflowUseCaseImpl(WorkflowRepository workflowRepository, DomainEventBus domainEventBus) {
+    public CreateWorkflowService(WorkflowRepository workflowRepository, DomainEventBus domainEventBus) {
         this.workflowRepository = workflowRepository;
         this.domainEventBus = domainEventBus;
     }

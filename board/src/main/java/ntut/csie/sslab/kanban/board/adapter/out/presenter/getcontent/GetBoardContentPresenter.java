@@ -1,11 +1,11 @@
-package ntut.csie.sslab.kanban.board.adapter.presenter.getcontent;
+package ntut.csie.sslab.kanban.board.adapter.out.presenter.getcontent;
 
 import ntut.csie.sslab.ddd.adapter.presenter.Presenter;
-import ntut.csie.sslab.kanban.board.usecase.port.in.CommittedWorkflowDto;
+import ntut.csie.sslab.kanban.board.usecase.port.in.getcontent.CommittedWorkflowDto;
 import ntut.csie.sslab.kanban.board.usecase.port.in.getcontent.GetBoardContentOutput;
-import ntut.csie.sslab.kanban.usecase.card.CardDto;
-import ntut.csie.sslab.kanban.usecase.lane.LaneDto;
-import ntut.csie.sslab.kanban.usecase.workflow.WorkflowDto;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.CardDto;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.LaneDto;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.WorkflowDto;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,10 @@
-package ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.card;
+package ntut.csie.sslab.kanban.card.adapter.out.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ntut.csie.sslab.kanban.entity.card.Card;
-import ntut.csie.sslab.kanban.entity.card.CardType;
+import ntut.csie.sslab.kanban.card.entity.Card;
+import ntut.csie.sslab.kanban.card.entity.CardType;
 
 public class CardMapper {
 

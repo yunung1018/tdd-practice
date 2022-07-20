@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.card;
+package ntut.csie.sslab.kanban.card.adapter.out.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

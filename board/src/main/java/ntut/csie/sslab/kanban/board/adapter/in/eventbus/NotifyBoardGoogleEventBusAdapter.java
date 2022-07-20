@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.board.adapter.in.eventbus.google;
+package ntut.csie.sslab.kanban.board.adapter.in.eventbus;
 
 import com.google.common.eventbus.Subscribe;
-import ntut.csie.sslab.kanban.eventhandler.NotifyBoard;
+import ntut.csie.sslab.kanban.board.usecase.port.in.notify.NotifyBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ntut.csie.sslab.kanban.workflow.entity.event.*;
@@ -9,12 +9,12 @@ import ntut.csie.sslab.kanban.workflow.entity.event.*;
 
 
 @Component
-public class NotifyBoardAdapter {
+public class NotifyBoardGoogleEventBusAdapter {
 
-    private NotifyBoard notifyBoard;
+    private final NotifyBoard notifyBoard;
 
     @Autowired
-    public NotifyBoardAdapter(NotifyBoard notifyBoard) {
+    public NotifyBoardGoogleEventBusAdapter(NotifyBoard notifyBoard) {
         this.notifyBoard = notifyBoard;
     }
 

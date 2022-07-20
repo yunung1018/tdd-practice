@@ -1,6 +1,6 @@
-package ntut.csie.sslab.account.users.adapter.encyption;
+package ntut.csie.sslab.account.user.adapter.encyption;
 
-import ntut.csie.sslab.account.users.usecase.Encrypt;
+import ntut.csie.sslab.account.user.usecase.Encrypt;
 
 public class BCryptImpl implements Encrypt {
 

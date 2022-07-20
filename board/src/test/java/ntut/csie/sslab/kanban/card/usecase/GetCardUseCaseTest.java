@@ -1,12 +1,12 @@
-package ntut.csie.sslab.kanban.usecase.card;
+package ntut.csie.sslab.kanban.card.usecase;
 
 
 import ntut.csie.sslab.kanban.card.adapter.out.presenter.get.CardViewModel;
 import ntut.csie.sslab.kanban.card.adapter.out.presenter.get.GetCardPresenter;
 import ntut.csie.sslab.kanban.card.entity.CardType;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
-import ntut.csie.sslab.kanban.card.usecase.get.in.GetCardInput;
-import ntut.csie.sslab.kanban.card.usecase.get.in.GetCardUseCase;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

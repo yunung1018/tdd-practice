@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.user.usecase.register.in;
+package ntut.csie.sslab.account.user.usecase.register;
 
 import ntut.csie.sslab.ddd.usecase.Input;
 

@@ -1,46 +1,17 @@
-package ntut.csie.sslab.kanban.eventhandler;
+package ntut.csie.sslab.kanban.board.usecase.port.in.notify;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.board.entity.Board;
 import ntut.csie.sslab.kanban.board.usecase.port.out.BoardRepository;
-import ntut.csie.sslab.kanban.workflow.entity.event.*;
-
+import ntut.csie.sslab.kanban.workflow.entity.event.WorkflowCreated;
+import ntut.csie.sslab.kanban.workflow.entity.event.WorkflowDeleted;
 
 import java.util.Optional;
 
-public class NotifyBoardService {
-    private BoardRepository boardRepository;
-    private DomainEventBus domainEventBus;
+public interface NotifyBoard {
 
-    public NotifyBoardService(BoardRepository boardRepository,
-                              DomainEventBus domainEventBus) {
-        this.boardRepository = boardRepository;
-        this.domainEventBus = domainEventBus;
-    }
+    void whenWorkflowCreated(WorkflowCreated workflowCreated);
 
-    public void whenWorkflowCreated(WorkflowCreated workflowCreated) {
-        Optional<Board> board = boardRepository.findById(workflowCreated.boardId());
-        if (!board.isPresent())
-            throw new RuntimeException("Board not found, board id = " + workflowCreated.boardId());
-
-        board.get().commitWorkflow(workflowCreated.workflowId());
-        boardRepository.save(board.get());
-
-        domainEventBus.postAll(board.get());
-    }
-
-    public void whenWorkflowDeleted(WorkflowDeleted workflowDeleted) {
-        Optional<Board> board = boardRepository.findById(workflowDeleted.boardId());
-        if (!board.isPresent())
-            throw new RuntimeException("Board not found, board id = " + workflowDeleted.boardId());
-
-        board.get().uncommitworkflow(workflowDeleted.workflowId());
-        boardRepository.save(board.get());
-
-        domainEventBus.postAll(board.get());
-    }
-
-
-    
+    void whenWorkflowDeleted(WorkflowDeleted workflowDeleted);
 
 }

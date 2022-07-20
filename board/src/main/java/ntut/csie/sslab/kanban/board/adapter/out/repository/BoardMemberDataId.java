@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.board.adapter.out;
+package ntut.csie.sslab.kanban.board.adapter.out.repository;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

@@ -1,12 +1,12 @@
-package ntut.csie.sslab.kanban.usecase.card;
+package ntut.csie.sslab.kanban.card.usecase;
 
 
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.CardType;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
-import ntut.csie.sslab.kanban.card.usecase.delete.in.DeleteCardInput;
-import ntut.csie.sslab.kanban.card.usecase.delete.in.DeleteCardUseCase;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.card.usecase.port.in.delete.DeleteCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.delete.DeleteCardUseCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

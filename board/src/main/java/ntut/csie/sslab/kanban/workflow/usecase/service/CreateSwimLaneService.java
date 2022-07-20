@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase.lane.swimlane.create.impl;
+package ntut.csie.sslab.kanban.workflow.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
@@ -6,16 +6,16 @@ import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.LaneType;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
 import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
-import ntut.csie.sslab.kanban.workflow.usecase.lane.swimlane.create.in.CreateSwimLaneInput;
-import ntut.csie.sslab.kanban.workflow.usecase.lane.swimlane.create.in.CreateSwimLaneUseCase;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowRepository;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.swimlane.create.CreateSwimLaneInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.swimlane.create.CreateSwimLaneUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.out.WorkflowRepository;
 
-public class CreateSwimLaneUseCaseImpl implements CreateSwimLaneUseCase {
+public class CreateSwimLaneService implements CreateSwimLaneUseCase {
     private final WorkflowRepository workflowRepository;
     private final DomainEventBus domainEventBus;
 
-    public CreateSwimLaneUseCaseImpl(WorkflowRepository workflowRepository,
-                                     DomainEventBus domainEventBus) {
+    public CreateSwimLaneService(WorkflowRepository workflowRepository,
+                                 DomainEventBus domainEventBus) {
 
         this.workflowRepository = workflowRepository;
         this.domainEventBus = domainEventBus;

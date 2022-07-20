@@ -1,7 +1,7 @@
-package ntut.csie.sslab.account.users.adapter.repository;
+package ntut.csie.sslab.account.user.adapter.repository;
 
-import ntut.csie.sslab.account.users.entity.Role;
-import ntut.csie.sslab.account.users.entity.User;
+import ntut.csie.sslab.account.user.entity.Role;
+import ntut.csie.sslab.account.user.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

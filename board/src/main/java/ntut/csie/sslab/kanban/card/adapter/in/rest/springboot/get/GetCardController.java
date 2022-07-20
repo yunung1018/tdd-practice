@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.card.get;
+package ntut.csie.sslab.kanban.card.adapter.in.rest.springboot.get;
 
-import ntut.csie.sslab.kanban.adapter.presenter.card.get.CardViewModel;
-import ntut.csie.sslab.kanban.adapter.presenter.card.get.GetCardPresenter;
-import ntut.csie.sslab.kanban.usecase.card.get.in.GetCardInput;
-import ntut.csie.sslab.kanban.usecase.card.get.in.GetCardUseCase;
+import ntut.csie.sslab.kanban.card.adapter.out.presenter.get.CardViewModel;
+import ntut.csie.sslab.kanban.card.adapter.out.presenter.get.GetCardPresenter;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.GetCardUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

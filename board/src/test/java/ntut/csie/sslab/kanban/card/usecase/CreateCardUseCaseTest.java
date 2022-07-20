@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.usecase.card;
+package ntut.csie.sslab.kanban.card.usecase;
 
 
 
@@ -6,9 +6,9 @@ import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
 import ntut.csie.sslab.kanban.card.entity.CardType;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
-import ntut.csie.sslab.kanban.card.usecase.create.in.CreateCardInput;
-import ntut.csie.sslab.kanban.card.usecase.create.in.CreateCardUseCase;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.card.usecase.port.in.create.CreateCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.create.CreateCardUseCase;
 import ntut.csie.sslab.kanban.workflow.entity.Lane;
 import ntut.csie.sslab.kanban.workflow.entity.LaneType;
 import ntut.csie.sslab.kanban.workflow.entity.SwimLane;

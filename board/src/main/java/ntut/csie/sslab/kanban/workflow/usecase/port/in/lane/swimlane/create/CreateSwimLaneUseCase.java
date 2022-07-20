@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase.lane.swimlane.create.in;
+package ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.swimlane.create;
 
 import ntut.csie.sslab.ddd.usecase.cqrs.Command;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;

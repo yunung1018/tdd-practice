@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.board;
+package ntut.csie.sslab.kanban.board.adapter;
 
 import ntut.csie.sslab.kanban.board.entity.Board;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

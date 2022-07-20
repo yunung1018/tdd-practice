@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.card.usecase.port.in.description.in;
+package ntut.csie.sslab.kanban.card.usecase.port.in.description;
 
 import ntut.csie.sslab.ddd.usecase.Input;
 

@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase.lane.rename.in;
+package ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.rename;
 
 import ntut.csie.sslab.ddd.usecase.Input;
 

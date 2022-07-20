@@ -15,22 +15,22 @@ import ntut.csie.sslab.kanban.board.usecase.port.out.BoardRepository;
 import ntut.csie.sslab.kanban.card.usecase.port.in.get.CardDto;
 import ntut.csie.sslab.kanban.card.usecase.port.out.CardRepository;
 import ntut.csie.sslab.kanban.card.usecase.port.in.get.CardMapper;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowsMapper;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.WorkflowsMapper;
 import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.WorkflowDto;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowRepository;
+import ntut.csie.sslab.kanban.workflow.usecase.port.out.WorkflowRepository;
 
 import java.util.List;
 
-public class GetBoardContentServer implements GetBoardContentUseCase {
+public class GetBoardContentService implements GetBoardContentUseCase {
     private final BoardRepository boardRepository;
     private final WorkflowRepository workflowRepository;
     private final CardRepository cardRepository;
     private final DomainEventBus domainEventBus;
 
-    public GetBoardContentServer(BoardRepository boardRepository,
-                                 WorkflowRepository workflowRepository,
-                                 CardRepository cardRepository,
-                                 DomainEventBus domainEventBus) {
+    public GetBoardContentService(BoardRepository boardRepository,
+                                  WorkflowRepository workflowRepository,
+                                  CardRepository cardRepository,
+                                  DomainEventBus domainEventBus) {
         this.boardRepository = boardRepository;
         this.workflowRepository = workflowRepository;
         this.cardRepository = cardRepository;

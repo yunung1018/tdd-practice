@@ -1,6 +1,6 @@
-package ntut.csie.sslab.account.users.adapter.get;
+package ntut.csie.sslab.account.user.adapter.get;
 
-import ntut.csie.sslab.account.users.usecase.get.UserDto;
+import ntut.csie.sslab.account.user.usecase.get.UserDto;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
 
 public class UserBasicViewModel extends CommonViewModel {

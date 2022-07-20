@@ -1,10 +1,8 @@
-package ntut.csie.sslab.account.users.adapter.repository;
+package ntut.csie.sslab.account.user.adapter.repository;
 
-import ntut.csie.sslab.account.users.entity.User;
-import ntut.csie.sslab.account.users.usecase.UserRepository;
+import ntut.csie.sslab.account.user.entity.User;
+import ntut.csie.sslab.account.user.usecase.UserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {

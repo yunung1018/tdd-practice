@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.lane.create;
+package ntut.csie.sslab.kanban.workflow.adapter.in.rest.springboot.lane.create;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.lane.swimLane.create.in.CreateSwimLaneInput;
-import ntut.csie.sslab.kanban.usecase.lane.swimLane.create.in.CreateSwimLaneUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.swimlane.create.CreateSwimLaneInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.swimlane.create.CreateSwimLaneUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

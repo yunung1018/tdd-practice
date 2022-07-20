@@ -1,20 +1,20 @@
-package ntut.csie.sslab.kanban.card.usecase.delete.impl;
+package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
 import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
-import ntut.csie.sslab.kanban.card.usecase.delete.in.DeleteCardInput;
-import ntut.csie.sslab.kanban.card.usecase.delete.in.DeleteCardUseCase;
-import ntut.csie.sslab.kanban.card.usecase.get.out.CardRepository;
+import ntut.csie.sslab.kanban.card.usecase.port.in.delete.DeleteCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.delete.DeleteCardUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.out.CardRepository;
 
-public class DeleteCardUseCaseImpl implements DeleteCardUseCase {
+public class DeleteCardUseService implements DeleteCardUseCase {
 	private final CardRepository cardRepository;
 	private final DomainEventBus domainEventBus;
 
-	public DeleteCardUseCaseImpl(CardRepository cardRepository,
-								 DomainEventBus domainEventBus) {
+	public DeleteCardUseService(CardRepository cardRepository,
+								DomainEventBus domainEventBus) {
 
 		this.cardRepository = cardRepository;
 		this.domainEventBus = domainEventBus;

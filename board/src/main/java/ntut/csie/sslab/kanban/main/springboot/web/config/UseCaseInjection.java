@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.main.config;
+package ntut.csie.sslab.kanban.main.springboot.web.config;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.board.usecase.port.out.BoardRepository;

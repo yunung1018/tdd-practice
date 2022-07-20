@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.workflow;
+package ntut.csie.sslab.kanban.workflow.adapter.repository;
 
 import ntut.csie.sslab.ddd.model.common.DateProvider;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
 import ntut.csie.sslab.kanban.workflow.entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

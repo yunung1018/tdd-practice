@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.usecase.lane;
+package ntut.csie.sslab.kanban.workflow.usecase;
 
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
-import ntut.csie.sslab.kanban.usecase.AbstractSpringBootJpaTest;
+import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

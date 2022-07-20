@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.entity.board.event;
+package ntut.csie.sslab.kanban.board.entity.event;
 
 import ntut.csie.sslab.ddd.model.common.DateProvider;
 import ntut.csie.sslab.ddd.model.DomainEvent;

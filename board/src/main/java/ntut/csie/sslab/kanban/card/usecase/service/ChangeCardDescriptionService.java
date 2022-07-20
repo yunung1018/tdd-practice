@@ -1,20 +1,20 @@
-package ntut.csie.sslab.kanban.card.usecase.port.in.description.impl;
+package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
-import ntut.csie.sslab.kanban.card.usecase.port.in.description.in.ChangeCardDescriptionInput;
-import ntut.csie.sslab.kanban.card.usecase.port.in.description.in.ChangeCardDescriptionUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.in.description.ChangeCardDescriptionInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.description.ChangeCardDescriptionUseCase;
 import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
 import ntut.csie.sslab.kanban.card.usecase.port.out.CardRepository;
 
-public class ChangeCardDescriptionUseCaseImpl implements ChangeCardDescriptionUseCase {
+public class ChangeCardDescriptionService implements ChangeCardDescriptionUseCase {
     private final CardRepository cardRepository;
     private final DomainEventBus domainEventBus;
 
-    public ChangeCardDescriptionUseCaseImpl(CardRepository cardRepository,
-                                            DomainEventBus domainEventBus) {
+    public ChangeCardDescriptionService(CardRepository cardRepository,
+                                        DomainEventBus domainEventBus) {
 
         this.cardRepository = cardRepository;
         this.domainEventBus = domainEventBus;

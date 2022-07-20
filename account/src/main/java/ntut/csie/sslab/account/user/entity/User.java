@@ -1,6 +1,6 @@
-package ntut.csie.sslab.account.users.entity;
+package ntut.csie.sslab.account.user.entity;
 
-import ntut.csie.sslab.account.users.entity.event.*;
+import ntut.csie.sslab.account.user.entity.event.*;
 import ntut.csie.sslab.ddd.model.AggregateRoot;
 
 public class User extends AggregateRoot<String> {

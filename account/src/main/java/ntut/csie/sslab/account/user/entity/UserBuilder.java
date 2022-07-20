@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.users.entity;
+package ntut.csie.sslab.account.user.entity;
 
 import java.util.UUID;
 

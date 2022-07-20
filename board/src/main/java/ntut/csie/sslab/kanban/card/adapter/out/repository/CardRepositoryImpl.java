@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.card;
+package ntut.csie.sslab.kanban.card.adapter.out.repository;
 
-import ntut.csie.sslab.kanban.entity.card.Card;
-import ntut.csie.sslab.kanban.usecase.card.get.out.CardRepository;
+import ntut.csie.sslab.kanban.card.entity.Card;
+import ntut.csie.sslab.kanban.card.usecase.port.out.CardRepository;
 
 import java.util.ArrayList;
 import java.util.List;

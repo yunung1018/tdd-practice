@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.board.adapter.rest.create;
+package ntut.csie.sslab.kanban.board.adapter.in.rest.springboot.create;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.board.usecase.create.in.CreateBoardInput;
-import ntut.csie.sslab.kanban.board.usecase.create.in.CreateBoardUseCase;
+import ntut.csie.sslab.kanban.board.usecase.port.in.create.CreateBoardInput;
+import ntut.csie.sslab.kanban.board.usecase.port.in.create.CreateBoardUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.board.usecase.port.out;
+package ntut.csie.sslab.kanban.board.adapter.out.repository;
 
 import ntut.csie.sslab.kanban.board.adapter.out.repository.BoardData;
 import ntut.csie.sslab.kanban.board.adapter.out.repository.BoardMapper;

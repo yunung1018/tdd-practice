@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.user.command.entity;
+package ntut.csie.sslab.account.user.entity;
 
 
 import ntut.csie.sslab.account.user.entity.Role;

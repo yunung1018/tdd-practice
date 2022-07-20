@@ -1,4 +1,4 @@
-package ntut.csie.sslab.ezkanban.framework.springboot.web.config;
+package ntut.csie.sslab.ezkanban.main.springboot.web.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;

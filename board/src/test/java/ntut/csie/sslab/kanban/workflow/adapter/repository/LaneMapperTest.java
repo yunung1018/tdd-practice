@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.workflow;
+package ntut.csie.sslab.kanban.workflow.adapter.repository;
 
 import ntut.csie.sslab.kanban.workflow.adapter.out.repository.LaneData;
 import ntut.csie.sslab.kanban.workflow.adapter.out.repository.LaneMapper;

@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.user.usecase.get.out;
+package ntut.csie.sslab.account.user.usecase.get;
 
 import ntut.csie.sslab.account.user.usecase.get.UserDto;
 

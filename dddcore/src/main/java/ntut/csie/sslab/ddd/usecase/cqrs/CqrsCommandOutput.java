@@ -2,10 +2,45 @@ package ntut.csie.sslab.ddd.usecase.cqrs;
 
 import ntut.csie.sslab.ddd.usecase.Output;
 
-public interface CqrsCommandOutput extends Output {
+public class CqrsCommandOutput<T extends CqrsCommandOutput<T>> implements Output {
+	private String id;
+	private String message;
+	private ExitCode exitCode;
 
-	String getId();
+	public static CqrsCommandOutput create(){
+		return new CqrsCommandOutput();
+	}
 
-	CqrsCommandOutput setId(String id);
+	@Override
+	public String getId(){
+		return id;
+	};
 
+	@Override
+	public T setId(String id){
+		this.id = id;
+		return  (T) this;
+	}
+
+	@Override
+	public String getMessage() {
+		return message;
+	}
+
+	@Override
+	public T setMessage(String message) {
+		this.message =  message;
+		return  (T) this;
+	}
+
+	@Override
+	public ExitCode getExitCode() {
+		return exitCode;
+	}
+
+	@Override
+	public T setExitCode(ExitCode exitCode) {
+		this.exitCode = exitCode;
+		return  (T) this;
+	}
 }

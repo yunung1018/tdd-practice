@@ -24,4 +24,14 @@ public class Result implements Output {
         this.exitCode = exitCode;
         return this;
     }
+
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
+    public Output setId(String id) {
+        return null;
+    }
 }

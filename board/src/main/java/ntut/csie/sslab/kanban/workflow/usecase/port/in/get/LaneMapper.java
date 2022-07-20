@@ -1,8 +1,7 @@
-package ntut.csie.sslab.kanban.workflow.usecase;
+package ntut.csie.sslab.kanban.workflow.usecase.port.in.get;
 
 import ntut.csie.sslab.kanban.workflow.entity.CommittedCard;
 import ntut.csie.sslab.kanban.workflow.entity.Lane;
-import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.LaneDto;
 
 import java.util.ArrayList;
 import java.util.List;

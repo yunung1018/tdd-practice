@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase.lane.stage.create.impl;
+package ntut.csie.sslab.kanban.workflow.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
@@ -6,16 +6,16 @@ import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.LaneType;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
 import ntut.csie.sslab.kanban.common.ClientBoardContentMightExpire;
-import ntut.csie.sslab.kanban.workflow.usecase.lane.stage.create.in.CreateStageInput;
-import ntut.csie.sslab.kanban.workflow.usecase.lane.stage.create.in.CreateStageUseCase;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowRepository;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.stage.create.CreateStageInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.stage.create.CreateStageUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.out.WorkflowRepository;
 
-public class CreateStageUseCaseImpl implements CreateStageUseCase {
+public class CreateStageService implements CreateStageUseCase {
     private final WorkflowRepository workflowRepository;
     private final DomainEventBus domainEventBus;
 
-    public CreateStageUseCaseImpl(WorkflowRepository workflowRepository,
-                                  DomainEventBus domainEventBus) {
+    public CreateStageService(WorkflowRepository workflowRepository,
+                              DomainEventBus domainEventBus) {
 
         this.workflowRepository = workflowRepository;
         this.domainEventBus = domainEventBus;

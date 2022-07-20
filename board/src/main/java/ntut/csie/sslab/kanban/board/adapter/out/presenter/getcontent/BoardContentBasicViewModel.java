@@ -1,8 +1,8 @@
-package ntut.csie.sslab.kanban.board.adapter.presenter.getcontent;
+package ntut.csie.sslab.kanban.board.adapter.out.presenter.getcontent;
 
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.board.usecase.port.in.BoardMemberDto;
-import ntut.csie.sslab.kanban.usecase.workflow.WorkflowDto;
+import ntut.csie.sslab.kanban.board.usecase.port.in.getcontent.BoardMemberDto;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.WorkflowDto;
 
 import java.util.List;
 

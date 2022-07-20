@@ -1,10 +1,10 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.card.changedescription;
+package ntut.csie.sslab.kanban.card.adapter.in.rest.springboot.changedescription;
 
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.card.edit.description.in.ChangeCardDescriptionInput;
-import ntut.csie.sslab.kanban.usecase.card.edit.description.in.ChangeCardDescriptionUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.in.description.ChangeCardDescriptionInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.description.ChangeCardDescriptionUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

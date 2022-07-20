@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.main.config;
+package ntut.csie.sslab.kanban.main.springboot.web.config;
 
 import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBusAdapter;
 import ntut.csie.sslab.kanban.board.adapter.out.repository.BoardRepositorySpringJpaAdapter;

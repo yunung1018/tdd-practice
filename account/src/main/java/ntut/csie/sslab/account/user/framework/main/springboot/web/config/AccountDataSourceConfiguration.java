@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.user.framework.main.config;
+package ntut.csie.sslab.account.user.framework.main.springboot.web.config;
 
 
 import com.zaxxer.hikari.HikariDataSource;

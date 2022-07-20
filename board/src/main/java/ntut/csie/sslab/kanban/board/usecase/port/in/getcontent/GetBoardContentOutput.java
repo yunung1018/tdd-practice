@@ -1,16 +1,13 @@
-package ntut.csie.sslab.kanban.board.usecase.getcontent.in;
+package ntut.csie.sslab.kanban.board.usecase.port.in.getcontent;
 
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
-import ntut.csie.sslab.kanban.board.usecase.BoardMemberDto;
-import ntut.csie.sslab.kanban.board.usecase.CommittedWorkflowDto;
-import ntut.csie.sslab.kanban.usecase.card.CardDto;
-import ntut.csie.sslab.kanban.usecase.workflow.WorkflowDto;
+import ntut.csie.sslab.kanban.card.usecase.port.in.get.CardDto;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.WorkflowDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetBoardContentOutput extends CqrsCommandOutput {
-
     private String boardId;
     private List<BoardMemberDto> boardMemberDtos;
     private List<WorkflowDto> workflowDtos;
@@ -50,7 +47,6 @@ public class GetBoardContentOutput extends CqrsCommandOutput {
         this.workflowDtos = workflowDtos;
         return this;
     }
-
     public List<CommittedWorkflowDto> getCommittedWorkflowDtos() {
         return committedWorkflowDtos;
     }

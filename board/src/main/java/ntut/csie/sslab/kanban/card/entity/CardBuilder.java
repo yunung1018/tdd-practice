@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.entity.card;
+package ntut.csie.sslab.kanban.card.entity;
 
 import java.util.UUID;
 

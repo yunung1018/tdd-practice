@@ -1,12 +1,12 @@
-package ntut.csie.sslab.account.user.usecase.register.impl;
+package ntut.csie.sslab.account.user.usecase.register;
 
 import ntut.csie.sslab.account.user.entity.User;
 import ntut.csie.sslab.account.user.usecase.Encrypt;
 import ntut.csie.sslab.account.user.usecase.UserRepository;
 
 import ntut.csie.sslab.account.user.entity.UserBuilder;
-import ntut.csie.sslab.account.user.usecase.register.in.RegisterInput;
-import ntut.csie.sslab.account.user.usecase.register.in.RegisterUseCase;
+import ntut.csie.sslab.account.user.usecase.register.RegisterInput;
+import ntut.csie.sslab.account.user.usecase.register.RegisterUseCase;
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;

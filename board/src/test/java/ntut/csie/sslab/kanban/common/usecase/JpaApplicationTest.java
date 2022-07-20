@@ -1,6 +1,6 @@
-package ntut.csie.sslab.kanban.usecase;
+package ntut.csie.sslab.kanban.common.usecase;
 
-import ntut.csie.sslab.kanban.framework.springboot.web.EzKanbanWebMain;
+import ntut.csie.sslab.kanban.main.springboot.web.EzKanbanWebMain;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;

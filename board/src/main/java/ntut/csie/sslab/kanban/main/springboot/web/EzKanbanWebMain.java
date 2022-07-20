@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.main;
+package ntut.csie.sslab.kanban.main.springboot.web;
 
 import ntut.csie.sslab.kanban.board.adapter.in.eventbus.NotifyBoardGoogleEventBusAdapter;
 import ntut.csie.sslab.kanban.workflow.adapter.in.eventbus.NotifyWorkflowGoogleEventBusAdapter;

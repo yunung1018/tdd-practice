@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.card.changeestimate;
+package ntut.csie.sslab.kanban.card.adapter.in.rest.springboot.changeestimate;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.card.edit.estimate.in.ChangeCardEstimateInput;
-import ntut.csie.sslab.kanban.usecase.card.edit.estimate.in.ChangeCardEstimateUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.in.estimate.ChangeCardEstimateInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.estimate.ChangeCardEstimateUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

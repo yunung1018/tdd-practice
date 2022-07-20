@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.card.delete;
+package ntut.csie.sslab.kanban.card.adapter.in.rest.springboot.delete;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.card.delete.in.DeleteCardInput;
-import ntut.csie.sslab.kanban.usecase.card.delete.in.DeleteCardUseCase;
+import ntut.csie.sslab.kanban.card.usecase.port.in.delete.DeleteCardInput;
+import ntut.csie.sslab.kanban.card.usecase.port.in.delete.DeleteCardUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;

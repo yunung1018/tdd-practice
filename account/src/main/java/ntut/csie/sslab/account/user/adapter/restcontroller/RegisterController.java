@@ -1,7 +1,7 @@
-package ntut.csie.sslab.account.users.adapter.restcontroller;
+package ntut.csie.sslab.account.user.adapter.restcontroller;
 
-import ntut.csie.sslab.account.users.usecase.register.in.RegisterInput;
-import ntut.csie.sslab.account.users.usecase.register.in.RegisterUseCase;
+import ntut.csie.sslab.account.user.usecase.register.RegisterInput;
+import ntut.csie.sslab.account.user.usecase.register.RegisterUseCase;
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;

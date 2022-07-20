@@ -1,9 +1,11 @@
-package ntut.csie.sslab.kanban.entity.board;
+package ntut.csie.sslab.kanban.board.entity;
 
-public class BoardMember{
-	private String boardId;
-	private String userId;
-	private BoardMemberType memberType;
+import ntut.csie.sslab.ddd.model.ValueObject;
+
+public class BoardMember implements ValueObject {
+	private final String boardId;
+	private final String userId;
+	private final BoardMemberType memberType;
 
 	BoardMember(BoardMemberType memberType, String boardId, String userId) {
 		this.memberType = memberType;
@@ -11,25 +13,15 @@ public class BoardMember{
 		this.userId = userId;
 	}
 
-
 	public String getBoardId() {
 		return boardId;
 	}
-	public void setBoardId(String boardId) {
-		this.boardId = boardId;
-	}
 	public String getUserId() {
 		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public BoardMemberType getMemberType() {
 		return memberType;
 	}
 
-	public void setMemberType(BoardMemberType memberType) {
-		this.memberType = memberType;
-	}
 }

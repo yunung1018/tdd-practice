@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.entity.board;
+package ntut.csie.sslab.kanban.board.entity;
 
 
 public class BoardMemberBuilder {

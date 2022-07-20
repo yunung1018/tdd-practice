@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.lane.rename;
+package ntut.csie.sslab.kanban.workflow.adapter.in.rest.springboot.lane.rename;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.adapter.presenter.CommonViewModel;
-import ntut.csie.sslab.kanban.usecase.lane.rename.in.RenameLaneInput;
-import ntut.csie.sslab.kanban.usecase.lane.rename.in.RenameLaneUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.rename.RenameLaneInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.lane.rename.RenameLaneUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

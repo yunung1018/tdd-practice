@@ -1,17 +1,17 @@
-package ntut.csie.sslab.kanban.workflow.usecase.get.impl;
+package ntut.csie.sslab.kanban.workflow.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowsMapper;
-import ntut.csie.sslab.kanban.workflow.usecase.WorkflowRepository;
-import ntut.csie.sslab.kanban.workflow.usecase.get.in.GetWorkflowInput;
-import ntut.csie.sslab.kanban.workflow.usecase.get.in.GetWorkflowOutput;
-import ntut.csie.sslab.kanban.workflow.usecase.get.in.GetWorkflowUseCase;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.WorkflowsMapper;
+import ntut.csie.sslab.kanban.workflow.usecase.port.out.WorkflowRepository;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.GetWorkflowInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.GetWorkflowOutput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.GetWorkflowUseCase;
 
-public class GetWorkflowUseCaseImpl implements GetWorkflowUseCase {
+public class GetWorkflowService implements GetWorkflowUseCase {
     private final WorkflowRepository workflowRepository;
 
-    public GetWorkflowUseCaseImpl(WorkflowRepository workflowRepository){
+    public GetWorkflowService(WorkflowRepository workflowRepository){
         this.workflowRepository= workflowRepository;
     }
     @Override

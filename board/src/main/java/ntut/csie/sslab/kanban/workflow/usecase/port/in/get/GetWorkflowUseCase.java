@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase.get.in;
+package ntut.csie.sslab.kanban.workflow.usecase.port.in.get;
 
 import ntut.csie.sslab.ddd.usecase.UseCase;
 

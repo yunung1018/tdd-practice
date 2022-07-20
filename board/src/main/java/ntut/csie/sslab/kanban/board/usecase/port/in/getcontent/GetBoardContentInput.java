@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.board.usecase.getcontent.in;
+package ntut.csie.sslab.kanban.board.usecase.port.in.getcontent;
 
 import ntut.csie.sslab.ddd.usecase.Input;
 

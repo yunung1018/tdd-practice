@@ -1,11 +1,7 @@
-package ntut.csie.sslab.account.users.adapter.repository;
+package ntut.csie.sslab.account.user.adapter.repository;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity(name="accountUserData")
 @Table(name = "user")

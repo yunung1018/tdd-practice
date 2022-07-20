@@ -1,4 +1,4 @@
-package ntut.csie.sslab.account.user.framework.main;
+package ntut.csie.sslab.account.user.framework.main.springboot.web;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import org.springframework.beans.factory.annotation.Autowired;

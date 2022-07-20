@@ -1,6 +1,5 @@
-package ntut.csie.sslab.account.user.usecase.get.in;
+package ntut.csie.sslab.account.user.usecase.get;
 
-import ntut.csie.sslab.account.user.usecase.get.UserDto;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 
 public class GetUserOutput extends CqrsCommandOutput<GetUserOutput> {

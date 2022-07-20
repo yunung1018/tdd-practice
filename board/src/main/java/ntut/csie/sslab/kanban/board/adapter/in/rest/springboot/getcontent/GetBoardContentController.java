@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.board.adapter.rest.getcontent;
+package ntut.csie.sslab.kanban.board.adapter.in.rest.springboot.getcontent;
 
-import ntut.csie.sslab.kanban.board.adapter.presenter.getcontent.BoardContentBasicViewModel;
-import ntut.csie.sslab.kanban.board.adapter.presenter.getcontent.GetBoardContentPresenter;
-import ntut.csie.sslab.kanban.board.usecase.getcontent.in.GetBoardContentInput;
-import ntut.csie.sslab.kanban.board.usecase.getcontent.in.GetBoardContentUseCase;
+import ntut.csie.sslab.kanban.board.adapter.out.presenter.getcontent.BoardContentBasicViewModel;
+import ntut.csie.sslab.kanban.board.adapter.out.presenter.getcontent.GetBoardContentPresenter;
+import ntut.csie.sslab.kanban.board.usecase.port.in.getcontent.GetBoardContentInput;
+import ntut.csie.sslab.kanban.board.usecase.port.in.getcontent.GetBoardContentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

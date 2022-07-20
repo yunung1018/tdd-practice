@@ -1,7 +1,7 @@
-package ntut.csie.sslab.account.users.usecase.get;
+package ntut.csie.sslab.account.user.usecase.get;
 
-import ntut.csie.sslab.account.users.adapter.repository.UserData;
-import ntut.csie.sslab.account.users.entity.User;
+import ntut.csie.sslab.account.user.adapter.repository.UserData;
+import ntut.csie.sslab.account.user.entity.User;
 
 public class ConvertUserToDto {
 	public static UserDto transform(User user) {

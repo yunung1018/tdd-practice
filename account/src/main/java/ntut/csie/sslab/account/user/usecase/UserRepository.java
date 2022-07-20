@@ -1,6 +1,6 @@
-package ntut.csie.sslab.account.users.usecase;
+package ntut.csie.sslab.account.user.usecase;
 
-import ntut.csie.sslab.account.users.entity.User;
+import ntut.csie.sslab.account.user.entity.User;
 import ntut.csie.sslab.ddd.usecase.AbstractRepository;
 
 import java.util.Optional;

@@ -1,16 +1,16 @@
-package ntut.csie.sslab.ezkanban;
+package ntut.csie.sslab.ezkanban.main.springboot.web;
 
-import ntut.csie.sslab.account.user.main.AccountWebMain;
-import ntut.csie.sslab.account.user.main.config.AccountDataSourceConfiguration;
-import ntut.csie.sslab.account.user.main.config.AccountEventBusInjection;
+import ntut.csie.sslab.account.user.framework.main.springboot.web.AccountWebMain;
+import ntut.csie.sslab.account.user.framework.main.springboot.web.config.AccountDataSourceConfiguration;
+import ntut.csie.sslab.account.user.framework.main.springboot.web.config.AccountEventBusInjection;
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.board.adapter.in.eventbus.NotifyBoardGoogleEventBusAdapter;
+import ntut.csie.sslab.kanban.main.springboot.web.EzKanbanWebMain;
 import ntut.csie.sslab.kanban.workflow.adapter.in.eventbus.NotifyWorkflowGoogleEventBusAdapter;
 import ntut.csie.sslab.kanban.board.adapter.out.repository.BoardRepositoryPeer;
-import ntut.csie.sslab.kanban.main.EzKanbanWebMain;
-import ntut.csie.sslab.kanban.main.config.KanbanDataSourceConfiguration;
-import ntut.csie.sslab.team.framework.springboot.web.TeamMain;
-import ntut.csie.sslab.team.framework.springboot.web.config.TeamEventBusInjection;
+import ntut.csie.sslab.kanban.main.springboot.web.config.KanbanDataSourceConfiguration;
+import ntut.csie.sslab.team.main.springboot.web.TeamMain;
+import ntut.csie.sslab.team.main.springboot.web.config.TeamEventBusInjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;

@@ -1,9 +1,9 @@
-package ntut.csie.sslab.kanban.adapter.controller.rest.springboot.workflow.get;
+package ntut.csie.sslab.kanban.workflow.adapter.in.rest.springboot.get;
 
-import ntut.csie.sslab.kanban.adapter.presenter.workflow.get.WorkflowViewModel;
-import ntut.csie.sslab.kanban.adapter.presenter.workflow.get.GetWorkflowPresenter;
-import ntut.csie.sslab.kanban.usecase.workflow.get.in.GetWorkflowInput;
-import ntut.csie.sslab.kanban.usecase.workflow.get.in.GetWorkflowUseCase;
+import ntut.csie.sslab.kanban.workflow.adapter.out.presenter.WorkflowViewModel;
+import ntut.csie.sslab.kanban.workflow.adapter.out.presenter.GetWorkflowPresenter;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.GetWorkflowInput;
+import ntut.csie.sslab.kanban.workflow.usecase.port.in.get.GetWorkflowUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

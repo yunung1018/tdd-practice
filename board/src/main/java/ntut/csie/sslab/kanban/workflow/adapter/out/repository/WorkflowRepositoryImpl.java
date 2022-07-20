@@ -1,7 +1,7 @@
-package ntut.csie.sslab.kanban.adapter.gateway.repository.springboot.workflow;
+package ntut.csie.sslab.kanban.workflow.adapter.out.repository;
 
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
-import ntut.csie.sslab.kanban.usecase.workflow.WorkflowRepository;
+import ntut.csie.sslab.kanban.workflow.usecase.port.out.WorkflowRepository;
 
 import java.util.List;
 import java.util.Optional;

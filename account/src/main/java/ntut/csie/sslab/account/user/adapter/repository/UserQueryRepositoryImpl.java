@@ -1,7 +1,7 @@
-package ntut.csie.sslab.account.users.adapter.repository;
+package ntut.csie.sslab.account.user.adapter.repository;
 
-import ntut.csie.sslab.account.users.usecase.get.out.UserQueryRepository;
-import ntut.csie.sslab.account.users.usecase.get.UserDto;
+import ntut.csie.sslab.account.user.usecase.get.UserQueryRepository;
+import ntut.csie.sslab.account.user.usecase.get.UserDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;

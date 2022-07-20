@@ -1,10 +1,5 @@
-package ntut.csie.sslab.account.user.usecase.get.impl;
+package ntut.csie.sslab.account.user.usecase.get;
 
-import ntut.csie.sslab.account.user.usecase.get.in.GetUserInput;
-import ntut.csie.sslab.account.user.usecase.get.in.GetUserOutput;
-import ntut.csie.sslab.account.user.usecase.get.in.GetUserUseCase;
-import ntut.csie.sslab.account.user.usecase.get.out.UserQueryRepository;
-import ntut.csie.sslab.account.user.usecase.get.UserDto;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 
 public class GetUserUseCaseImpl implements GetUserUseCase {

@@ -1,11 +1,11 @@
-package ntut.csie.sslab.account.user.query.user;
+package ntut.csie.sslab.account.user.usecase;
 
 import ntut.csie.sslab.account.user.adapter.get.GetUserPresenter;
 import ntut.csie.sslab.account.user.adapter.get.UserBasicViewModel;
+import ntut.csie.sslab.account.user.usecase.common.AbstractSpringBootJpaTest;
 import ntut.csie.sslab.account.user.usecase.get.UserDto;
-import ntut.csie.sslab.account.user.usecase.get.in.GetUserUseCase;
-import ntut.csie.sslab.account.AbstractSpringBootJpaTest;
-import ntut.csie.sslab.account.user.usecase.get.in.GetUserInput;
+import ntut.csie.sslab.account.user.usecase.get.GetUserUseCase;
+import ntut.csie.sslab.account.user.usecase.get.GetUserInput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

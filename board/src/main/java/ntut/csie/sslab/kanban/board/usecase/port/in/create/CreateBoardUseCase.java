@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.board.usecase.create.in;
+package ntut.csie.sslab.kanban.board.usecase.port.in.create;
 
 import ntut.csie.sslab.ddd.usecase.UseCase;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;

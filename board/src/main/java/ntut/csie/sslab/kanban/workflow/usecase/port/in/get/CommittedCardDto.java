@@ -1,4 +1,4 @@
-package ntut.csie.sslab.kanban.workflow.usecase;
+package ntut.csie.sslab.kanban.workflow.usecase.port.in.get;
 
 public class CommittedCardDto {
 
