@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface BoardRepositoryPeer extends IBoardRepositoryPeer, CrudRepository<BoardData, String> {
+public interface BoardRepositoryPeer extends CrudRepository<BoardData, String> {
 }
