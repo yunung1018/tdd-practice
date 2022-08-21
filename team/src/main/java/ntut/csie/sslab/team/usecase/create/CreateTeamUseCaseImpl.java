@@ -1,7 +1,7 @@
 package ntut.csie.sslab.team.usecase.create;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.team.entity.team.Team;
 import ntut.csie.sslab.team.entity.team.TeamBuilder;
@@ -17,7 +17,7 @@ public class CreateTeamUseCaseImpl implements CreateTeamUseCase {
     }
 
     @Override
-    public CqrsCommandOutput execute(CreateTeamInput input) {
+    public CqrsOutput execute(CreateTeamInput input) {
         Team team = TeamBuilder.newInstance()
                 .teamName(input.getTeamName())
                 .userId(input.getUserId())
@@ -26,7 +26,7 @@ public class CreateTeamUseCaseImpl implements CreateTeamUseCase {
         teamRepository.save(team);
         domainEventBus.postAll(team);
 
-        return CqrsCommandOutput.create().setId(team.getId().toString()).setExitCode(ExitCode.SUCCESS);
+        return CqrsOutput.create().setId(team.getId().toString()).setExitCode(ExitCode.SUCCESS);
     }
 
 }

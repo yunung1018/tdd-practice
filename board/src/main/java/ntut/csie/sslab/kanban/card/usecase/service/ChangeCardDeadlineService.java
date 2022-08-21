@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
 import ntut.csie.sslab.kanban.card.usecase.port.in.deadline.ChangeCardDeadlineInput;
@@ -20,9 +20,9 @@ public class ChangeCardDeadlineService implements ChangeCardDeadlineUseCase {
     }
 
     @Override
-    public CqrsCommandOutput execute(ChangeCardDeadlineInput input) {
+    public CqrsOutput execute(ChangeCardDeadlineInput input) {
         Card card = cardRepository.findById(input.getCardId()).orElse(null);
-        CqrsCommandOutput output = CqrsCommandOutput.create();
+        CqrsOutput output = CqrsOutput.create();
 
         if (null == card){
             output.setId(input.getCardId())

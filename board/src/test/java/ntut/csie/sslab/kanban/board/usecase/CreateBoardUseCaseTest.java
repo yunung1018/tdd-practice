@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.board.usecase;
 
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.board.entity.Board;
 import ntut.csie.sslab.kanban.board.entity.BoardMember;
@@ -34,7 +34,7 @@ public class CreateBoardUseCaseTest extends AbstractSpringBootJpaTest {
         input.setName(boardName);
         input.setUserId(userId);
 
-        CqrsCommandOutput output = createBoardUseCase.execute(input);
+        CqrsOutput output = createBoardUseCase.execute(input);
 
         assertNotNull(output.getId());
         assertEquals(ExitCode.SUCCESS, output.getExitCode());

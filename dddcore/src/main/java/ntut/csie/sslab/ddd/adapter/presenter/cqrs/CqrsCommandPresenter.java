@@ -1,9 +1,9 @@
 package ntut.csie.sslab.ddd.adapter.presenter.cqrs;
 
 import ntut.csie.sslab.ddd.adapter.presenter.Presenter;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 
-public class CqrsCommandPresenter implements Presenter<CqrsCommandOutput, CqrsCommandViewModel> {
+public class CqrsCommandPresenter implements Presenter<CqrsOutput, CqrsCommandViewModel> {
 
 
     public static CqrsCommandPresenter newInstance(){
@@ -11,7 +11,7 @@ public class CqrsCommandPresenter implements Presenter<CqrsCommandOutput, CqrsCo
     }
 
     @Override
-    public CqrsCommandViewModel buildViewModel(CqrsCommandOutput outputData) {
+    public CqrsCommandViewModel buildViewModel(CqrsOutput outputData) {
         CqrsCommandViewModel viewModel = new CqrsCommandViewModel();
         viewModel.setId(outputData.getId());
         viewModel.setMessage(outputData.getMessage());

@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
 import ntut.csie.sslab.kanban.card.usecase.port.in.note.ChangeCardNoteInput;
@@ -20,10 +20,10 @@ public class ChangeCardNoteService implements ChangeCardNoteUseCase {
     }
 
     @Override
-    public CqrsCommandOutput execute(ChangeCardNoteInput input) {
+    public CqrsOutput execute(ChangeCardNoteInput input) {
         Card card = cardRepository.findById(input.getCardId()).orElse(null);
 
-        CqrsCommandOutput output = new CqrsCommandOutput();
+        CqrsOutput output = new CqrsOutput();
 
         if (null == card){
             output.setId(input.getCardId())

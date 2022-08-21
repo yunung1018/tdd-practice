@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.workflow.usecase;
 
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.LaneType;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
@@ -44,7 +44,7 @@ public class RenameLaneUseCaseTest extends AbstractSpringBootJpaTest {
         input.setUsername(username);
 
 
-        CqrsCommandOutput output = renameLaneUseCase.execute(input);
+        CqrsOutput output = renameLaneUseCase.execute(input);
 
         assertEquals(stageId, output.getId());
         assertEquals(ExitCode.SUCCESS, output.getExitCode());

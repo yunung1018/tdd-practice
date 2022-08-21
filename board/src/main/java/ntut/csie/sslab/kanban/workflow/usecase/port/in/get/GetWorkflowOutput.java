@@ -1,8 +1,8 @@
 package ntut.csie.sslab.kanban.workflow.usecase.port.in.get;
 
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 
-public class GetWorkflowOutput extends CqrsCommandOutput {
+public class GetWorkflowOutput extends CqrsOutput {
 
     private WorkflowDto workflowDto;
 

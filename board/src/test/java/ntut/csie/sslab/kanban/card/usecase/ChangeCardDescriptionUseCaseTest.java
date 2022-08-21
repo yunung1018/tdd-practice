@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.card.usecase;
 
 
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
 import ntut.csie.sslab.kanban.card.entity.CardType;
@@ -44,7 +44,7 @@ public class ChangeCardDescriptionUseCaseTest extends AbstractSpringBootJpaTest 
         input.setUserId(userId);
         input.setUsername(username);
 
-        CqrsCommandOutput output = changeCardDescriptionUseCase.execute(input);
+        CqrsOutput output = changeCardDescriptionUseCase.execute(input);
 
         assertNotNull(output.getId());
         assertEquals(ExitCode.SUCCESS, output.getExitCode());

@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.workflow.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.LaneType;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
@@ -22,9 +22,9 @@ public class CreateStageService implements CreateStageUseCase {
     }
 
     @Override
-    public CqrsCommandOutput execute(CreateStageInput input) {
+    public CqrsOutput execute(CreateStageInput input) {
         Workflow workflow= workflowRepository.findById(input.getWorkflowId()).orElse(null);
-        CqrsCommandOutput output = CqrsCommandOutput.create();
+        CqrsOutput output = CqrsOutput.create();
 
         if (null == workflow){
             output.setId(input.getWorkflowId())

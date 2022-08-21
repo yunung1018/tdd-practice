@@ -2,7 +2,7 @@ package ntut.csie.sslab.kanban.workflow.usecase;
 
 import ntut.csie.sslab.ddd.adapter.presenter.cqrs.CqrsCommandPresenter;
 import ntut.csie.sslab.ddd.model.common.DateProvider;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.board.entity.Board;
 import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
@@ -42,7 +42,7 @@ public class CreateWorkflowUseCaseTest extends AbstractSpringBootJpaTest {
         createWorkflowInput.setUserId(userId);
         createWorkflowInput.setUsername(username);
 
-        CqrsCommandOutput output = createWorkflowUseCase.execute(createWorkflowInput);
+        CqrsOutput output = createWorkflowUseCase.execute(createWorkflowInput);
 
         assertNotNull(output.getId());
         assertEquals(ExitCode.SUCCESS, output.getExitCode());

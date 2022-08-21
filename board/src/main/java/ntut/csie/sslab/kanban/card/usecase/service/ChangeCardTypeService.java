@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
 import ntut.csie.sslab.kanban.card.entity.CardType;
@@ -21,9 +21,9 @@ public class ChangeCardTypeService implements ChangeCardTypeUseCase {
     }
 
     @Override
-    public CqrsCommandOutput execute(ChangeCardTypeInput input) {
+    public CqrsOutput execute(ChangeCardTypeInput input) {
         Card card = cardRepository.findById(input.getCardId()).orElse(null);
-        CqrsCommandOutput output = CqrsCommandOutput.create();
+        CqrsOutput output = CqrsOutput.create();
 
         if (null == card){
             output.setId(input.getCardId())

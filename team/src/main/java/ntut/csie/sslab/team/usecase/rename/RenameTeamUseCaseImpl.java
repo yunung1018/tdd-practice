@@ -1,7 +1,7 @@
 package ntut.csie.sslab.team.usecase.rename;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.team.entity.team.Team;
 import ntut.csie.sslab.team.entity.team.TeamId;
@@ -18,9 +18,9 @@ public class RenameTeamUseCaseImpl implements RenameTeamUseCase {
     }
 
     @Override
-    public CqrsCommandOutput execute(RenameTeamInput input) {
+    public CqrsOutput execute(RenameTeamInput input) {
         Team team = teamRepository.findById(TeamId.valueOf(input.getTeamId())).orElse(null);
-        CqrsCommandOutput output = CqrsCommandOutput.create();
+        CqrsOutput output = CqrsOutput.create();
 
         if(null == team) {
             output.setExitCode(ExitCode.FAILURE)

@@ -17,7 +17,7 @@ import ntut.csie.sslab.account.user.usecase.register.RegisterUseCase;
 import ntut.csie.sslab.account.user.usecase.register.RegisterUseCaseImpl;
 import ntut.csie.sslab.ddd.adapter.gateway.GoogleEventBusAdapter;
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -96,7 +96,7 @@ public abstract class AbstractSpringBootJpaTest {
         input.setRole(role);
         input.setThirdParty(isThirdParty);
 
-        CqrsCommandOutput output = registerUseCase.execute(input);
+        CqrsOutput output = registerUseCase.execute(input);
 
         return output.getId();
     }

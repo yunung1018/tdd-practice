@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.card.usecase;
 
 
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.CardType;
 import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
@@ -52,7 +52,7 @@ public class DeleteCardUseCaseTest extends AbstractSpringBootJpaTest {
         input.setUsername(username);
         input.setBoardId(boardId);
 
-        CqrsCommandOutput output = deleteCardUseCase.execute(input);
+        CqrsOutput output = deleteCardUseCase.execute(input);
 
         assertNotNull(output.getId());
         assertEquals(ExitCode.SUCCESS, output.getExitCode());

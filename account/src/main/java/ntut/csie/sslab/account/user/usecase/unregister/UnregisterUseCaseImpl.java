@@ -4,7 +4,7 @@ import ntut.csie.sslab.account.user.entity.User;
 import ntut.csie.sslab.account.user.usecase.Encrypt;
 import ntut.csie.sslab.account.user.usecase.UserRepository;
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 
 public class UnregisterUseCaseImpl implements UnregisterUseCase {
@@ -19,10 +19,10 @@ public class UnregisterUseCaseImpl implements UnregisterUseCase {
 	}
 
 	@Override
-	public CqrsCommandOutput execute(UnregisterInput input) {
+	public CqrsOutput execute(UnregisterInput input) {
 		User user = userRepository.findById(input.getUserId()).orElse(null);
 
-		CqrsCommandOutput output = CqrsCommandOutput.create();
+		CqrsOutput output = CqrsOutput.create();
 
 		if(encrypt.checkPassword(input.getPassword(), user.getPassword())) {
 			user.deactivate("");

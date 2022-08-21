@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.workflow.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
 import ntut.csie.sslab.kanban.workflow.entity.WorkflowBuilder;
@@ -19,7 +19,7 @@ public class CreateWorkflowService implements CreateWorkflowUseCase {
     }
 
     @Override
-    public CqrsCommandOutput execute(CreateWorkflowInput input) {
+    public CqrsOutput execute(CreateWorkflowInput input) {
         Workflow workflow = WorkflowBuilder.newInstance()
                             .boardId(input.getBoardId())
                             .name(input.getName())
@@ -30,6 +30,6 @@ public class CreateWorkflowService implements CreateWorkflowUseCase {
         workflowRepository.save(workflow);
         domainEventBus.postAll(workflow);
 
-        return CqrsCommandOutput.create().setId(workflow.getWorkflowId()).setExitCode(ExitCode.SUCCESS);
+        return CqrsOutput.create().setId(workflow.getWorkflowId()).setExitCode(ExitCode.SUCCESS);
     }
 }

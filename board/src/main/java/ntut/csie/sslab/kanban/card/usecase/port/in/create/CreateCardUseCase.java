@@ -1,8 +1,8 @@
 package ntut.csie.sslab.kanban.card.usecase.port.in.create;
 
 import ntut.csie.sslab.ddd.usecase.cqrs.Command;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 
-public interface CreateCardUseCase extends Command<CreateCardInput, CqrsCommandOutput> {
+public interface CreateCardUseCase extends Command<CreateCardInput, CqrsOutput> {
 
 }

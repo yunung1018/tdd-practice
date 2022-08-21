@@ -1,6 +1,5 @@
 package ntut.csie.sslab.ddd.usecase;
 
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 
 public interface Output {

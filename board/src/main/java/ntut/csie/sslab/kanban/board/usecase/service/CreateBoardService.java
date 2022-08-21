@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.board.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.board.usecase.port.in.create.CreateBoardInput;
 import ntut.csie.sslab.kanban.board.usecase.port.in.create.CreateBoardUseCase;
@@ -22,7 +22,7 @@ public class CreateBoardService implements CreateBoardUseCase {
 	}
 
 	@Override
-	public CqrsCommandOutput execute(CreateBoardInput input) {
+	public CqrsOutput execute(CreateBoardInput input) {
 		Board board = BoardBuilder.newInstance()
 				.name(input.getName())
 				.teamId(input.getTeamId())
@@ -33,7 +33,7 @@ public class CreateBoardService implements CreateBoardUseCase {
 		boardRepository.save(board);
 		domainEventBus.postAll(board);
 
-		return CqrsCommandOutput.create()
+		return CqrsOutput.create()
 				.setId(board.getBoardId())
 				.setExitCode(ExitCode.SUCCESS);
 	}

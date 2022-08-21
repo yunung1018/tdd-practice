@@ -1,6 +1,6 @@
 package ntut.csie.sslab.kanban.workflow.usecase;
 
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.workflow.entity.Workflow;
 import ntut.csie.sslab.kanban.common.usecase.AbstractSpringBootJpaTest;
@@ -50,7 +50,7 @@ public class CreateStageUseCaseTest extends AbstractSpringBootJpaTest {
         input.setUsername(username);
         input.setBoardId(boardId);
 
-        CqrsCommandOutput output = createStageUseCase.execute(input);
+        CqrsOutput output = createStageUseCase.execute(input);
 
         assertNotNull(output.getId());
         assertEquals(ExitCode.SUCCESS, output.getExitCode());

@@ -1,7 +1,7 @@
 package ntut.csie.sslab.kanban.card.usecase.service;
 
 import ntut.csie.sslab.ddd.usecase.DomainEventBus;
-import ntut.csie.sslab.ddd.usecase.cqrs.CqrsCommandOutput;
+import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.ddd.usecase.cqrs.ExitCode;
 import ntut.csie.sslab.kanban.card.entity.Card;
 import ntut.csie.sslab.kanban.card.entity.CardBuilder;
@@ -20,7 +20,7 @@ public class CreateCardService implements CreateCardUseCase {
 	}
 	
 	@Override
-	public CqrsCommandOutput execute(CreateCardInput input) {
+	public CqrsOutput execute(CreateCardInput input) {
 		Card card = CardBuilder.newInstance()
 				.workflowId(input.getWorkflowId())
 				.laneId(input.getLaneId())
@@ -37,6 +37,6 @@ public class CreateCardService implements CreateCardUseCase {
 		cardRepository.save(card);
 		domainEventBus.postAll(card);
 
-		return CqrsCommandOutput.create().setId(card.getCardId()).setExitCode(ExitCode.SUCCESS);
+		return CqrsOutput.create().setId(card.getCardId()).setExitCode(ExitCode.SUCCESS);
 	}
 }
