@@ -7,16 +7,29 @@ import ntut.csie.sslab.ddd.usecase.cqrs.Command;
 import ntut.csie.sslab.ddd.usecase.cqrs.CqrsOutput;
 import ntut.csie.sslab.kanban.board.entity.Board1;
 import ntut.csie.sslab.kanban.board.usecase.port.out.BoardRepository1;
+import ntut.csie.sslab.kanban.board.usecase.service.NotificationService;
 
 public class CreateBoardUseCase1 {
 
-    private BoardRepository1 boardRepository;
-    // public CreateBoardUseCase1() {
-    //     this.boardRepository = new BoardRepository1();
-    // }
+    private final BoardRepository1 boardRepository;
+
     public CreateBoardUseCase1(BoardRepository1 boardRepository) {
         this.boardRepository = boardRepository;
     }
+    
+    // public CreateBoardUseCase1(NotificationService notificationService) {
+    //     this.boardRepository = new BoardRepository1(); 
+    //     this.notificationService = notificationService;
+    // }
+
+  
+    public CreateBoardOutput1 execute(CreateBoardInput1 input) {
+        Board1 board = new Board1(input.getBoardId(), input.getName());
+        boardRepository.save(board);
+        return new CreateBoardOutput1(board.getId());
+    }
+}
+
     // public CreateBoardOutput1 execute(CreateBoardInput1 input) {
     //     Board1 board = new Board1(input.getBoardId(), input.getName());
     //     boardRepository.save(board);
@@ -25,10 +38,12 @@ public class CreateBoardUseCase1 {
     //     return output;
 
     // }
-    public CreateBoardOutput1 execute(CreateBoardInput1 input) {
-        String boardId = UUID.randomUUID().toString();
-        Board1 board = new Board1(boardId, input.getName());
-        boardRepository.save(board);
-        return new CreateBoardOutput1(board.getId());
-    }
-}
+
+    // public CreateBoardOutput1 execute(CreateBoardInput1 input) {
+    //     String boardId = UUID.randomUUID().toString();
+    //     Board1 board = new Board1(boardId, input.getName());
+    //     boardRepository.save(board);
+    //     return new CreateBoardOutput1(board.getId());
+    // }
+
+
