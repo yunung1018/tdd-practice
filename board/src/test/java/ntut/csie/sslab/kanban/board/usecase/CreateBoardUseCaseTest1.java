@@ -44,12 +44,12 @@ public class CreateBoardUseCaseTest1 {
         FakeNotificationService notificationService = new FakeNotificationService();
         NotifyBoardCreatedUseCase notifyUseCase = new NotifyBoardCreatedUseCase(notificationService);
         
-        notifyUseCase.execute("boardId", "boardName");
+        notifyUseCase.execute("board123", "My Board");
     
         
         assertTrue( notificationService.wasCalled());
-        // assertEquals("board123", notificationService.getLastBoardId());
-        // assertEquals("My Board", notificationService.getLastBoardName());
+        assertEquals("board123", notificationService.getLastBoardId());
+        assertEquals("My Board", notificationService.getLastBoardName());
     }
 
 }

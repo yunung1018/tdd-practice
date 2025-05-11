@@ -10,6 +10,9 @@ public class NotifyBoardCreatedUseCase {
     }
 
     public void execute(String boardId, String boardName) {
+        if (boardId == null) {
+            throw new IllegalArgumentException("Board ID cannot be null");
+        }
         notificationService.notifyBoardCreated(boardId, boardName);
     }
 }
