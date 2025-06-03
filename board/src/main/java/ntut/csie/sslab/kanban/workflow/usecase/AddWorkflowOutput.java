@@ -10,7 +10,7 @@ public class AddWorkflowOutput {
         this.boardId = boardId;
         this.workflowName = workflowName;
     }
-    public String getWorkflowId() {
+    public String getId() {
         return id;
     }
     public String getBoardId() {
