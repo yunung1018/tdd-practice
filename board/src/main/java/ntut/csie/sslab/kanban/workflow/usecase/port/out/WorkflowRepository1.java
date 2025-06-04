@@ -11,7 +11,7 @@ public class WorkflowRepository1 {
     public void save(Workflow1 workflow) {
         workflows.put(workflow.getId(), workflow);
     }
-    public Workflow1 findBYId(String id) {
+    public Workflow1 findById(String id) {
         return workflows.get(id);
     }
 

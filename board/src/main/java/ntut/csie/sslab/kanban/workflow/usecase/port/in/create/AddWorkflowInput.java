@@ -1,14 +1,26 @@
 package ntut.csie.sslab.kanban.workflow.usecase.port.in.create;
 public class AddWorkflowInput {
-    public final String boardId;
-    public final String workflowName;
+    public  String boardId;
+    public  String workflowName;
     private String workflowId; // This field is not used in the original code, but added for consistency
+    public AddWorkflowInput() {
+        
+    }
     public AddWorkflowInput(String boardId, String workflowName, String workflowId) {
         this.boardId = boardId;
         this.workflowName = workflowName;
         this.workflowId = workflowId; // This field is not used in the original code, but added for consistency
     }
 
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
+    }
+    public void setWorkflowName(String workflowName) {
+        this.workflowName = workflowName;
+    }
+    public void setWorkflowId(String workflowId) {
+        this.workflowId = workflowId; // This setter is not used in the original code, but added for consistency
+    }
     public String getBoardId() {
         return boardId;
     }
